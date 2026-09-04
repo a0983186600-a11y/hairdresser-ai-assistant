@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="assistant-api-base" content="">
+  <title>班表 · got you 設計師助理</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body data-page="schedule">
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="glyph" aria-hidden="true">gy</span>
+        <span class="who"><b>got you</b><span>設計師助理</span></span>
+      </div>
+      <nav class="nav" aria-label="主導覽">
+        <a href="index.html"><span class="dot"></span>首頁</a>
+        <a href="bookings.html"><span class="dot"></span>預約</a>
+        <a href="schedule.html"><span class="dot"></span>班表</a>
+        <a href="customers.html"><span class="dot"></span>客人</a>
+        <a href="settings.html"><span class="dot"></span>設定</a>
+      </nav>
+      <div class="foot">
+        示範資料是固定 seed 產生的假客人。<br>
+        姓名遮罩、電話只留後四碼。
+      </div>
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <div>
+          <h1>班表</h1>
+          <p class="sub">三週的預約與不接客時段；AI 查空檔依這裡判斷。</p>
+        </div>
+      <button class="source-badge" type="button" data-source-badge data-mode-switch
+        aria-label="資料來源，按一下切換">
+        <span class="pip"></span><span>DEMO</span>
+      </button>
+      </header>
+      <main class="content" id="page-body">
+        <p class="empty">讀取中…</p>
+      </main>
+    </div>
+  </div>
+  <script src="api-client.js"></script>
+  <script src="shell.js"></script>
+  <script src="pages.js"></script>
+</body>
+</html>

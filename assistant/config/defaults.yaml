@@ -1,0 +1,70 @@
+# 設計師 AI 助理：公開版的示範預設值。
+#
+# 「邏輯公開、參數可換」：工具實作、agent 迴圈、考卷與測試都在 repo 裡看得到，
+# 只有**每家店會不一樣的數字與話術**抽到這裡。實際營運者把自己的值放進
+# 同目錄的 local.yaml（已 .gitignore），啟動時深合併覆蓋這一份。
+#
+# 這裡的每一個值都是示範預設值，不是任何一家店真正在用的參數。
+# 檔案裡只准出現「去哪個環境變數拿金鑰」，不准出現金鑰、端點網址或店名。
+
+model:
+  # OpenAI 相容端點（Qwen / Workers AI / 自架都走同一條）。
+  provider: openai_compatible
+  base_url_env: QWEN_BASE_URL
+  api_key_env: QWEN_API_KEY
+  model_env: QWEN_MODEL
+  model_default: qwen-plus
+
+agent:
+  # 一則問題最多跑幾輪 tool calling。超過就收尾，不准無限打工具。
+  max_iterations: 6
+  # 單次工具結果最多幾**筆**進上下文（不是字數）。
+  # registry 拿它切 rows／messages／visits 三個清單，所以單位是筆數；
+  # 這裡寫 200，而每個工具自己的 limit 上限都 ≤100，代表它實際上是一顆
+  # **保險絲**——正常情況永遠不會觸發，只在有人把工具上限調過 200 時才咬。
+  # （之前這行寫「字數上限」，跟實作對不上；真正的字元預算還沒有做。）
+  tool_result_limit: 200
+  # REPLAY_MODE 的逐字稿放這裡：沒有金鑰也能重現一輪完整對話。
+  replay_dir: assistant/replay  # 以套件為基準，不依賴啟動目錄；絕對路徑則照用
+
+retention:
+  # 「快流失」的固定算法。門檻與權重可換，算式本身不可換——
+  # 換了模型就會各講各的分數，設計師沒辦法比較。
+  min_visits: 2
+  min_inactive_days: 45
+  weights:
+    days: 0.4
+    visits: 4
+    spend_divisor: 1000
+  caps:
+    days: 180
+    visits: 10
+    spend: 20000
+
+# 設計師沒指定時，「很久沒回來」預設抓幾天。
+inactive_default_days: 60
+
+# 「最近有對話」預設看幾天內。
+recent_conversation_days: 30
+
+persona: |
+  你是美髮設計師自己的後台助理，只服務設計師本人，不面對客人。
+  講話用繁體中文，簡短、直接、像同事講話，不用敬語堆疊也不用行銷腔。
+  數字一律來自工具回傳值：金額只講「已知金額」並附上缺金額筆數，
+  查不到就說沒有符合的資料，絕對不補一位看起來合理的客人。
+
+follow_up_templates:
+  - id: gentle_checkin
+    label: 溫和問候
+    text: "{name} 您好，上次幫您做的{service}到現在大約 {days} 天了，最近頭髮還順手嗎？想幫您留個時間看看狀況，方便的話回覆一下您近期哪天有空。"
+  - id: service_due
+    label: 提醒回訪
+    text: "{name} 您好，距離上次{service}已經 {days} 天，差不多是該整理的週期了。這幾週的時段還算好排，需要的話跟我說一下您方便的日子，我先幫您留。"
+
+service_family_labels:
+  cut: 剪髮
+  perm: 燙髮
+  color: 染髮
+  treatment: 護髮
+  bleach: 漂髮
+  scalp: 頭皮護理

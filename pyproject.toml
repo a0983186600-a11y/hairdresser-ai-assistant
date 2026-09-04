@@ -1,0 +1,76 @@
+# 公開版的 pyproject。匯出時會落地成 pyproject.toml。
+#
+# 相依刻意很少：評審 clone 下來要能直接跑。核心（provider、schemas、agent、
+# 假資料、設定）只需要 pydantic 與 pyyaml；fastapi/uvicorn 是聊天介面的伺服器，
+# httpx 是打 OpenAI 相容端點用的。沒有資料庫驅動——公開版不連任何資料庫。
+
+[project]
+name = "salon-ai-assistant"
+version = "0.1.0"
+description = "美髮設計師的 AI 助理：讀客人消費／回訪／對話，用 tool calling 回答問題"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+    "httpx>=0.28.0",
+    "pydantic>=2.10.0",
+    "pyyaml>=6.0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "ruff>=0.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+# 明寫套件與資料檔，不靠自動探索：`defaults.yaml` 與那五個示範 JSON 沒跟著裝進去
+# 的話，安裝完的版本會在第一次查詢就 FileNotFoundError——而那是評審會遇到的第一步。
+#
+# ⚠ `Dockerfile` 跑的是 `pip install '.[dev]'`。這份清單漏掉的東西，
+#    `docker compose up` 起來的那一份就真的沒有：漏 `assistant.tools` → import 當場炸；
+#    漏 `frontend/` → `StaticFiles` 找不到目錄，伺服器起不來；漏 `replay/` → 零金鑰
+#    demo 每一句都變成「這句話沒有錄音」。
+#    `tests/test_hackathon_export_public.py` 拿匯出後的樹逐檔比對這份清單。
+[tool.setuptools]
+packages = [
+    "assistant",
+    "assistant.adapters",
+    "assistant.agent",
+    "assistant.config",
+    "assistant.demo_data",
+    "assistant.tools",
+    "assistant.eval",
+]
+
+# `frontend/` 與 `replay/` 沒有 `__init__.py`，不是套件，是 `assistant` 的資料目錄——
+# 所以用相對 `assistant/` 的路徑寫在這裡，而不是加進上面的 packages。
+[tool.setuptools.package-data]
+"assistant" = [
+    "frontend/*.html",
+    "frontend/*.js",
+    "frontend/*.css",
+    "frontend/fixtures/*.json",
+    "replay/*.json",
+]
+"assistant.config" = ["*.yaml"]
+"assistant.demo_data" = ["*.json", "*.md"]
+# 評分器：假資料版答案檔＋三個 Qwen 模型的對決報告（公開，內容只有遮罩名與數字）。
+"assistant.eval" = ["*.json", "reports/*.json", "reports/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008"]

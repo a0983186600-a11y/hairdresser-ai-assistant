@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="assistant-api-base" content="">
+  <title>首頁 · got you 設計師助理</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body data-page="home">
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="glyph" aria-hidden="true">gy</span>
+        <span class="who"><b>got you</b><span>設計師助理</span></span>
+      </div>
+      <nav class="nav" aria-label="主導覽">
+        <a href="index.html"><span class="dot"></span>首頁</a>
+        <a href="bookings.html"><span class="dot"></span>預約</a>
+        <a href="schedule.html"><span class="dot"></span>班表</a>
+        <a href="customers.html"><span class="dot"></span>客人</a>
+        <a href="settings.html"><span class="dot"></span>設定</a>
+      </nav>
+      <div class="foot">
+        示範資料是固定 seed 產生的假客人。<br>
+        姓名遮罩、電話只留後四碼。
+      </div>
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <div>
+          <h1>問我</h1>
+          <p class="sub">用中文問就好，數字都由工具查出來，查不到就說沒有。</p>
+        </div>
+        <button class="source-badge" type="button" data-source-badge data-mode-switch
+          aria-label="資料來源，按一下切換">
+          <span class="pip"></span><span>DEMO</span>
+        </button>
+      </header>
+
+      <div class="chat">
+        <div class="thread" data-thread>
+          <div class="turn theirs">
+            <div class="speaker">助理</div>
+            <div class="bubble">你好，我是你自己的後台助理。
+
+我可以查你手上客人的消費、回訪與對話，也可以幫你把回訪訊息擬好——但送出的是你，不是我。
+
+每個答案下面都看得到我用了哪些工具、參數是什麼、查回幾筆。下面六個是常問的，點一下就送。</div>
+          </div>
+        </div>
+
+        <div class="composer">
+          <div class="quick" aria-label="常問的問題">
+            <button type="button" data-quick-prompt="幫我看截至今天，最近 90 天消費金額最高的 10 位客人，金額跟到店次數一起列。">
+              最近 90 天消費前十
+            </button>
+            <button type="button" data-quick-prompt="幫我找超過 60 天沒回來的客人，按沒回來天數由久到短列 10 位。">
+              60 天沒回來的客人
+            </button>
+            <button type="button" data-quick-prompt="幫我看看誰快流失了，先抓 5 位最值得我主動關心的。">
+              誰快流失
+            </button>
+            <button type="button" data-quick-prompt="最近 90 天消費第一名那位，幫我把每次服務、日期和金額整理出來。">
+              查某位客人消費史
+            </button>
+            <button type="button" data-quick-prompt="幫我整理最近一位有傳訊息的客人：他最後在問什麼、我們回了什麼、目前卡在哪？">
+              最近一段對話摘要
+            </button>
+            <button type="button" data-quick-prompt="流失名單第一位，幫我寫一則回訪訊息。">
+              幫我寫回訪訊息
+            </button>
+          </div>
+          <div class="say">
+            <label class="visually-hidden" for="say">想問什麼</label>
+            <textarea id="say" data-say rows="1"
+              placeholder="例如：這三個月做過染髮、而且超過兩個月沒回來的客人有誰？"></textarea>
+            <button class="primary" type="button" data-send>送出</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="api-client.js"></script>
+  <script src="shell.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

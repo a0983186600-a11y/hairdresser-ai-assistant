@@ -1,0 +1,140 @@
+{
+  "generated_from": "assistant/demo_data（固定 seed 42・錨點 2026-09-01T00:00+08:00）",
+  "privacy_note": "姓名已遮罩、電話只留後四碼。這裡的客人、電話與對話全部是產生出來的假資料。",
+  "sections": [
+    {
+      "badge": {
+        "label": "已連接",
+        "tone": "ready"
+      },
+      "fields": [
+        {
+          "label": "官方帳號",
+          "type": "text",
+          "value": "示範帳號（不會真的收發訊息）"
+        },
+        {
+          "label": "Webhook 路徑",
+          "type": "text",
+          "value": "/webhooks/line/demo"
+        },
+        {
+          "label": "最後一次收到訊息",
+          "type": "text",
+          "value": "2026/08/31 21:14"
+        }
+      ],
+      "id": "line",
+      "note": "官方帳號的連接由平台幫你設定好，這裡只顯示狀態。",
+      "title": "LINE 連接"
+    },
+    {
+      "badge": {
+        "label": "已連接",
+        "tone": "ready"
+      },
+      "fields": [
+        {
+          "label": "登入網址",
+          "type": "text",
+          "value": "（示範環境不連線）"
+        },
+        {
+          "label": "帳號",
+          "type": "text",
+          "value": "demo-designer"
+        },
+        {
+          "label": "最後檢查",
+          "type": "text",
+          "value": "2026/08/31 23:17"
+        },
+        {
+          "label": "最後錯誤",
+          "type": "text",
+          "value": "無"
+        }
+      ],
+      "id": "pos",
+      "note": "預約會依排程批次寫入公司系統；急用時可以在預約頁直接寫入。",
+      "title": "公司系統連接"
+    },
+    {
+      "badge": {
+        "label": "回覆中",
+        "tone": "ready"
+      },
+      "fields": [
+        {
+          "label": "AI 模式",
+          "options": [
+            "完整 AI 櫃檯",
+            "只回預約 / 報價"
+          ],
+          "type": "select",
+          "value": "完整 AI 櫃檯"
+        },
+        {
+          "enabled": false,
+          "label": "整個帳號暫停",
+          "type": "toggle",
+          "value": "否"
+        }
+      ],
+      "id": "ai",
+      "note": "可以整個帳號暫停 AI，也可以只讓它處理預約與報價。",
+      "title": "AI 回覆控制"
+    },
+    {
+      "badge": {
+        "label": "3 項開啟",
+        "tone": "ready"
+      },
+      "fields": [
+        {
+          "enabled": true,
+          "label": "晨間摘要",
+          "type": "toggle",
+          "value": "每天 09:00"
+        },
+        {
+          "enabled": true,
+          "label": "客人約成就通知我",
+          "type": "toggle",
+          "value": "開啟"
+        },
+        {
+          "enabled": true,
+          "label": "需要處理就通知我",
+          "type": "toggle",
+          "value": "開啟"
+        },
+        {
+          "enabled": false,
+          "label": "夜間對帳結果",
+          "type": "toggle",
+          "value": "關閉"
+        }
+      ],
+      "id": "notify",
+      "note": "推播時間是台北時間。",
+      "title": "通知"
+    },
+    {
+      "badge": {
+        "label": "可訂閱",
+        "tone": "ready"
+      },
+      "fields": [
+        {
+          "label": "訂閱網址",
+          "type": "text",
+          "value": "/calendar/demo.ics"
+        }
+      ],
+      "id": "calendar",
+      "note": "訂閱後預約與不接客時段都會出現在手機行事曆。",
+      "title": "我的行事曆"
+    }
+  ]
+}

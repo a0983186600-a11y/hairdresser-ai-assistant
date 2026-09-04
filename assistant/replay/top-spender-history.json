@@ -1,0 +1,42 @@
+{
+  "slug": "top-spender-history",
+  "user_message": "最近 90 天消費第一名那位，幫我把每次服務、日期和金額整理出來。",
+  "normalized": "最近90天消費第一名那位,幫我把每次服務、日期和金額整理出來。",
+  "model": "qwen3.7-max",
+  "as_of": "2026-09-01T00:00:00+08:00",
+  "recorded_at": "2026-09-04T09:21:16.369197+08:00",
+  "rounds": [
+    {
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "arguments": "{\"days\": 90, \"limit\": 1}",
+            "name": "rank_customers_by_spend"
+          },
+          "id": "call_f1dfd92dee964ef6869c36aa",
+          "index": 0,
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "arguments": "{\"customer_ref\": \"7b192481-2acc-5fe7-a319-92affc65adab\", \"limit\": 100}",
+            "name": "get_customer_history"
+          },
+          "id": "call_653f7c2e631645c8a48cdada",
+          "index": 0,
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "content": "最近 90 天消費第一名是 **許○恩**（末碼 8880），已知金額共 **16,050 元**，0 筆缺金額。\n\n她在這 90 天內來了 3 次，明細如下：\n\n| 日期 | 服務 | 金額 |\n|------|------|------|\n| 2026-08-08 | color | 5,350 |\n| 2026-07-06 | color | 5,250 |\n| 2026-06-08 | color | 5,450 |\n\n三次都是染髮，滿穩定的。",
+      "tool_calls": null
+    }
+  ]
+}

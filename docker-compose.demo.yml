@@ -1,0 +1,32 @@
+# 示範用的 compose：`docker compose -f docker-compose.demo.yml up`，
+# **一把金鑰都不用填**就能開到 http://127.0.0.1:8100 問問題。
+#
+# ⚠ 只有一個服務，而且是刻意的。
+#   沒有資料庫：資料是套件內固定 seed 的假資料（assistant/demo_data/*.json）。
+#   沒有 worker、沒有排程、沒有 webhook：這個助理只服務設計師本人，
+#   它不接客人、也沒有任何一條路可以送訊息出去。少一個容器就少一件會壞的事，
+#   而「它回不到真實客人那邊」是靠這個檔案的形狀保證的，不是靠誰記得。
+
+services:
+  assistant:
+    build: .
+    command:
+      - uvicorn
+      - assistant.server:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8100"
+    environment:
+      # 零金鑰預設：走錄好的逐字稿，評審 clone 下來就能重現一整輪對話。
+      REPLAY_MODE: "1"
+      # 資料來源是 MockSalonDataProvider（固定 seed 假資料）。
+      DEMO_MODE: "1"
+    # 要打真的模型就把金鑰填進 .env（範本見 .env.example）並改成 REPLAY_MODE=0。
+    # env_file 找不到檔案時 compose 會直接失敗，所以預設註解掉——
+    # 沒有 .env 也要能 up，這是「可重現」的一部分。
+    # env_file:
+    #   - .env
+    ports:
+      - "127.0.0.1:8100:8100"
+    restart: unless-stopped

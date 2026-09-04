@@ -1,0 +1,20 @@
+[
+  {
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "display_name": "林家靖",
+    "joined_at": "2023-07-22T10:00:00+08:00",
+    "store_name": "示範分店・松江"
+  },
+  {
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "display_name": "蕭晴湘",
+    "joined_at": "2025-06-29T10:00:00+08:00",
+    "store_name": "示範分店・民生"
+  },
+  {
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "display_name": "曾昀翊",
+    "joined_at": "2023-10-17T10:00:00+08:00",
+    "store_name": "示範分店・古亭"
+  }
+]

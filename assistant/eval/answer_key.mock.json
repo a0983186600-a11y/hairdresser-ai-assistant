@@ -1,0 +1,413 @@
+{
+  "as_of": "2026-09-01T00:00:00+08:00",
+  "as_of_note": "示範資料的「現在」是 assistant.demo_data.generate.ANCHOR。exam.md 第一句寫的 2026-08-31T02:00:00+08:00 是抓正式資料庫快照的時刻，跟這份固定 seed 的假資料差一天——混用會讓每一題的「幾天沒回來」整欄差一。",
+  "dataset": "assistant/demo_data（固定 seed 42 的假資料）",
+  "items": [
+    {
+      "expected_tools": [
+        "rank_customers_by_spend"
+      ],
+      "expects_empty": false,
+      "id": "AH-01",
+      "key_numbers": [
+        16050,
+        15300,
+        14100
+      ],
+      "notes": "金額只計有金額紀錄的到店；關鍵數字取前三名的已知消費。",
+      "question": "幫我看截至今天，最近 90 天消費金額最高的 5 位客人，金額跟到店次數一起列。",
+      "result_summary": {
+        "headline": "5 位；第一名 許○恩 已知消費 16,050 元、到店 3 次",
+        "known_spend_twd": 67150,
+        "people": 5,
+        "row_count": 5,
+        "top_masked_names": [
+          "許○恩",
+          "江○琁",
+          "潘○",
+          "謝○",
+          "呂○琁"
+        ],
+        "unknown_amount_visits": 0
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "days": 90,
+            "limit": 5
+          },
+          "result_summary": "5 筆",
+          "tool": "rank_customers_by_spend"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "list_inactive_customers"
+      ],
+      "expects_empty": false,
+      "id": "AH-02",
+      "key_numbers": [
+        399,
+        362,
+        304
+      ],
+      "notes": "關鍵數字取前三名的「沒回來天數」，排頭對了代表排序對了。",
+      "question": "幫我找超過 60 天沒回來的客人，按沒回來天數由久到短列 10 位。",
+      "result_summary": {
+        "headline": "10 位；最久的 郭○皓 已經 399 天沒回來",
+        "known_spend_twd": null,
+        "people": 10,
+        "row_count": 10,
+        "top_masked_names": [
+          "郭○皓",
+          "曾○雅",
+          "張○澐"
+        ],
+        "unknown_amount_visits": null
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "inactive_days": 60,
+            "limit": 10
+          },
+          "result_summary": "10 筆",
+          "tool": "list_inactive_customers"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "rank_customers_by_spend",
+        "get_customer_history"
+      ],
+      "expects_empty": false,
+      "id": "AH-03",
+      "key_numbers": [
+        5350,
+        5250,
+        5450
+      ],
+      "notes": "兩步題：先問誰是第一名，再查那個人的明細。關鍵數字取最近三次到店的金額——題目問的是每一次，不是終身總額。",
+      "question": "最近 90 天消費第一名那位，幫我把每次服務、日期和金額整理出來。",
+      "result_summary": {
+        "headline": "許○恩 累積到店 11 次、已知消費 42,850 元",
+        "known_spend_twd": 42850,
+        "people": null,
+        "row_count": 11,
+        "top_masked_names": [
+          "許○恩"
+        ],
+        "unknown_amount_visits": 0
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "days": 90,
+            "limit": 5
+          },
+          "result_summary": "5 筆",
+          "tool": "rank_customers_by_spend"
+        },
+        {
+          "arguments": {
+            "customer_ref": "7b192481-2acc-5fe7-a319-92affc65adab",
+            "limit": 20
+          },
+          "result_summary": "1 筆",
+          "tool": "get_customer_history"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "list_recent_conversations",
+        "get_conversation_transcript"
+      ],
+      "expects_empty": false,
+      "id": "AH-04",
+      "key_numbers": [],
+      "notes": "純摘要題，沒有關鍵數字：題目問的是內容不是數量。分數由工具序列與鐵律決定——摘要只能來自遮罩逐字稿。",
+      "question": "幫我整理最近一位有傳訊息的客人：他最後在問什麼、我們回了什麼、目前卡在哪？",
+      "result_summary": {
+        "headline": "潘○，狀態 active，共 8 則訊息",
+        "known_spend_twd": null,
+        "people": null,
+        "row_count": 8,
+        "top_masked_names": [
+          "潘○"
+        ],
+        "unknown_amount_visits": null
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "limit": 5
+          },
+          "result_summary": "5 筆",
+          "tool": "list_recent_conversations"
+        },
+        {
+          "arguments": {
+            "conversation_ref": "65eb86a8-b6f5-5a07-b864-9795b357544d",
+            "message_limit": 30
+          },
+          "result_summary": "1 筆",
+          "tool": "get_conversation_transcript"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "search_customer_segment"
+      ],
+      "expects_empty": false,
+      "id": "AH-05",
+      "key_numbers": [
+        289,
+        265,
+        256
+      ],
+      "notes": "一次查詢就該做完：沒回來天數 ＋ 服務類別兩個條件是 AND。",
+      "question": "找出 60 天以上沒回來，而且以前做過染髮或燙髮的客人，列前 10 位。",
+      "result_summary": {
+        "headline": "10 位；最久的 葉○雅 已經 289 天沒回來",
+        "known_spend_twd": null,
+        "people": 10,
+        "row_count": 10,
+        "top_masked_names": [
+          "葉○雅",
+          "賴○澤",
+          "曾○"
+        ],
+        "unknown_amount_visits": null
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "inactive_days_gte": 60,
+            "limit": 10,
+            "service_families": [
+              "color",
+              "perm"
+            ]
+          },
+          "result_summary": "10 筆",
+          "tool": "search_customer_segment"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "get_retention_watchlist"
+      ],
+      "expects_empty": false,
+      "id": "AH-06",
+      "key_numbers": [
+        88.15,
+        85.1,
+        84.8
+      ],
+      "notes": "分數與理由是工具算好的；關鍵數字就是前三名的 risk_score，不准四捨五入成整數。",
+      "question": "幫我看看誰快流失了，先抓 5 位最值得我主動關心的。",
+      "result_summary": {
+        "headline": "5 位；分數最高的 葉○雅 是 88.15（289 天沒回來）",
+        "known_spend_twd": null,
+        "people": 5,
+        "row_count": 5,
+        "top_masked_names": [
+          "葉○雅",
+          "莊○苡",
+          "曾○"
+        ],
+        "unknown_amount_visits": null
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "limit": 5,
+            "minimum_inactive_days": 45
+          },
+          "result_summary": "5 筆",
+          "tool": "get_retention_watchlist"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "get_service_metrics"
+      ],
+      "expects_empty": false,
+      "id": "AH-07",
+      "key_numbers": [
+        8,
+        27200
+      ],
+      "notes": "有缺金額的筆數，所以答案必須講「已知金額」並回報缺幾筆。",
+      "question": "最近 30 天染髮類服務有幾位客人、幾次、已知金額合計多少？",
+      "result_summary": {
+        "headline": "8 位客人、8 次，已知金額 27,200 元（另有 1 筆沒有金額紀錄）",
+        "known_spend_twd": 27200,
+        "people": 8,
+        "row_count": 8,
+        "top_masked_names": [],
+        "unknown_amount_visits": 1
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "end_at": "2026-09-01T00:00:00+08:00",
+            "service_families": [
+              "color"
+            ],
+            "start_at": "2026-08-02T00:00:00+08:00"
+          },
+          "result_summary": "1 筆",
+          "tool": "get_service_metrics"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "search_customer_segment"
+      ],
+      "expects_empty": true,
+      "id": "AH-08",
+      "key_numbers": [],
+      "notes": "**陷阱題**：示範資料裡這題是空結果。正確答案是「沒有符合條件的資料」，補一位看起來合理的客人就是違反鐵律 2。",
+      "question": "最近 30 天有來兩次以上的熟客有哪些？按次數排序。",
+      "result_summary": {
+        "headline": "最近 30 天沒有人來過兩次以上——正確答案就是「沒有」",
+        "known_spend_twd": null,
+        "people": null,
+        "row_count": 0,
+        "top_masked_names": [],
+        "unknown_amount_visits": null
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "limit": 10,
+            "visits_gte_in_period": 2,
+            "visits_since": "2026-08-02T00:00:00+08:00"
+          },
+          "result_summary": "沒有符合條件的資料",
+          "tool": "search_customer_segment"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "search_customer_segment"
+      ],
+      "expects_empty": false,
+      "id": "AH-09",
+      "key_numbers": [
+        142,
+        134,
+        131
+      ],
+      "notes": "跟 AH-05 同一個工具、不同條件；關鍵數字取前三名的「沒回來天數」。",
+      "question": "找以前至少來過 3 次、但已經 90 天沒回來的客人，列前 10 位。",
+      "result_summary": {
+        "headline": "10 位；最久的 葉○睿 已經 142 天沒回來、累積 4 次",
+        "known_spend_twd": null,
+        "people": 10,
+        "row_count": 10,
+        "top_masked_names": [
+          "葉○睿",
+          "葉○昀",
+          "呂○湘"
+        ],
+        "unknown_amount_visits": null
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "inactive_days_gte": 90,
+            "limit": 10,
+            "visits_gte": 3
+          },
+          "result_summary": "10 筆",
+          "tool": "search_customer_segment"
+        }
+      ]
+    },
+    {
+      "expected_tools": [
+        "search_customer_segment",
+        "list_recent_conversations",
+        "get_customer_history",
+        "get_conversation_transcript"
+      ],
+      "expects_empty": false,
+      "id": "AH-10",
+      "key_numbers": [
+        11,
+        26150
+      ],
+      "notes": "四步題，最長的一條鏈：識別碼只能沿用前一步回傳的值。",
+      "question": "最近一位曾做染髮、現在又有新對話的客人，幫我整理他過去服務和這次需求。",
+      "result_summary": {
+        "headline": "賴○薇：累積到店 11 次、已知消費 26,150 元；這次對話狀態 active",
+        "known_spend_twd": 26150,
+        "people": null,
+        "row_count": 7,
+        "top_masked_names": [
+          "賴○薇"
+        ],
+        "unknown_amount_visits": 0
+      },
+      "tool_arguments": [
+        {
+          "arguments": {
+            "has_recent_conversation": true,
+            "limit": 10,
+            "service_families": [
+              "color"
+            ]
+          },
+          "result_summary": "6 筆",
+          "tool": "search_customer_segment"
+        },
+        {
+          "arguments": {
+            "customer_refs": [
+              "479e36a2-fda8-5e8d-a490-fe901ede1ad7",
+              "90d94676-ace8-5d57-b29d-c0e800a55542",
+              "63e7d4a9-8347-5d9c-bc93-167759f40029",
+              "f34c14da-561b-5178-844f-2547dec3aa42",
+              "1f62cfcb-a9ee-5b04-964a-d37f59250fb4",
+              "5ef46a2b-f449-585d-9cad-24f86e682664"
+            ],
+            "limit": 5
+          },
+          "result_summary": "5 筆",
+          "tool": "list_recent_conversations"
+        },
+        {
+          "arguments": {
+            "customer_ref": "479e36a2-fda8-5e8d-a490-fe901ede1ad7",
+            "limit": 20
+          },
+          "result_summary": "1 筆",
+          "tool": "get_customer_history"
+        },
+        {
+          "arguments": {
+            "conversation_ref": "0ee33744-4912-5b52-b3bb-9b723c9084af",
+            "message_limit": 30
+          },
+          "result_summary": "1 筆",
+          "tool": "get_conversation_transcript"
+        }
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "scope": {
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "display_name": "林家靖"
+  }
+}

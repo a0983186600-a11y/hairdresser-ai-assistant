@@ -1,0 +1,22 @@
+# 公開 repo 的 .gitignore。
+#
+# 前兩條是**守衛**，不是整潔：`local.yaml` 是實際營運者調過的參數，
+# `.env` 是金鑰。它們一旦被 commit，公開授權就把它們發出去了，而且收不回來。
+# `tests/test_assistant_config.py` 會檢查這個檔案裡有 local.yaml 那一行。
+
+assistant/config/local.yaml
+.env
+
+# 本機 smoke test 的產物不是出貨時錄好的模型對決報告。
+assistant/eval/reports/replay.json
+assistant/eval/reports/replay.md
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+build/
+dist/
+*.egg-info/
+.DS_Store

@@ -1,0 +1,42 @@
+{
+  "slug": "follow-up-draft",
+  "user_message": "流失名單第一位，幫我寫一則回訪訊息。",
+  "normalized": "流失名單第一位,幫我寫一則回訪訊息。",
+  "model": "qwen3.7-max",
+  "as_of": "2026-09-01T00:00:00+08:00",
+  "recorded_at": "2026-09-04T09:21:16.369197+08:00",
+  "rounds": [
+    {
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "arguments": "{\"limit\": 1}",
+            "name": "get_retention_watchlist"
+          },
+          "id": "call_df447215b0ab40548fcc803c",
+          "index": 0,
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "arguments": "{\"customer_ref\": \"a0cd6998-0e47-52ab-a3f1-71bc51d93918\", \"reason\": \"gentle_checkin\"}",
+            "name": "draft_follow_up_message"
+          },
+          "id": "call_14fed3e739d844b48393defe",
+          "index": 0,
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "content": "流失名單第一位是 **葉○雅**（risk_score 88.15，289 天沒回來）。\n\n以下是系統產生的回訪訊息草稿，可以直接複製貼上送出：\n\n> 葉○雅 您好，上次幫您做的染髮到現在大約 289 天了，最近頭髮還順手嗎？想幫您留個時間看看狀況，方便的話回覆一下您近期哪天有空。",
+      "tool_calls": null
+    }
+  ]
+}

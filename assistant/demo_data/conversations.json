@@ -1,0 +1,3719 @@
+[
+  {
+    "conversation_ref": "e3f1cf78-c8ca-5814-91c4-9ed4d8b2578c",
+    "customer_ref": "6c98dcf0-52ad-58ca-beb7-d918e6489d49",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": true,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-05-03T21:21:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-05-03T22:31:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-03T23:29:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-04T00:10:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-05-04T00:42:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-05-04T01:41:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-05-04T02:57:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-05-04T03:05:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-04T03:59:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "15:00",
+      "service_family": "bleach"
+    },
+    "state": "closed",
+    "updated_at": "2026-05-04T03:59:00+08:00"
+  },
+  {
+    "conversation_ref": "fdb6c5fa-3726-5166-b2e4-4995d6ae3c53",
+    "customer_ref": "ebb33d87-09be-557c-a48d-f69fb2b88e8b",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-05-04T16:11:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-05-04T16:47:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-05-04T16:57:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-05-04T17:45:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-05-14",
+      "service_family": "treatment"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-05-04T17:45:00+08:00"
+  },
+  {
+    "conversation_ref": "d81dbd19-b5f5-5be7-91ea-48b335c922c8",
+    "customer_ref": "6bc4fb3e-53f3-5982-847c-66bfda87c9c7",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "請問燙髮大概要多久？想找一天下午過去。",
+        "created_at": "2026-05-05T12:03:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-05-05T13:24:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-05-05T13:54:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-05-05T14:55:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "17:00",
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-05-05T14:55:00+08:00"
+  },
+  {
+    "conversation_ref": "21b23eb4-d792-501c-a0aa-bd352e66ba41",
+    "customer_ref": "913dafad-2ed1-59b3-984a-7f7407be6b56",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-05-07T12:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-07T13:37:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-05-07T14:04:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "15:00",
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-05-07T14:04:00+08:00"
+  },
+  {
+    "conversation_ref": "570c401a-291b-55ee-8ef0-5de5c255000f",
+    "customer_ref": "ad15ee95-1fac-5607-b9b3-30cd10764eaa",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-05-08T12:30:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-08T13:18:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-05-08T14:30:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-08T15:20:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-05-08T15:39:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-05-08T16:27:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-05-08T17:04:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-08T17:30:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-05-08T18:48:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-05-11",
+      "preferred_time": "11:00",
+      "service_family": "bleach"
+    },
+    "state": "closed",
+    "updated_at": "2026-05-08T18:48:00+08:00"
+  },
+  {
+    "conversation_ref": "bf56b3ea-1ab6-5cc5-a3cf-acfe893ed732",
+    "customer_ref": "58ad9a27-9172-5a29-a922-de282bb0448d",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-05-08T21:26:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-05-08T21:40:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-08T22:03:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-05-08T22:09:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-08T22:33:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-05-10",
+      "preferred_time": "18:00",
+      "service_family": "scalp"
+    },
+    "state": "active",
+    "updated_at": "2026-05-08T22:33:00+08:00"
+  },
+  {
+    "conversation_ref": "1d4f4e3b-1adc-5c8f-ba9a-fed9fc932615",
+    "customer_ref": "463dbdcc-cbe6-5eab-8a14-4afefb67d4d5",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-05-11T21:00:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-11T21:47:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-05-11T22:33:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-11T22:38:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-05-11T22:50:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-11T23:42:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-12T00:05:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-05-12T00:28:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-05-18",
+      "service_family": "color"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-05-12T00:28:00+08:00"
+  },
+  {
+    "conversation_ref": "26a1502e-4ecf-543e-b60f-ee35556343ed",
+    "customer_ref": "61ddb8c7-161f-5192-a9cb-9bae35a4699a",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-05-12T11:27:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-12T12:37:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-05-12T14:02:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-12T15:30:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-05-12T16:11:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-05-12T17:35:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-05-12T18:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-05-12T19:36:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-05-12T21:00:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-05-15",
+      "preferred_time": "11:00",
+      "service_family": "treatment"
+    },
+    "state": "active",
+    "updated_at": "2026-05-12T21:00:00+08:00"
+  },
+  {
+    "conversation_ref": "9a89e5cc-04a2-58ec-b734-ef43e14ee30a",
+    "customer_ref": "a0e7997a-d61e-5209-9af2-22cc78d60023",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-05-18T15:11:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-05-18T16:19:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-18T17:28:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-18T18:15:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-05-18T19:26:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-18T20:18:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-05-18T21:09:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-05-18T21:09:00+08:00"
+  },
+  {
+    "conversation_ref": "f3cf2e18-1521-5355-8b62-ccf5a10c8b90",
+    "customer_ref": "6acd8655-838d-5a1a-be2d-bb6549b4cbf7",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-05-21T14:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-21T15:34:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-05-21T16:06:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-05-22",
+      "service_family": "treatment"
+    },
+    "state": "closed",
+    "updated_at": "2026-05-21T16:06:00+08:00"
+  },
+  {
+    "conversation_ref": "96e601d7-c522-539e-819d-facb8bf9271e",
+    "customer_ref": "43920d2f-bb59-5534-ac2e-28c9653c763e",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-05-22T19:42:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-22T21:00:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-05-22T21:28:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-05-22T21:52:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-05-22T22:06:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-05-22T22:13:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-05-22T22:20:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-05-22T22:23:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "scalp"
+    },
+    "state": "active",
+    "updated_at": "2026-05-22T22:23:00+08:00"
+  },
+  {
+    "conversation_ref": "47142b15-3dcc-54ab-ad05-cb262cbb038b",
+    "customer_ref": "119ab100-3475-5ef4-99f7-209d7312160a",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": true,
+    "messages": [
+      {
+        "content": "請問燙髮大概要多久？想找一天下午過去。",
+        "created_at": "2026-05-23T11:41:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-05-23T13:09:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-05-23T13:27:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-05-23T14:17:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-05-23T15:11:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-23T16:04:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "12:00",
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-05-23T16:04:00+08:00"
+  },
+  {
+    "conversation_ref": "f616677c-5ba3-535d-a435-353bed28638b",
+    "customer_ref": "f7509332-9a34-54ce-8269-0e370a1be185",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-05-23T16:49:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-05-23T17:51:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-05-23T19:08:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-05-23T19:28:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-05-29",
+      "preferred_time": "16:00",
+      "service_family": "color"
+    },
+    "state": "active",
+    "updated_at": "2026-05-23T19:28:00+08:00"
+  },
+  {
+    "conversation_ref": "70124e1f-a6ce-594b-a530-94a1e20b6dd4",
+    "customer_ref": "f4153313-be51-5b67-99e0-db2bff5bff18",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-05-23T21:43:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-23T22:39:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-05-23T23:45:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-02",
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-05-23T23:45:00+08:00"
+  },
+  {
+    "conversation_ref": "0c0ddfb5-9064-5062-a5ce-5fd4d8c0effe",
+    "customer_ref": "7f2ca6d2-73e4-5d7f-a100-6e712cfce1be",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-05-27T12:56:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-27T13:00:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-05-27T13:57:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-02",
+      "service_family": "perm"
+    },
+    "state": "closed",
+    "updated_at": "2026-05-27T13:57:00+08:00"
+  },
+  {
+    "conversation_ref": "368b45d0-cfec-5d26-a37e-75299ba4353c",
+    "customer_ref": "94be24f0-2b9b-54b1-9b5b-def37bc51582",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-05-28T11:19:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-28T12:10:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-05-28T12:41:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-05-28T13:20:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-09",
+      "preferred_time": "14:00",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-05-28T13:20:00+08:00"
+  },
+  {
+    "conversation_ref": "58cba50f-e4b8-5e3e-94ee-15740454279c",
+    "customer_ref": "efbc1a30-2019-51a5-aed9-e17450f79b2b",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-05-30T15:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-05-30T17:10:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-05-30T17:16:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-05-30T18:01:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "先不要報價，等我看過髮況再說。",
+        "created_at": "2026-05-30T18:36:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-05-30T19:59:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-05-30T21:04:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "color"
+    },
+    "state": "active",
+    "updated_at": "2026-05-30T21:04:00+08:00"
+  },
+  {
+    "conversation_ref": "70581617-2ce5-5be0-8e4e-14c02b0531e3",
+    "customer_ref": "69d6876e-c137-5c79-86c0-8b6b2ffc2630",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-05-31T17:57:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-05-31T18:03:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-05-31T18:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-05-31T19:51:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-06",
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-05-31T19:51:00+08:00"
+  },
+  {
+    "conversation_ref": "4ca5f6da-4512-51f6-9e18-4f14767a604e",
+    "customer_ref": "856fc11d-725b-57d4-a292-d559ccd886ab",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-05-31T18:20:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-31T18:23:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-31T18:26:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-31T19:39:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-05-31T20:09:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-05-31T21:02:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-05-31T21:20:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-05-31T22:31:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-05-31T23:05:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-10",
+      "service_family": "bleach"
+    },
+    "state": "active",
+    "updated_at": "2026-05-31T23:05:00+08:00"
+  },
+  {
+    "conversation_ref": "cea2d786-b0d0-5c4e-888c-e4d819d30c8f",
+    "customer_ref": "c9fcb443-a600-53e9-9fe6-85c9a368eedd",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-06-04T17:48:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-06-04T17:56:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-06-04T19:10:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-04T19:46:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-06-04T20:54:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-09",
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-04T20:54:00+08:00"
+  },
+  {
+    "conversation_ref": "0ab61083-3faf-5ba1-ba0a-43de1ad87aac",
+    "customer_ref": "856af977-c7c0-5636-946f-491bf216a540",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-06-05T16:28:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-05T16:58:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-06-05T17:55:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-06-05T19:15:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-06-05T20:38:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-06-05T21:07:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-06-05T21:48:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-06-05T21:52:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-06",
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-05T21:52:00+08:00"
+  },
+  {
+    "conversation_ref": "a7842d96-71a6-5d1e-8253-c59ae942775d",
+    "customer_ref": "28d2649e-725f-5483-896a-57af8aa70bac",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-06-10T23:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-06-10T23:56:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-06-11T01:16:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-11T02:25:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-06-11T03:31:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-06-11T03:35:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-06-11T03:51:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-18",
+      "preferred_time": "13:00",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-06-11T03:51:00+08:00"
+  },
+  {
+    "conversation_ref": "11c3bcff-cd70-5361-9aa3-94589a146189",
+    "customer_ref": "c1078cd5-458c-5217-b075-a04063aa0ae2",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-06-11T11:27:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-06-11T12:24:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-06-11T12:54:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-06-11T14:03:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-06-11T14:48:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-24",
+      "preferred_time": "13:00",
+      "service_family": "scalp"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-06-11T14:48:00+08:00"
+  },
+  {
+    "conversation_ref": "23dcd82d-4da1-5d07-9124-b3b7259744b1",
+    "customer_ref": "eb13b2b3-f271-5306-a4df-1a8e5a52e1b4",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-06-12T16:02:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-12T16:48:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-06-12T17:00:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-06-12T18:07:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-06-12T19:04:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-06-12T19:45:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-06-12T20:27:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-25",
+      "preferred_time": "13:00",
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-12T20:27:00+08:00"
+  },
+  {
+    "conversation_ref": "992de4da-dc65-5f24-a28b-4303008485c5",
+    "customer_ref": "9f4b7f01-449a-5b65-85cb-1a0e8f056a75",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-06-12T22:27:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-06-12T23:24:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-06-12T23:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-06-12T23:53:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-06-13T01:13:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-13T01:42:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "幫我把她排在下午第一個，比較不會等。",
+        "created_at": "2026-06-13T03:06:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-23",
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-13T03:06:00+08:00"
+  },
+  {
+    "conversation_ref": "faa656f9-a9ce-5e7d-92ca-6e4914db9d2f",
+    "customer_ref": "e6395fa2-3381-566b-8230-008431ab20d1",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": true,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-06-14T22:23:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-14T22:28:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-06-14T22:44:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-25",
+      "preferred_time": "12:00",
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-14T22:44:00+08:00"
+  },
+  {
+    "conversation_ref": "5d14649c-5b24-5da8-bc67-81ae023b0252",
+    "customer_ref": "e9b602cf-2ba7-5828-a076-d715f9ff9eee",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": true,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-06-15T22:20:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-06-15T23:50:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-06-16T00:56:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-26",
+      "service_family": "color"
+    },
+    "state": "active",
+    "updated_at": "2026-06-16T00:56:00+08:00"
+  },
+  {
+    "conversation_ref": "e4cc301d-e31e-5b6b-9b77-b0b24fd8e18d",
+    "customer_ref": "88ce32fb-487e-5daf-a4b0-14e52cae4f55",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-06-17T13:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-06-17T15:24:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-06-17T15:41:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-06-17T15:46:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-06-17T16:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-06-17T17:13:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-06-17T17:14:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-01",
+      "service_family": "scalp"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-17T17:14:00+08:00"
+  },
+  {
+    "conversation_ref": "ed80d102-852c-51c6-8568-8b8bca023bbc",
+    "customer_ref": "ecdc985b-e6c0-58d4-aeed-aa42d3b16d7f",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-06-19T11:06:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-06-19T12:16:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-06-19T13:21:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-06-19T13:22:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-06-19T14:37:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-06-19T15:07:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-06-19T16:14:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-06-19T17:35:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "color"
+    },
+    "state": "active",
+    "updated_at": "2026-06-19T17:35:00+08:00"
+  },
+  {
+    "conversation_ref": "dfe7f30f-b3b0-57a4-a0bb-62aea15b5630",
+    "customer_ref": "31aa4c57-d330-5319-871b-60e73b9fa42f",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-06-19T15:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-06-19T17:02:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-06-19T17:35:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-19T18:39:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-06-19T19:52:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-19T20:20:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-06-19T20:42:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-06-19T20:50:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-21",
+      "service_family": "color"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-06-19T20:50:00+08:00"
+  },
+  {
+    "conversation_ref": "eb9592ae-e790-5e73-9cd8-7919ae0bc89d",
+    "customer_ref": "1df0bf21-466e-550f-ab63-fe670de08b8e",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-06-19T19:18:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-06-19T19:52:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-06-19T20:11:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-19T20:34:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-06-19T20:55:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-06-19T20:58:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-06-19T21:20:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-26",
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-19T21:20:00+08:00"
+  },
+  {
+    "conversation_ref": "b329caae-77d1-551d-be30-5b1fed59d792",
+    "customer_ref": "7df9b18a-da23-5179-acf5-2858957b5bc2",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": true,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-06-19T21:25:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-06-19T21:45:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-06-19T22:15:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-06-19T23:32:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-06-20T00:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-06-20T01:45:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-06-20T02:15:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-06-20T02:15:00+08:00"
+  },
+  {
+    "conversation_ref": "c4b67350-564e-5f84-971f-0c38c51f2c85",
+    "customer_ref": "d0e91f0d-1e8c-5255-b7e7-9f1674dabad8",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-06-20T11:25:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-06-20T12:40:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-06-20T13:40:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-06-20T13:56:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-06-20T14:37:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-25",
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-06-20T14:37:00+08:00"
+  },
+  {
+    "conversation_ref": "ee760aa5-9395-5579-883f-76b94a4e06f3",
+    "customer_ref": "efc38a42-ffa2-5cea-a636-8f9fb6174c22",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-06-22T14:34:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-06-22T15:59:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-06-22T16:52:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-06-23",
+      "preferred_time": "17:00",
+      "service_family": "cut"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-06-22T16:52:00+08:00"
+  },
+  {
+    "conversation_ref": "522454ef-ae29-5e38-99b4-9bbfdfe45029",
+    "customer_ref": "5f554e19-aa93-5a4c-be64-b1ccdfbbe06c",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-07-02T18:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-02T19:25:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-02T20:02:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-02T20:56:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "scalp"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-07-02T20:56:00+08:00"
+  },
+  {
+    "conversation_ref": "7d4d2dd9-705a-5868-a7f0-4d13dcdef1a3",
+    "customer_ref": "378e8563-44b8-5c74-9e86-a0d56db51f0c",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-07-03T17:09:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-03T17:50:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-03T18:30:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-03T18:44:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-03T19:17:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-03T19:33:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-07-03T19:52:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-03T21:05:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-03T21:54:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-15",
+      "preferred_time": "12:00",
+      "service_family": "cut"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-07-03T21:54:00+08:00"
+  },
+  {
+    "conversation_ref": "21e91a85-794d-5eb7-8430-fcf061c0fd5a",
+    "customer_ref": "bfe17804-d0ed-568b-9223-927fa2e67ed6",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "請問燙髮大概要多久？想找一天下午過去。",
+        "created_at": "2026-07-04T20:53:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-04T22:11:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-07-04T22:26:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-04T23:39:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-07-05T00:18:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-05T01:28:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-05T02:40:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-05T03:07:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-05T03:07:00+08:00"
+  },
+  {
+    "conversation_ref": "8fa52c89-7f03-58af-8b82-ea5c19e8369c",
+    "customer_ref": "6b20de1d-9e93-5595-ac36-3457135f7db7",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-07-04T20:50:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-04T22:14:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-07-04T23:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-04T23:54:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-07-05T00:15:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-05T01:18:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-07-05T02:26:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-05T03:33:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "10:00",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-07-05T03:33:00+08:00"
+  },
+  {
+    "conversation_ref": "67d13c8e-3cea-514d-a643-d98c00cfc141",
+    "customer_ref": "85a8686e-8fad-5c50-bee9-c90252c7b8ef",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-07-05T23:04:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-06T00:24:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-06T01:51:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-08",
+      "preferred_time": "13:00",
+      "service_family": "treatment"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-06T01:51:00+08:00"
+  },
+  {
+    "conversation_ref": "bd286f3d-b647-5ac8-bc90-a36812b404fa",
+    "customer_ref": "76f0be1c-edd4-5c7a-8907-9a9ffc483933",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "請問燙髮大概要多久？想找一天下午過去。",
+        "created_at": "2026-07-07T15:11:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-07T16:35:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-07-07T17:42:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-07T19:05:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-07-07T20:21:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-10",
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-07-07T20:21:00+08:00"
+  },
+  {
+    "conversation_ref": "c3dfafbe-57c9-5e01-aae7-0813687890fe",
+    "customer_ref": "a1823856-ec25-51a1-82f4-8ba63cd5eaf6",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-07-10T15:01:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-10T15:38:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-07-10T16:00:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-10T16:14:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "先不要報價，等我看過髮況再說。",
+        "created_at": "2026-07-10T16:47:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-10T16:55:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-24",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-07-10T16:55:00+08:00"
+  },
+  {
+    "conversation_ref": "db838166-ef20-5a04-9e25-b5f53b6598e8",
+    "customer_ref": "e7cb0c02-2508-5260-b9e5-83a209101977",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-07-13T21:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-13T21:32:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "幫我把她排在下午第一個，比較不會等。",
+        "created_at": "2026-07-13T22:35:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-13T23:21:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-07-14T00:14:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-14T01:06:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-07-14T02:11:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-27",
+      "preferred_time": "15:00",
+      "service_family": "treatment"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-14T02:11:00+08:00"
+  },
+  {
+    "conversation_ref": "bac0efac-e4bf-525c-870d-47002edb2898",
+    "customer_ref": "a71c64a4-bfb7-52cb-87c3-a28db1dd4c5f",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-07-14T17:10:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-14T17:47:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-07-14T18:53:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-14T19:39:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-14T20:20:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-14T20:29:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-07-14T21:32:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "perm"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-14T21:32:00+08:00"
+  },
+  {
+    "conversation_ref": "bbe20295-3b98-5e93-9d7c-5dd387ef0bb1",
+    "customer_ref": "24a31187-3e83-577b-a04f-bee40fb0b5e8",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-07-14T16:36:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-14T18:01:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-14T18:56:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-14T20:04:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-14T20:41:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-14T21:54:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-20",
+      "preferred_time": "13:00",
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-14T21:54:00+08:00"
+  },
+  {
+    "conversation_ref": "37fe4a1b-e39a-583d-8582-2dcb7e348aaa",
+    "customer_ref": "cd81938c-69ea-5c32-9bce-ec733283acc3",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-07-14T18:03:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-14T19:17:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-07-14T19:55:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-14T21:07:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-07-14T21:35:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-14T23:04:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-07-15T00:04:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-15T00:26:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-24",
+      "preferred_time": "15:00",
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-15T00:26:00+08:00"
+  },
+  {
+    "conversation_ref": "612ef44f-acac-525a-9808-c30067dce699",
+    "customer_ref": "0e07acfa-6b43-54ec-8314-ee92fa680909",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-07-15T15:34:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-15T16:21:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-15T17:46:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-15T18:18:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-07-15T19:41:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-15T19:55:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-07-15T20:20:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "15:00",
+      "service_family": "color"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-07-15T20:20:00+08:00"
+  },
+  {
+    "conversation_ref": "5b4b6a4c-1bff-58c4-9c07-4798c3aafa01",
+    "customer_ref": "5d166966-5bd1-5965-997e-081d07748978",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-07-16T21:58:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-16T22:36:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-07-16T22:51:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-16T23:31:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "treatment"
+    },
+    "state": "active",
+    "updated_at": "2026-07-16T23:31:00+08:00"
+  },
+  {
+    "conversation_ref": "deeac154-b2b9-57b5-bafb-21f1f482a185",
+    "customer_ref": "850c58e8-13bd-569e-b60f-292655b0b4c0",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-07-16T23:55:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-17T00:10:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-07-17T00:52:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-17T01:35:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "12:00",
+      "service_family": "perm"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-17T01:35:00+08:00"
+  },
+  {
+    "conversation_ref": "4b86782c-670f-597f-af5e-8704f1ebaac9",
+    "customer_ref": "c4a544aa-17f8-5e9a-aa80-6ca6b5f44505",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-07-18T15:31:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-18T16:56:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-07-18T17:52:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-18T18:53:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-18T20:14:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-20",
+      "preferred_time": "10:00",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-07-18T20:14:00+08:00"
+  },
+  {
+    "conversation_ref": "962bf8b2-4581-5af4-addb-dc60289b1436",
+    "customer_ref": "10277695-4414-5054-ba49-5389c03e0e40",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "請問燙髮大概要多久？想找一天下午過去。",
+        "created_at": "2026-07-18T17:29:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-18T17:51:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-07-18T18:16:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-18T19:16:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-18T20:30:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-21",
+      "preferred_time": "17:00",
+      "service_family": "treatment"
+    },
+    "state": "active",
+    "updated_at": "2026-07-18T20:30:00+08:00"
+  },
+  {
+    "conversation_ref": "c2c67638-2501-57f7-bc29-86441495a335",
+    "customer_ref": "2d4c92c1-6759-577e-882f-e876a2248fd5",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-07-18T22:45:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-18T23:02:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-07-19T00:15:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-19T01:31:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-07-19T02:20:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-26",
+      "preferred_time": "18:00",
+      "service_family": "treatment"
+    },
+    "state": "active",
+    "updated_at": "2026-07-19T02:20:00+08:00"
+  },
+  {
+    "conversation_ref": "ec2d201f-a378-59b6-8213-3bf074e386fd",
+    "customer_ref": "ce3a1537-3446-5a49-b61f-16ebdc3c7615",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": true,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-07-20T17:19:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-20T18:28:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-07-20T18:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-20T19:09:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-31",
+      "service_family": "cut"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-20T19:09:00+08:00"
+  },
+  {
+    "conversation_ref": "57a9af1b-31f0-533b-818f-9d18d3fceb91",
+    "customer_ref": "1582091e-e573-5d31-bc1a-c87cfe4f12b2",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-07-21T17:37:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-21T17:42:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "幫我把她排在下午第一個，比較不會等。",
+        "created_at": "2026-07-21T17:53:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-21T17:55:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-07-21T18:13:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-21T18:32:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-24",
+      "preferred_time": "12:00",
+      "service_family": "scalp"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-07-21T18:32:00+08:00"
+  },
+  {
+    "conversation_ref": "81c6611e-c2a1-5c55-a69e-d887957aee39",
+    "customer_ref": "6f40b9ed-586d-5e55-83e7-aa563efe32cc",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-07-21T16:03:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-21T17:08:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "幫我把她排在下午第一個，比較不會等。",
+        "created_at": "2026-07-21T17:24:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-21T18:46:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-07-21T20:00:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-21T20:13:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "幫我把她排在下午第一個，比較不會等。",
+        "created_at": "2026-07-21T21:33:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-21T22:07:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-03",
+      "service_family": "bleach"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-21T22:07:00+08:00"
+  },
+  {
+    "conversation_ref": "df974468-4b77-5e53-87be-7ff196e85022",
+    "customer_ref": "0ef9f84c-ba94-5ff1-a768-f845fe60a12a",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-07-24T16:25:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-24T16:35:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-24T17:40:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-24T18:15:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-07-24T18:50:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-29",
+      "preferred_time": "15:00",
+      "service_family": "perm"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-24T18:50:00+08:00"
+  },
+  {
+    "conversation_ref": "309cdb77-2651-53d7-bbb9-4a22213e4ffc",
+    "customer_ref": "21de08a8-0a49-59e9-bf7c-a5667e3024aa",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-07-24T18:57:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-07-24T20:18:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-07-24T20:40:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-24T21:58:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-24T23:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-25T00:50:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-25T02:17:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-25T03:07:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-07-25T03:08:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-07-25T03:08:00+08:00"
+  },
+  {
+    "conversation_ref": "3c19c03d-903a-59b2-8fc5-f0456a4c7b49",
+    "customer_ref": "8df6d44b-a960-5005-91d6-949789fd207c",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-07-26T12:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-26T13:13:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-07-26T13:34:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-26T14:33:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-07-26T15:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-07-26T16:49:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-07-26T18:10:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-26T18:28:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "幫我把她排在下午第一個，比較不會等。",
+        "created_at": "2026-07-26T18:35:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-07-26T18:35:00+08:00"
+  },
+  {
+    "conversation_ref": "d90ccfcd-1836-5d52-ac70-c6ab04b01d22",
+    "customer_ref": "fa115466-fbb4-5348-93c1-cd8ba193c41f",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-07-27T20:51:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-07-27T21:52:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-07-27T22:18:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-27T22:32:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-07-27T22:59:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-27T23:34:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-07-31",
+      "preferred_time": "13:00",
+      "service_family": "treatment"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-07-27T23:34:00+08:00"
+  },
+  {
+    "conversation_ref": "3e09aa01-72ba-507a-bcbf-b51cef83212e",
+    "customer_ref": "4bb4f0eb-b049-53a9-9cca-088317f77967",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-07-29T11:42:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-07-29T11:47:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-07-29T13:00:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-07-29T13:50:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-29T14:10:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-07-29T14:24:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-07-29T15:13:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-07-29T15:51:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-07-29T15:59:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "17:00",
+      "service_family": "cut"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-07-29T15:59:00+08:00"
+  },
+  {
+    "conversation_ref": "bea5ca0d-9d74-5872-87d1-925eec2d1a62",
+    "customer_ref": "baa0cda0-fced-5e4b-a506-4881c4919d20",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-08-02T23:09:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-02T23:58:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-08-03T00:46:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-03T01:36:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-08-03T01:40:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-03T01:53:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-08",
+      "service_family": "cut"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-08-03T01:53:00+08:00"
+  },
+  {
+    "conversation_ref": "11e51df7-ff60-5350-a9e1-7e2347eae3ed",
+    "customer_ref": "e91367f9-c877-5e33-8e61-d8244a592e57",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "請問燙髮大概要多久？想找一天下午過去。",
+        "created_at": "2026-08-04T13:11:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-04T14:37:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-04T15:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-04T16:28:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-07",
+      "preferred_time": "10:00",
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-08-04T16:28:00+08:00"
+  },
+  {
+    "conversation_ref": "64cd5aa4-5c74-5b90-b80c-725bcae8f9a3",
+    "customer_ref": "b9f89964-4fc8-5680-a7e8-ae9ccdfc3c3d",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-08-04T21:23:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-08-04T22:10:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "這個時段我剛好有空，直接跟客人講。",
+        "created_at": "2026-08-04T23:34:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "color"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-08-04T23:34:00+08:00"
+  },
+  {
+    "conversation_ref": "55530424-2639-5903-99fc-5402772ecf1b",
+    "customer_ref": "90d94676-ace8-5d57-b29d-c0e800a55542",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-08-07T23:34:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-08T00:52:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-08T02:00:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-08T02:23:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-08T02:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-08T03:26:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-08T04:46:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "10:00",
+      "service_family": "scalp"
+    },
+    "state": "active",
+    "updated_at": "2026-08-08T04:46:00+08:00"
+  },
+  {
+    "conversation_ref": "68603870-4d07-5498-827d-ee38ab36ea3b",
+    "customer_ref": "1a22aeac-be73-5dff-9014-d29965b97cc5",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-08-08T13:01:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-08T14:12:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-08T14:24:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "12:00",
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-08-08T14:24:00+08:00"
+  },
+  {
+    "conversation_ref": "1d5e3dc9-365b-5952-bd38-939d493039e1",
+    "customer_ref": "8dd6cea8-c736-5fe2-9fd1-4996f246e130",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-08-08T11:05:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-08T11:58:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-08-08T12:50:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-08T13:29:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-08T14:23:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-08T14:34:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "14:00",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-08-08T14:34:00+08:00"
+  },
+  {
+    "conversation_ref": "2d0bd16e-14fd-5322-b957-c006722c07f3",
+    "customer_ref": "f34c14da-561b-5178-844f-2547dec3aa42",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-08-08T17:21:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-08T17:51:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-08T18:21:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-08T18:50:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-08-08T19:41:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-22",
+      "preferred_time": "17:00",
+      "service_family": "color"
+    },
+    "state": "active",
+    "updated_at": "2026-08-08T19:41:00+08:00"
+  },
+  {
+    "conversation_ref": "b1562f2e-d40c-5611-b1d9-10b931ead9f5",
+    "customer_ref": "3b752037-cfd2-566b-b24b-4143b4a36ab5",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-08-08T14:17:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-08T15:43:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-08T17:11:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-08-08T17:31:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-08-08T18:02:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-08T18:12:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "先不要報價，等我看過髮況再說。",
+        "created_at": "2026-08-08T19:37:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-08T20:11:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-08T21:10:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-15",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-08-08T21:10:00+08:00"
+  },
+  {
+    "conversation_ref": "ce2dd62e-2a73-55d4-8b9e-82b089022d19",
+    "customer_ref": "22db1279-c95c-5106-b0fd-fce485818ad3",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-08-09T11:41:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-09T12:56:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "先不要報價，等我看過髮況再說。",
+        "created_at": "2026-08-09T13:58:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-09T14:04:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-08-09T14:26:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-09T15:35:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-09T16:50:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-09T17:54:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-08-09T18:14:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "color"
+    },
+    "state": "active",
+    "updated_at": "2026-08-09T18:14:00+08:00"
+  },
+  {
+    "conversation_ref": "af3aedca-e12e-5ce4-84e5-b31f56ff0cc0",
+    "customer_ref": "cdee00a0-d470-5de8-a9fb-099f70316bc9",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-08-10T16:16:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-10T17:11:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-08-10T17:50:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-10T18:39:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-08-10T19:56:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-10T20:25:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-21",
+      "service_family": "bleach"
+    },
+    "state": "active",
+    "updated_at": "2026-08-10T20:25:00+08:00"
+  },
+  {
+    "conversation_ref": "d919abcb-0f85-5165-931a-c366587edf64",
+    "customer_ref": "fa3f191a-5e19-5e00-a017-b2cfc6ffb00a",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-08-10T21:27:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-10T22:22:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-08-10T23:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-11T00:43:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-08-11T01:43:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-11T02:57:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-11T02:58:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-11T03:58:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-11T05:20:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-21",
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-08-11T05:20:00+08:00"
+  },
+  {
+    "conversation_ref": "3f8f52b2-b23a-519f-845b-e7b603ba637d",
+    "customer_ref": "6c924203-f811-5ca7-a84d-3567a0433f30",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "請問燙髮大概要多久？想找一天下午過去。",
+        "created_at": "2026-08-16T14:36:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-16T14:56:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-08-16T16:08:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-27",
+      "preferred_time": "14:00",
+      "service_family": "cut"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-08-16T16:08:00+08:00"
+  },
+  {
+    "conversation_ref": "6594c3e8-9462-5f2c-b08e-bf65f3857845",
+    "customer_ref": "389c5c20-72b1-542f-bcae-29d56c8cb17d",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-08-17T13:12:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-17T14:22:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-08-17T15:13:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-17T16:09:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-23",
+      "service_family": "treatment"
+    },
+    "state": "closed",
+    "updated_at": "2026-08-17T16:09:00+08:00"
+  },
+  {
+    "conversation_ref": "abc207f8-8794-53a3-a1b2-9fa3443eaf83",
+    "customer_ref": "5ef46a2b-f449-585d-9cad-24f86e682664",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想預約，時間比較彈性，看你哪天方便。",
+        "created_at": "2026-08-18T21:52:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-18T23:11:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-08-18T23:49:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-19T00:29:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-19T01:27:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-19T02:46:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-19T03:46:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-19T04:26:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "perm"
+    },
+    "state": "closed",
+    "updated_at": "2026-08-19T04:26:00+08:00"
+  },
+  {
+    "conversation_ref": "1d2cea00-ddcc-5d7f-bb76-2c06821af90c",
+    "customer_ref": "f363bc56-c5ed-5f15-9317-9d43d1175c9c",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-08-19T21:47:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-19T23:01:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-19T23:18:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-20T00:35:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-08-20T01:26:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-20T02:55:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-08-20T03:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-20T03:50:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-08-20T05:02:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "scalp"
+    },
+    "state": "closed",
+    "updated_at": "2026-08-20T05:02:00+08:00"
+  },
+  {
+    "conversation_ref": "8f4cbe3b-fad4-5453-a21e-28b678d280ac",
+    "customer_ref": "af6f7dbe-297a-53bc-892c-15bd476a6838",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "設計師好，想預約染髮，這週有時段嗎？",
+        "created_at": "2026-08-20T16:13:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-20T17:20:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-20T18:38:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-23",
+      "service_family": "perm"
+    },
+    "state": "active",
+    "updated_at": "2026-08-20T18:38:00+08:00"
+  },
+  {
+    "conversation_ref": "532bd5d3-7380-5d19-8f64-e768e61fbb4e",
+    "customer_ref": "1f62cfcb-a9ee-5b04-964a-d37f59250fb4",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-08-20T20:47:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-20T21:31:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-08-20T22:48:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-21T00:01:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-08-21T01:30:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-21",
+      "preferred_time": "18:00",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-08-21T01:30:00+08:00"
+  },
+  {
+    "conversation_ref": "76d51c30-929d-59bc-acba-ebffb3c3bbdc",
+    "customer_ref": "63e7d4a9-8347-5d9c-bc93-167759f40029",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-08-21T14:00:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-21T14:09:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-21T15:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-21T15:23:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-21T15:36:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-21T16:38:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "10:00",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-08-21T16:38:00+08:00"
+  },
+  {
+    "conversation_ref": "37066587-af79-5997-acc2-b12eebebdfa7",
+    "customer_ref": "29fbbd44-c55f-55d9-b1d9-8e96d3d05657",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "哈囉～請問這禮拜六下午還有位子嗎？",
+        "created_at": "2026-08-22T15:02:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-22T16:09:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-22T16:18:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-22T16:55:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-22T17:53:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-22T18:02:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-09-02",
+      "service_family": "cut"
+    },
+    "state": "human_takeover",
+    "updated_at": "2026-08-22T18:02:00+08:00"
+  },
+  {
+    "conversation_ref": "99d7ea68-5c94-5548-a93d-60dd117fa6c2",
+    "customer_ref": "aaf3cb9c-cf83-529f-a586-dac95f168931",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "想剪短一點，順便看看要不要換顏色，何時方便？",
+        "created_at": "2026-08-24T17:53:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-24T19:02:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那先幫我留著，我再確認一下班表。",
+        "created_at": "2026-08-24T20:13:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-24T20:20:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "想順便加護髮，一起做時間會拉很長嗎？",
+        "created_at": "2026-08-24T21:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-24T22:24:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-30",
+      "preferred_time": "10:00",
+      "service_family": "scalp"
+    },
+    "state": "closed",
+    "updated_at": "2026-08-24T22:24:00+08:00"
+  },
+  {
+    "conversation_ref": "776c8d28-65da-5adc-b71c-c5e9e3b20140",
+    "customer_ref": "addbde64-f319-5ff6-bc34-4e69974fe1e5",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-08-26T13:48:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-26T14:29:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "先不要報價，等我看過髮況再說。",
+        "created_at": "2026-08-26T14:59:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-26T15:32:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "了解，那我再想想，週末前回覆你。",
+        "created_at": "2026-08-26T16:46:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_time": "18:00",
+      "service_family": "color"
+    },
+    "state": "closed",
+    "updated_at": "2026-08-26T16:46:00+08:00"
+  },
+  {
+    "conversation_ref": "0ee33744-4912-5b52-b3bb-9b723c9084af",
+    "customer_ref": "479e36a2-fda8-5e8d-a490-fe901ede1ad7",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次那個護髮想再做一次，最近可以約嗎？",
+        "created_at": "2026-08-26T12:35:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-26T12:40:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-08-26T14:06:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-26T14:49:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-26T15:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-26T16:16:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我接手一下，這位客人上次的顏色要對一下紀錄。",
+        "created_at": "2026-08-26T17:28:00+08:00",
+        "role": "designer"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-27",
+      "preferred_time": "16:00",
+      "service_family": "scalp"
+    },
+    "state": "active",
+    "updated_at": "2026-08-26T17:28:00+08:00"
+  },
+  {
+    "conversation_ref": "72b4e332-c63d-58c9-be62-dcfb927b70c7",
+    "customer_ref": "e28ded7a-a342-5454-9258-e02e50cee2a5",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-08-28T22:16:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "了解，這個服務大概要兩個半小時，我先幫您抓這個長度。",
+        "created_at": "2026-08-28T23:17:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-08-29T00:39:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "收到，我把需求記下來了：時間您再回覆我一下就可以。",
+        "created_at": "2026-08-29T00:48:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-09-11",
+      "service_family": "color"
+    },
+    "state": "active",
+    "updated_at": "2026-08-29T00:48:00+08:00"
+  },
+  {
+    "conversation_ref": "535d9222-9f86-5a83-b917-c7c9508e19d7",
+    "customer_ref": "7f7e810c-c9c5-55e9-8113-2da1dce780fd",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "頭皮最近有點癢，想約頭皮護理。",
+        "created_at": "2026-08-29T19:01:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "有的，那天下午還有兩個時段，您比較想早一點還是晚一點？",
+        "created_at": "2026-08-29T19:38:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "麻煩了，謝謝～",
+        "created_at": "2026-08-29T19:45:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-29T19:52:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "我可能會晚十分鐘到，沒問題吧？",
+        "created_at": "2026-08-29T20:22:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-29T21:16:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-29T22:10:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "價格會依髮長與狀況調整，這邊先不報死，到店評估後跟您說明。",
+        "created_at": "2026-08-29T22:49:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "那我下午三點可以嗎？",
+        "created_at": "2026-08-29T23:15:00+08:00",
+        "role": "user"
+      }
+    ],
+    "safe_draft_fields": {
+      "preferred_date": "2026-08-30",
+      "service_family": "cut"
+    },
+    "state": "active",
+    "updated_at": "2026-08-29T23:15:00+08:00"
+  },
+  {
+    "conversation_ref": "65eb86a8-b6f5-5a07-b864-9795b357544d",
+    "customer_ref": "4c2d2f07-29cf-5ca0-9eb3-608be7435e06",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "identity_ambiguity": false,
+    "messages": [
+      {
+        "content": "上次剪完長長了，想再修一次。",
+        "created_at": "2026-08-30T20:14:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，我看一下時段。方便先跟我說您想約哪一天嗎？",
+        "created_at": "2026-08-30T21:41:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "幫我把她排在下午第一個，比較不會等。",
+        "created_at": "2026-08-30T22:22:00+08:00",
+        "role": "designer"
+      },
+      {
+        "content": "沒問題，已經幫您記下來了，等設計師確認後再回覆您。",
+        "created_at": "2026-08-30T23:33:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "價位大概多少？想先抓一下預算。",
+        "created_at": "2026-08-30T23:44:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-30T23:52:00+08:00",
+        "role": "assistant"
+      },
+      {
+        "content": "好，那就約那天，謝謝！",
+        "created_at": "2026-08-31T00:24:00+08:00",
+        "role": "user"
+      },
+      {
+        "content": "好的，那我先把時段留著，晚點跟您確認。",
+        "created_at": "2026-08-31T01:50:00+08:00",
+        "role": "assistant"
+      }
+    ],
+    "safe_draft_fields": {
+      "service_family": "bleach"
+    },
+    "state": "active",
+    "updated_at": "2026-08-31T01:50:00+08:00"
+  }
+]

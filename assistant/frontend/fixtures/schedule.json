@@ -1,0 +1,321 @@
+{
+  "as_of": "2026-09-01T00:00:00+08:00",
+  "booking_open_note": "目前客人可預約到 2026/09/30。完成下個月班表後再往後開放。",
+  "booking_open_through": "2026-09-30",
+  "days": [
+    {
+      "date": "2026-09-01",
+      "is_anchor_day": true,
+      "label": "9/1",
+      "slots": [],
+      "weekday": "二"
+    },
+    {
+      "date": "2026-09-02",
+      "is_anchor_day": false,
+      "label": "9/2",
+      "slots": [],
+      "weekday": "三"
+    },
+    {
+      "date": "2026-09-03",
+      "is_anchor_day": false,
+      "label": "9/3",
+      "slots": [
+        {
+          "ends_at": "15:00",
+          "kind": "unavailable",
+          "reason": "私人行程",
+          "starts_at": "14:00",
+          "status_label": "不接客",
+          "status_tone": "muted"
+        },
+        {
+          "ends_at": "18:30",
+          "kind": "booking",
+          "masked_name": "江○禾",
+          "phone_last4": "2359",
+          "service_label": "護髮",
+          "starts_at": "17:00",
+          "status_label": "已進 POS",
+          "status_tone": "ready"
+        }
+      ],
+      "weekday": "四"
+    },
+    {
+      "date": "2026-09-04",
+      "is_anchor_day": false,
+      "label": "9/4",
+      "slots": [
+        {
+          "ends_at": "13:00",
+          "kind": "booking",
+          "masked_name": "蔡○頎",
+          "phone_last4": "9899",
+          "service_label": "護髮",
+          "starts_at": "11:30",
+          "status_label": "已進 POS",
+          "status_tone": "ready"
+        },
+        {
+          "ends_at": "18:00",
+          "kind": "booking",
+          "masked_name": "呂○琁",
+          "phone_last4": "7395",
+          "service_label": "染髮",
+          "starts_at": "16:30",
+          "status_label": "已進 POS",
+          "status_tone": "ready"
+        }
+      ],
+      "weekday": "五"
+    },
+    {
+      "date": "2026-09-05",
+      "is_anchor_day": false,
+      "label": "9/5",
+      "slots": [],
+      "weekday": "六"
+    },
+    {
+      "date": "2026-09-06",
+      "is_anchor_day": false,
+      "label": "9/6",
+      "slots": [],
+      "weekday": "日"
+    },
+    {
+      "date": "2026-09-07",
+      "is_anchor_day": false,
+      "label": "9/7",
+      "slots": [
+        {
+          "ends_at": "12:00",
+          "kind": "unavailable",
+          "reason": "教學（店內）",
+          "starts_at": "10:00",
+          "status_label": "不接客",
+          "status_tone": "muted"
+        }
+      ],
+      "weekday": "一"
+    },
+    {
+      "date": "2026-09-08",
+      "is_anchor_day": false,
+      "label": "9/8",
+      "slots": [],
+      "weekday": "二"
+    },
+    {
+      "date": "2026-09-09",
+      "is_anchor_day": false,
+      "label": "9/9",
+      "slots": [],
+      "weekday": "三"
+    },
+    {
+      "date": "2026-09-10",
+      "is_anchor_day": false,
+      "label": "9/10",
+      "slots": [
+        {
+          "ends_at": "15:00",
+          "kind": "unavailable",
+          "reason": "私人行程",
+          "starts_at": "14:00",
+          "status_label": "不接客",
+          "status_tone": "muted"
+        }
+      ],
+      "weekday": "四"
+    },
+    {
+      "date": "2026-09-11",
+      "is_anchor_day": false,
+      "label": "9/11",
+      "slots": [
+        {
+          "ends_at": "11:30",
+          "kind": "booking",
+          "masked_name": "蘇○頎",
+          "phone_last4": "3963",
+          "service_label": "剪髮",
+          "starts_at": "10:00",
+          "status_label": "需要處理",
+          "status_tone": "warn"
+        },
+        {
+          "ends_at": "15:30",
+          "kind": "booking",
+          "masked_name": "徐○宸",
+          "phone_last4": "2772",
+          "service_label": "染髮",
+          "starts_at": "14:00",
+          "status_label": "已進 POS",
+          "status_tone": "ready"
+        }
+      ],
+      "weekday": "五"
+    },
+    {
+      "date": "2026-09-12",
+      "is_anchor_day": false,
+      "label": "9/12",
+      "slots": [],
+      "weekday": "六"
+    },
+    {
+      "date": "2026-09-13",
+      "is_anchor_day": false,
+      "label": "9/13",
+      "slots": [
+        {
+          "ends_at": "13:30",
+          "kind": "booking",
+          "masked_name": "蔡○薇",
+          "phone_last4": "3554",
+          "service_label": "剪髮",
+          "starts_at": "12:00",
+          "status_label": "已進 POS",
+          "status_tone": "ready"
+        }
+      ],
+      "weekday": "日"
+    },
+    {
+      "date": "2026-09-14",
+      "is_anchor_day": false,
+      "label": "9/14",
+      "slots": [
+        {
+          "ends_at": "12:00",
+          "kind": "unavailable",
+          "reason": "教學（店內）",
+          "starts_at": "10:00",
+          "status_label": "不接客",
+          "status_tone": "muted"
+        }
+      ],
+      "weekday": "一"
+    },
+    {
+      "date": "2026-09-15",
+      "is_anchor_day": false,
+      "label": "9/15",
+      "slots": [],
+      "weekday": "二"
+    },
+    {
+      "date": "2026-09-16",
+      "is_anchor_day": false,
+      "label": "9/16",
+      "slots": [
+        {
+          "ends_at": "12:00",
+          "kind": "booking",
+          "masked_name": "謝○",
+          "phone_last4": "8486",
+          "service_label": "護髮",
+          "starts_at": "10:30",
+          "status_label": "已進 POS",
+          "status_tone": "ready"
+        }
+      ],
+      "weekday": "三"
+    },
+    {
+      "date": "2026-09-17",
+      "is_anchor_day": false,
+      "label": "9/17",
+      "slots": [
+        {
+          "ends_at": "15:00",
+          "kind": "unavailable",
+          "reason": "私人行程",
+          "starts_at": "14:00",
+          "status_label": "不接客",
+          "status_tone": "muted"
+        }
+      ],
+      "weekday": "四"
+    },
+    {
+      "date": "2026-09-18",
+      "is_anchor_day": false,
+      "label": "9/18",
+      "slots": [
+        {
+          "ends_at": "12:30",
+          "kind": "booking",
+          "masked_name": "徐○湘",
+          "phone_last4": "2352",
+          "service_label": "染髮",
+          "starts_at": "11:00",
+          "status_label": "需要處理",
+          "status_tone": "warn"
+        }
+      ],
+      "weekday": "五"
+    },
+    {
+      "date": "2026-09-19",
+      "is_anchor_day": false,
+      "label": "9/19",
+      "slots": [],
+      "weekday": "六"
+    },
+    {
+      "date": "2026-09-20",
+      "is_anchor_day": false,
+      "label": "9/20",
+      "slots": [
+        {
+          "ends_at": "13:00",
+          "kind": "booking",
+          "masked_name": "蕭○",
+          "phone_last4": "0638",
+          "service_label": "頭皮護理",
+          "starts_at": "11:30",
+          "status_label": "需要處理",
+          "status_tone": "warn"
+        }
+      ],
+      "weekday": "日"
+    },
+    {
+      "date": "2026-09-21",
+      "is_anchor_day": false,
+      "label": "9/21",
+      "slots": [
+        {
+          "ends_at": "12:00",
+          "kind": "unavailable",
+          "reason": "教學（店內）",
+          "starts_at": "10:00",
+          "status_label": "不接客",
+          "status_tone": "muted"
+        },
+        {
+          "ends_at": "17:30",
+          "kind": "booking",
+          "masked_name": "王○睿",
+          "phone_last4": "0966",
+          "service_label": "剪髮",
+          "starts_at": "16:00",
+          "status_label": "已進 POS",
+          "status_tone": "ready"
+        }
+      ],
+      "weekday": "一"
+    }
+  ],
+  "generated_from": "assistant/demo_data（固定 seed 42・錨點 2026-09-01T00:00+08:00）",
+  "privacy_note": "姓名已遮罩、電話只留後四碼。這裡的客人、電話與對話全部是產生出來的假資料。",
+  "window": {
+    "end": "2026-09-21",
+    "label": "9/1（二）– 9/21（一）",
+    "start": "2026-09-01"
+  }
+}

@@ -1,0 +1,226 @@
+[
+  {
+    "appointment_ref": "85a761bd-55a8-5a9d-b8bb-0086a2cf61f0",
+    "customer_ref": "03da3b81-8cb6-5dd0-bc93-1b18bab5fb6e",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "treatment",
+    "starts_at": "2026-09-03T17:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "e64e9a4a-5ad2-58d1-a448-0ba89dabf372",
+    "customer_ref": "e1f538a9-4554-5a4f-ba65-c7ea2e84990b",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "treatment",
+    "starts_at": "2026-09-04T11:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "7b576630-89b9-54aa-8fda-f201b1e61691",
+    "customer_ref": "1d097bb6-4ea9-5bab-8ba0-b7fceea971dd",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "color",
+    "starts_at": "2026-09-04T16:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "73ea94ea-c98b-5b52-867f-404378c183a8",
+    "customer_ref": "e6c9078b-6638-51a4-838d-0139dd1a82ae",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "service_family": "cut",
+    "starts_at": "2026-09-08T11:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "0e816f88-1312-5965-98cd-c4f4903c5469",
+    "customer_ref": "eb13b2b3-f271-5306-a4df-1a8e5a52e1b4",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "cut",
+    "starts_at": "2026-09-08T14:00:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "a3e4271b-1773-5d3a-a8f0-9df0af2e7a87",
+    "customer_ref": "5ffbd592-c2c6-500f-be60-27729fb5bf4b",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "service_family": "color",
+    "starts_at": "2026-09-08T17:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "0b22a862-da37-55d6-9c46-34f8c703d2cc",
+    "customer_ref": "d00910f7-3b27-5a5e-bfb1-89d2577dd51d",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "cut",
+    "starts_at": "2026-09-09T12:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "1b7b9032-9626-588f-ae0f-995c736aa4ae",
+    "customer_ref": "ffcbb1d4-e70c-59a9-86f6-d148c8251629",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "perm",
+    "starts_at": "2026-09-09T12:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "7a43cdc6-0af4-5662-9f70-b2836aa0823b",
+    "customer_ref": "87df070d-df36-5e09-aa7f-40a1870e316c",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "treatment",
+    "starts_at": "2026-09-10T17:30:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "65d75456-1c8f-5179-808f-73676283f8d7",
+    "customer_ref": "c56603d9-06b4-5a1e-9361-243ce69c85d8",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "cut",
+    "starts_at": "2026-09-11T10:00:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "6ef49196-f81c-5a4e-82f4-fff50e31ef0c",
+    "customer_ref": "1d9db88d-fc89-59cf-8820-6c4e621c1a6a",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "color",
+    "starts_at": "2026-09-11T12:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "a38d9d28-b3ff-5408-9aeb-d3b6edba5b5d",
+    "customer_ref": "31aa4c57-d330-5319-871b-60e73b9fa42f",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "color",
+    "starts_at": "2026-09-11T14:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "25625e17-bc4c-57fd-93fe-f0f39302248e",
+    "customer_ref": "4f1f2e6d-d92b-57fe-893b-3d1cb13f81b7",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "scalp",
+    "starts_at": "2026-09-12T12:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "eae6625d-b20e-5f7b-95f5-823289627ca0",
+    "customer_ref": "5ef9d4a2-8c81-5b9b-b696-386abd6d15a2",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "service_family": "cut",
+    "starts_at": "2026-09-12T15:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "f0f26690-937b-53cb-8879-f54b0a1b0c20",
+    "customer_ref": "12b8c262-c871-5df0-bf7e-a2df7f1f1573",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "cut",
+    "starts_at": "2026-09-12T18:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "a74111f8-1501-5b99-8152-706962939703",
+    "customer_ref": "6c98dcf0-52ad-58ca-beb7-d918e6489d49",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "cut",
+    "starts_at": "2026-09-13T12:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "b167d994-a6d2-514b-889d-8de87468b5d9",
+    "customer_ref": "23f92f68-4fa4-534c-bd60-152229f8273c",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "service_family": "color",
+    "starts_at": "2026-09-15T13:00:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "ef3a4b39-2947-50d8-b99a-4a111e31fd8d",
+    "customer_ref": "9da7fa39-9842-5878-ace3-2c899dd70f40",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "cut",
+    "starts_at": "2026-09-15T15:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "018b4387-cb7e-5ef7-a4ff-a70cfb3ba8f1",
+    "customer_ref": "e2f3ebb0-a211-529a-8386-75987e10a78a",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "service_family": "treatment",
+    "starts_at": "2026-09-15T16:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "54d45d9e-45d0-5984-a1fc-8944280c2913",
+    "customer_ref": "665d6317-23e3-52ec-aca1-e890d89d644f",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "treatment",
+    "starts_at": "2026-09-16T10:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "ec5e680c-930c-512f-ab3c-9cedbbbd3d3a",
+    "customer_ref": "dfca7498-0e52-55f9-89ef-535f05a2620a",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "scalp",
+    "starts_at": "2026-09-18T10:30:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "15ccb38f-ac21-52b8-8555-5a4d8d5aa186",
+    "customer_ref": "8f18092a-aba9-5e49-8f2a-bfb86cae0903",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "color",
+    "starts_at": "2026-09-18T11:00:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "adffc7de-77be-5281-ae7d-fc7d520e7a92",
+    "customer_ref": "28d2649e-725f-5483-896a-57af8aa70bac",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "cut",
+    "starts_at": "2026-09-19T11:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "249385f4-b016-5d1a-b7e9-6073dca0195b",
+    "customer_ref": "ac34c462-3c7e-502a-8bc8-4a93cff6a93a",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "service_family": "treatment",
+    "starts_at": "2026-09-19T12:00:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "0bb1026a-67e5-514e-92e6-9a0c56d844f4",
+    "customer_ref": "02cc821a-cc85-5f8e-b985-4e889f41f95f",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "scalp",
+    "starts_at": "2026-09-20T11:30:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "1bdf4b87-c797-5e05-927f-98d341a6730c",
+    "customer_ref": "9da7fa39-9842-5878-ace3-2c899dd70f40",
+    "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
+    "service_family": "treatment",
+    "starts_at": "2026-09-20T16:00:00+08:00",
+    "status": "confirmed"
+  },
+  {
+    "appointment_ref": "95e39fda-b39e-5cbd-b88a-2583881db7fb",
+    "customer_ref": "45bb9b6b-928c-5e5a-b5c2-543de9ff78fe",
+    "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
+    "service_family": "scalp",
+    "starts_at": "2026-09-21T13:00:00+08:00",
+    "status": "pending"
+  },
+  {
+    "appointment_ref": "a7d415a6-4f76-5a59-9fc2-737b47370827",
+    "customer_ref": "caf10b4d-5cee-567a-aa85-bdd1996bdba2",
+    "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
+    "service_family": "cut",
+    "starts_at": "2026-09-21T16:00:00+08:00",
+    "status": "confirmed"
+  }
+]

@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "model": "qwen3.7-max",
+  "mode": "live",
+  "as_of": "2026-09-01T00:00:00+08:00",
+  "item_count": 10,
+  "tool_sequence_correct": 10,
+  "tool_sequence_rate": 1.0,
+  "number_rate": 1.0,
+  "violation_count": 0,
+  "passed_count": 10,
+  "avg_seconds": 30.81495443750755,
+  "median_seconds": 24.9360036245198,
+  "avg_total_tokens": 7502.7,
+  "errors": 0,
+  "items": [
+    {
+      "id": "AH-01",
+      "question": "幫我看截至今天，最近 90 天消費金額最高的 5 位客人，金額跟到店次數一起列。",
+      "reply": "最近 90 天消費金額前 5 名：\n\n| 排名 | 客人 | 已知金額 | 到店次數 | 缺金額筆數 |\n|------|------|----------|----------|------------|\n| 1 | 許○恩（尾號 8880） | 16,050 元 | 3 次 | 0 |\n| 2 | 江○琁（尾號 3460） | 15,300 元 | 3 次 | 0 |\n| 3 | 潘○（尾號 8411） | 14,100 元 | 3 次 | 0 |\n| 4 | 謝○（尾號 8486） | 13,100 元 | 3 次 | 0 |\n| 5 | 呂○琁（尾號 7395） | 8,600 元 | 2 次 | 0 |\n\n前 4 位都來了 3 次，呂○琁 來 2 次。這 5 位都沒有缺金額紀錄的到店。",
+      "expected_tools": [
+        "rank_customers_by_spend"
+      ],
+      "called_tools": [
+        "rank_customers_by_spend"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        16050,
+        15300,
+        14100
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 22.756605833012145,
+      "prompt_tokens": 5405,
+      "completion_tokens": 432,
+      "total_tokens": 5837,
+      "rounds": 2,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-02",
+      "question": "幫我找超過 60 天沒回來的客人，按沒回來天數由久到短列 10 位。",
+      "reply": "超過 60 天沒回來的客人，前 10 位如下（按沒回來天數由久到短）：\n\n1. **郭○皓** (9935) — 399 天沒回來，最後到店 2025-07-28，來過 1 次，做 scalp\n2. **曾○雅** (2459) — 362 天沒回來，最後到店 2025-09-03，來過 1 次，做 cut\n3. **張○澐** (4607) — 304 天沒回來，最後到店 2025-10-31，來過 2 次，做 treatment\n4. **葉○雅** (1786) — 289 天沒回來，最後到店 2025-11-15，來過 2 次，做 color\n5. **徐○淇** (9778) — 286 天沒回來，最後到店 2025-11-18，來過 2 次，做 cut\n6. **葉○筱** (4559) — 283 天沒回來，最後到店 2025-11-21，來過 2 次，做 treatment\n7. **莊○苡** (1144) — 278 天沒回來，最後到店 2025-11-26，來過 2 次，做 cut\n8. **賴○澤** (2828) — 265 天沒回來，最後到店 2025-12-09，來過 2 次，做 color\n9. **曾○** (0777) — 256 天沒回來，最後到店 2025-12-18，來過 2 次，做 color\n10. **蕭○舒** (6082) — 247 天沒回來，最後到店 2025-12-27，來過 2 次，做 cut",
+      "expected_tools": [
+        "list_inactive_customers"
+      ],
+      "called_tools": [
+        "list_inactive_customers"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        399,
+        362,
+        304
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 14.495042084017769,
+      "prompt_tokens": 5963,
+      "completion_tokens": 731,
+      "total_tokens": 6694,
+      "rounds": 2,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-03",
+      "question": "最近 90 天消費第一名那位，幫我把每次服務、日期和金額整理出來。",
+      "reply": "最近 90 天消費第一名是 **許○恩**（末碼 8880），90 天內已知消費 16,050 元、3 次到店，無缺金額紀錄。\n\n以下是她全部 11 次到店明細：\n\n| 日期 | 服務 | 金額 |\n|------|------|------|\n| 2026-08-08 | color | 5,350 |\n| 2026-07-06 | color | 5,250 |\n| 2026-06-08 | color | 5,450 |\n| 2026-05-05 | color | 3,850 |\n| 2026-03-27 | perm | 5,550 |\n| 2026-02-12 | perm | 2,950 |\n| 2026-01-09 | scalp | 1,300 |\n| 2025-12-07 | color | 2,500 |\n| 2025-11-06 | scalp | 1,650 |\n| 2025-09-23 | perm | 3,850 |\n| 2025-08-17 | color | 5,150 |\n\n**累計**：到店 11 次，已知總消費 42,850 元，0 筆缺金額。主要做染髮（6 次）和燙髮（3 次），頭皮護理做過 2 次。",
+      "expected_tools": [
+        "rank_customers_by_spend",
+        "get_customer_history"
+      ],
+      "called_tools": [
+        "rank_customers_by_spend",
+        "get_customer_history"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        5350,
+        5250,
+        5450
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 13.906694291974418,
+      "prompt_tokens": 8223,
+      "completion_tokens": 909,
+      "total_tokens": 9132,
+      "rounds": 3,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-04",
+      "question": "幫我整理最近一位有傳訊息的客人：他最後在問什麼、我們回了什麼、目前卡在哪？",
+      "reply": "**客人：潘○**（對話狀態：active）\n\n**客人最後在問什麼：**\n- 8/30 23:44 問價位：「價位大概多少？想先抓一下預算。」\n- 8/31 00:24 確認預約：「好，那就約那天，謝謝！」\n\n**我們回了什麼：**\n- 8/30 23:52 和 8/31 01:50 都回同一句：「好的，那我先把時段留著，晚點跟您確認。」\n\n**目前卡在哪：**\n1. 客人問了價位，但我們沒回答\n2. 客人已經說要約了，但我們只說「晚點確認」，沒給明確時段\n3. 助理重複發了兩次一樣的罐頭回覆，看起來沒在處理\n\n你需要回她：確認哪天、哪個時段、價位多少。",
+      "expected_tools": [
+        "list_recent_conversations",
+        "get_conversation_transcript"
+      ],
+      "called_tools": [
+        "list_recent_conversations",
+        "get_conversation_transcript"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 27.115401416027453,
+      "prompt_tokens": 8171,
+      "completion_tokens": 923,
+      "total_tokens": 9094,
+      "rounds": 3,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-05",
+      "question": "找出 60 天以上沒回來，而且以前做過染髮或燙髮的客人，列前 10 位。",
+      "reply": "60 天以上沒回來、且做過染髮或燙髮的客人，前 10 位如下：\n\n| # | 姓名 | 電話末四碼 | 累積次數 | 最後到店 | 幾天沒來 | 做過的服務 |\n|---|------|-----------|---------|---------|---------|-----------|\n| 1 | 葉○雅 | 1786 | 2 | 2025-11-15 | 289 天 | 染髮 |\n| 2 | 賴○澤 | 2828 | 2 | 2025-12-09 | 265 天 | 染髮 |\n| 3 | 曾○ | 0777 | 2 | 2025-12-18 | 256 天 | 染髮 |\n| 4 | 陳○翊 | 7145 | 2 | 2026-03-24 | 160 天 | 染髮 |\n| 5 | 洪○喬 | 9879 | 2 | 2026-03-28 | 156 天 | 燙髮 |\n| 6 | 葉○睿 | 3212 | 4 | 2026-04-11 | 142 天 | 燙髮、染髮 |\n| 7 | 葉○昀 | 1984 | 3 | 2026-04-19 | 134 天 | 染髮 |\n| 8 | 呂○湘 | 7697 | 3 | 2026-04-22 | 131 天 | 染髮 |\n| 9 | 張○喬 | 7726 | 4 | 2026-04-27 | 126 天 | 染髮 |\n| 10 | 徐○彥 | 2537 | 5 | 2026-05-05 | 118 天 | 燙髮 |\n\n前三名都超過 250 天沒來了，葉○睿和徐○彥累積次數較多（4、5 次），值得優先關心。需要我幫哪位擬回訪訊息嗎？",
+      "expected_tools": [
+        "search_customer_segment"
+      ],
+      "called_tools": [
+        "search_customer_segment"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        289,
+        265,
+        256
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 31.906005874974653,
+      "prompt_tokens": 6019,
+      "completion_tokens": 795,
+      "total_tokens": 6814,
+      "rounds": 2,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-06",
+      "question": "幫我看看誰快流失了，先抓 5 位最值得我主動關心的。",
+      "reply": "快流失名單前 5 位，按風險分數排：\n\n1. **葉○雅** (尾號 1786)\n   - 風險分數：88.15\n   - 289 天沒回來\n   - 累積來過 2 次，已知消費 8,150 元\n   - 上次做染髮\n\n2. **莊○苡** (尾號 1144)\n   - 風險分數：85.1\n   - 278 天沒回來\n   - 累積來過 2 次，已知消費 5,100 元\n   - 上次做剪髮\n\n3. **曾○** (尾號 0777)\n   - 風險分數：84.8\n   - 256 天沒回來\n   - 累積來過 2 次，已知消費 4,800 元\n   - 上次做染髮\n\n4. **張○澐** (尾號 4607)\n   - 風險分數：83.7\n   - 304 天沒回來\n   - 累積來過 2 次，已知消費 3,700 元\n   - 上次做護髮\n\n5. **葉○筱** (尾號 4559)\n   - 風險分數：83.65\n   - 283 天沒回來\n   - 累積來過 2 次，已知消費 3,650 元\n   - 上次做護髮\n\n這 5 位都超過 250 天沒回來，而且都只來過 2 次。葉○雅風險最高，已知消費也最高。",
+      "expected_tools": [
+        "get_retention_watchlist"
+      ],
+      "called_tools": [
+        "get_retention_watchlist"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        88.15,
+        85.1,
+        84.8
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 30.63849487499101,
+      "prompt_tokens": 5487,
+      "completion_tokens": 705,
+      "total_tokens": 6192,
+      "rounds": 2,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-07",
+      "question": "最近 30 天染髮類服務有幾位客人、幾次、已知金額合計多少？",
+      "reply": "**最近 30 天染髮服務數據：**\n\n- **客人數：** 8 位\n- **服務次數：** 8 次\n- **已知金額合計：** 27,200 元\n\n⚠️ 另有 1 筆到店沒有金額紀錄，所以實際營收可能更高，不要把 27,200 元當成完整營收。",
+      "expected_tools": [
+        "get_service_metrics"
+      ],
+      "called_tools": [
+        "get_service_metrics"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        8,
+        27200
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 83.89396808296442,
+      "prompt_tokens": 4923,
+      "completion_tokens": 432,
+      "total_tokens": 5355,
+      "rounds": 2,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-08",
+      "question": "最近 30 天有來兩次以上的熟客有哪些？按次數排序。",
+      "reply": "沒有符合條件的資料。最近 30 天內（2026-08-02 起）沒有來店 2 次以上的客人。",
+      "expected_tools": [
+        "search_customer_segment"
+      ],
+      "called_tools": [
+        "search_customer_segment"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 6.666492250049487,
+      "prompt_tokens": 4856,
+      "completion_tokens": 365,
+      "total_tokens": 5221,
+      "rounds": 2,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-09",
+      "question": "找以前至少來過 3 次、但已經 90 天沒回來的客人，列前 10 位。",
+      "reply": "符合條件（至少來過 3 次、90 天以上沒回來）的前 10 位客人如下，照工具回傳順序：\n\n| # | 姓名 | 電話末4 | 累積次數 | 最後到店 | 已隔幾天 |\n|---|------|---------|---------|---------|---------|\n| 1 | 葉○睿 | 3212 | 4 | 2026-04-11 | 142 |\n| 2 | 葉○昀 | 1984 | 3 | 2026-04-19 | 134 |\n| 3 | 呂○湘 | 7697 | 3 | 2026-04-22 | 131 |\n| 4 | 張○喬 | 7726 | 4 | 2026-04-27 | 126 |\n| 5 | 徐○彥 | 2537 | 5 | 2026-05-05 | 118 |\n| 6 | 賴○澤 | 0959 | 5 | 2026-05-15 | 108 |\n| 7 | 呂○淇 | 7251 | 5 | 2026-05-16 | 107 |\n| 8 | 陳○頎 | 9375 | 5 | 2026-05-16 | 107 |\n| 9 | 羅○宸 | 5617 | 5 | 2026-05-16 | 107 |\n| 10 | 楊○軒 | 6248 | 4 | 2026-05-20 | 103 |\n\n最久沒回來的是葉○睿，已經 142 天；這 10 位都超過 100 天沒回來了，要不要我幫你看哪幾位適合先傳個問候訊息？",
+      "expected_tools": [
+        "search_customer_segment"
+      ],
+      "called_tools": [
+        "search_customer_segment"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        142,
+        134,
+        131
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 11.064657041977625,
+      "prompt_tokens": 6006,
+      "completion_tokens": 648,
+      "total_tokens": 6654,
+      "rounds": 2,
+      "passed": true,
+      "error": null
+    },
+    {
+      "id": "AH-10",
+      "question": "最近一位曾做染髮、現在又有新對話的客人，幫我整理他過去服務和這次需求。",
+      "reply": "## 賴○薇（尾號 0442）\n\n### 過去服務紀錄\n累積 11 次到店，已知金額 26,150 元（0 筆缺金額）。\n\n| 日期 | 服務 | 金額 |\n|------|------|------|\n| 2026-08-18 | 染髮 | 2,150 |\n| 2026-07-21 | 剪髮 | 1,200 |\n| 2026-06-17 | 燙髮 | 2,500 |\n| 2026-05-06 | 染髮 | 3,600 |\n| 2026-03-28 | 護髮 | 2,450 |\n| 2026-02-22 | 護髮 | 2,800 |\n| 2026-01-12 | 剪髮 | 1,150 |\n| 2025-12-02 | 漂髮 | 3,750 |\n| 2025-11-01 | 剪髮 | 800 |\n| 2025-09-19 | 染髮 | 4,750 |\n| 2025-08-17 | 剪髮 | 1,000 |\n\n### 這次對話需求（8/26）\n- 客人說「上次那個護髮想再做一次」，想約時間\n- 客人問下午三點可不可以\n- 客人問價位大概多少，想先抓預算\n- 系統記錄到的偏好：scalp（頭皮護理），希望日期 8/27、時間 16:00\n- 你在對話裡有留一句「這位客人上次的顏色要對一下紀錄」\n\n⚠️ 預約還沒確認，對話裡只說「等設計師確認後再回覆」，需要你親自回覆客人。",
+      "expected_tools": [
+        "search_customer_segment",
+        "list_recent_conversations",
+        "get_customer_history",
+        "get_conversation_transcript"
+      ],
+      "called_tools": [
+        "search_customer_segment",
+        "get_customer_history",
+        "list_recent_conversations",
+        "get_conversation_transcript"
+      ],
+      "missing_tools": [],
+      "extra_tools": [],
+      "tool_sequence_ok": true,
+      "tool_sequence_score": 1.0,
+      "numbers_expected": [
+        11,
+        26150
+      ],
+      "numbers_missing": [],
+      "number_score": 1.0,
+      "violations": [],
+      "fabricated_names": [],
+      "seconds": 65.70618262508651,
+      "prompt_tokens": 12675,
+      "completion_tokens": 1359,
+      "total_tokens": 14034,
+      "rounds": 4,
+      "passed": true,
+      "error": null
+    }
+  ]
+}
