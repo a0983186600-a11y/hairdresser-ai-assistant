@@ -50,6 +50,48 @@ def clock(value: int) -> str:
     return f"{value // 60:02d}:{value % 60:02d}"
 
 
+#: 對話清單一列上看得到的句子：最多兩句、每句最多 40 個字。
+PREVIEW_LINES = 2
+PREVIEW_CHARS = 40
+
+
+def _clip(text: str, limit: int = PREVIEW_CHARS) -> str:
+    """壓成一列放得下的長度，剪掉的地方留一個刪節號。"""
+    tidy = " ".join(text.split())
+    return tidy if len(tidy) <= limit else tidy[: limit - 1] + "…"
+
+
+def conversation_preview(messages) -> list[dict]:
+    """對話清單那一列要顯示的最近 1～2 句；客人講的那句排前面。
+
+    設計師是靠內容認人的：只有遮罩姓名跟更新時間，一排「○○○」看不出誰是誰。
+    這裡只挑**已經講過**的句子，內容認不出來就回空清單——
+    列上寧可少一行字，也不編一句沒人講過的話填滿版面。
+    """
+    spoken = [
+        message
+        for message in messages
+        if isinstance(message, dict)
+        and isinstance(message.get("redacted_content"), str)
+        and message["redacted_content"].strip()
+    ]
+    if not spoken:
+        return []
+    theirs = next((m for m in reversed(spoken) if m.get("role") == "user"), None)
+    lines: list[dict] = []
+    for message in (theirs, spoken[-1]):
+        if message is None:
+            continue
+        line = {
+            "role": message.get("role"),
+            "text": _clip(message["redacted_content"]),
+            "at": message.get("created_at"),
+        }
+        if line not in lines:
+            lines.append(line)
+    return lines[:PREVIEW_LINES]
+
+
 def _text(data: dict, key: str, message: str, *, status: int = 400, optional: bool = False) -> str:
     """讀一個字串欄位：不是字串就擋下來。
 

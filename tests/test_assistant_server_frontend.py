@@ -319,3 +319,46 @@ def test_the_badge_tells_where_the_data_pages_come_from():
     shell = (FRONTEND / "shell.js").read_text("utf-8")
     assert "data_source_label" in shell
     assert "data_source_note" in shell
+
+
+# --- 預約頁：手動排單、對話列有內容、點進去帶著身分排單（Steve 2026-09-05）--------
+
+
+def test_the_bookings_page_keeps_the_manual_form_above_the_two_tabs():
+    """入口改成兩個分頁之後，手動排單被收進第二頁——Steve 在示範站上說「不見了」。
+
+    表單要是**同一份** `book` 表單（`bookingForm`），不是另外抄一份：抄一份的話
+    「不猜剪髮」「工時依設定算」這些規矩只會補在其中一份上。
+    """
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function bookings(") : text.index("function bookingRecords(")]
+
+    assert "＋ 手動排一筆" in body
+    assert body.index("＋ 手動排一筆") < body.index("booking-tabs"), "表單區塊要在兩個分頁之上"
+    assert "host.append(manual, tabs, content)" in body
+    assert "bookingForm(" in body
+    assert "function bookingForm(" in text and "bookingForm(host, args)" in text
+
+
+def test_the_conversation_rows_show_what_was_said_not_only_a_name():
+    """列上只有姓名跟時間認不出是誰。每列要帶伺服器算好的那 1～2 句。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function conversationRow(") : text.index("function thread(")]
+
+    assert "x.preview" in body
+    assert "speaker(" in body, "誰講的要標出來，不能兩句黏成一句"
+    assert "這段對話還沒有內容可以顯示。" in body, "沒有內容就說沒有，不留白也不假裝"
+    assert "x.preview.map" not in body or "slice" in body
+
+
+def test_a_conversation_that_matches_nobody_is_marked_instead_of_guessed():
+    """對不到客人的對話：按鈕改成「還沒對到客人」並讓設計師自己選，不准配一位。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function thread(") :]
+
+    assert "未辨識" in body
+    assert "這段對話還沒對到客人" in body
+    assert "幫他排一筆" in body
+    assert "pickCustomer(" in body
+    assert "bookings({" in body, "按下去要回預約頁帶著這位客人，不是原地再開一張表單"
+    assert "已排 " in body, "排完之後這段對話上要看得到已經排了哪一筆"

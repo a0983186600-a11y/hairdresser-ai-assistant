@@ -104,17 +104,41 @@
     else if (g.WorkbenchSettings) g.WorkbenchSettings.open(name);
   }
 
-  function bookings() {
+  function bookings(args) {
+    args = args || {};
     S.open("預約", function (host) {
+      // 手動排單住在兩個分頁**之上**，不跟著分頁被收走：這是設計師自己動手的入口，
+      // 從對話那頭帶著客人回來的時候也落在這裡（`args.customer`）。
+      var manual = n("div", "manual-book"),
+        panel = n("div"),
+        opened = false,
+        toggle = b(
+          "＋ 手動排一筆",
+          function () {
+            expand(!opened);
+          },
+          "primary full",
+        );
+      toggle.setAttribute("aria-expanded", "false");
+      manual.append(toggle, panel);
+      function expand(next) {
+        opened = next;
+        toggle.textContent = opened ? "收起手動排單" : "＋ 手動排一筆";
+        toggle.setAttribute("aria-expanded", String(opened));
+        panel.replaceChildren();
+        if (opened)
+          bookingForm(panel, { customer: args.customer, back: args.back });
+      }
       var tabs = n("div", "booking-tabs"), content = n("div"), version = 0;
       tabs.setAttribute("role", "tablist");
       tabs.setAttribute("aria-label", "預約工作");
-      host.append(tabs, content);
+      host.append(manual, tabs, content);
       function show(kind, selected) {
         version++;
         var turn = version;
         Array.from(tabs.children).forEach(function (x) { x.setAttribute("aria-selected", x === selected); });
         content.replaceChildren();
+        content.classList.remove("conversation-list");
         if (kind === "records") bookingRecords(content);
         else conversationList(content, function () { return turn === version; }).catch(function (e) {
           if (turn === version) S.fail(content, e);
@@ -125,6 +149,8 @@
         tab.setAttribute("role", "tab"); tabs.append(tab);
       });
       show("conversations", tabs.firstChild);
+      // 從對話按「幫他排一筆」進來的話，表單直接攤開並且已經帶著那位客人。
+      expand(!!args.customer);
     });
   }
   function bookingRecords(host) {
@@ -492,231 +518,246 @@
     S.open(
       args.booking ? "調整預約" : "排一筆",
       function (host) {
-        warning(host);
-        var existing = args.booking || null,
-          block = args.block || null,
-          selected =
-            args.customer || (existing && customer(existing.customer_ref)),
-          picked = existing ? existing.services.slice() : [],
-          mode = block ? "block" : args.mode || "book";
-        var intro = n("div");
-        host.append(intro);
-        if (!args.customer && !existing && !block) {
-          var tabs = n("div", "chips");
-          [
-            ["book", "排預約"],
-            ["block", "不接客"],
-          ].forEach(function (p) {
-            var t = b(
-              p[1],
-              function () {
-                mode = p[0];
-                paint();
-              },
-              "chip",
-            );
-            tabs.append(t);
-          });
-          intro.append(tabs);
+        bookingForm(host, args);
+      },
+      true,
+    );
+  }
+  /* 排單表單本體。預約頁把它攤在分頁上面、其他入口把它開成一張 sheet——
+     兩邊是**同一份**表單，規矩（不猜項目、工時依設定算）只寫在這裡一次。 */
+  function bookingForm(host, args) {
+    warning(host);
+    var existing = args.booking || null,
+      block = args.block || null,
+      selected =
+        args.customer || (existing && customer(existing.customer_ref)),
+      picked = existing ? existing.services.slice() : [],
+      mode = block ? "block" : args.mode || "book";
+    var intro = n("div");
+    host.append(intro);
+    if (!args.customer && !existing && !block) {
+      var tabs = n("div", "chips");
+      [
+        ["book", "排預約"],
+        ["block", "不接客"],
+      ].forEach(function (p) {
+        var t = b(
+          p[1],
+          function () {
+            mode = p[0];
+            paint();
+          },
+          "chip",
+        );
+        tabs.append(t);
+      });
+      intro.append(tabs);
+    }
+    var content = n("div");
+    host.append(content);
+    var chosenDate = existing
+        ? existing.date
+        : block
+          ? block.date
+          : args.date || S.state.days[0].date,
+      chosenTime = existing
+        ? existing.time
+        : block
+          ? block.start
+          : args.time || S.state.settings.open_time;
+    function paint() {
+      content.replaceChildren();
+      if (intro.firstChild)
+        Array.from(intro.firstChild.children).forEach(function (t, i) {
+          t.setAttribute("aria-pressed", (i === 0) === (mode === "book"));
+        });
+      var date = f("日期", "date", chosenDate),
+        time = f(
+          mode === "block" ? "開始時間" : "時間",
+          "time",
+          chosenTime,
+        ),
+        end = f(
+          "結束時間",
+          "time",
+          block ? block.end : clock(Math.min(mins(chosenTime) + 60, 1200)),
+        );
+      dates(date.input);
+      date.input.required = time.input.required = true;
+      date.input.addEventListener("change", function () {
+        chosenDate = date.input.value;
+      });
+      time.input.addEventListener("change", function () {
+        chosenTime = time.input.value;
+      });
+      var frm = form(content, function () {
+        if (mode === "book" && (!selected || !picked.length)) {
+          S.fail(frm, new Error("請先選客人及服務項目。"));
+          return;
         }
-        var content = n("div");
-        host.append(content);
-        var chosenDate = existing
-            ? existing.date
-            : block
-              ? block.date
-              : args.date || S.state.days[0].date,
-          chosenTime = existing
-            ? existing.time
-            : block
-              ? block.start
-              : args.time || S.state.settings.open_time;
-        function paint() {
-          content.replaceChildren();
-          if (intro.firstChild)
-            Array.from(intro.firstChild.children).forEach(function (t, i) {
-              t.setAttribute("aria-pressed", (i === 0) === (mode === "book"));
-            });
-          var date = f("日期", "date", chosenDate),
-            time = f(
-              mode === "block" ? "開始時間" : "時間",
-              "time",
-              chosenTime,
-            ),
-            end = f(
-              "結束時間",
-              "time",
-              block ? block.end : clock(Math.min(mins(chosenTime) + 60, 1200)),
-            );
-          dates(date.input);
-          date.input.required = time.input.required = true;
-          date.input.addEventListener("change", function () {
-            chosenDate = date.input.value;
-          });
-          time.input.addEventListener("change", function () {
-            chosenTime = time.input.value;
-          });
-          var frm = form(content, function () {
-            if (mode === "book" && (!selected || !picked.length)) {
-              S.fail(frm, new Error("請先選客人及服務項目。"));
-              return;
-            }
-            var data =
-              mode === "block"
-                ? {
-                    date: date.input.value,
-                    start: time.input.value,
-                    end: end.input.value,
-                  }
-                : {
-                    date: date.input.value,
-                    time: time.input.value,
-                    customer_ref: selected.customer_ref,
-                    services: picked.slice(),
-                  };
-            if (existing) data.id = existing.id;
-            if (block) data.id = block.id;
-            S.confirm(
-              "確認這次示範",
-              date.input.value +
-                " " +
-                time.input.value +
-                " · " +
-                (mode === "block"
-                  ? "不接客"
-                  : selected.masked_name +
-                    "／" +
-                    picked.map(serviceLabel).join("＋")),
-              async function () {
-                var result = await S.mutate(
-                  mode === "block"
-                    ? block
-                      ? "update_block"
-                      : "block"
-                    : existing
-                      ? "update_booking"
-                      : "book",
-                  data,
-                );
-                content.replaceChildren(
-                  n("div", "card", "已存入本次示範班表。沒有真的送出 POS。"),
-                  b(
-                    "查看班表",
-                    function () {
-                      schedule({ date: date.input.value });
-                    },
-                    "primary full",
-                  ),
-                );
-                if (result.booking)
-                  content.append(
-                    b(
-                      "查看這筆預約",
-                      function () {
-                        booking({ id: result.booking.id });
-                      },
-                      "text-button full",
-                    ),
-                  );
-              },
-            );
-          });
-          if (mode === "book") {
-            if (selected) {
-              var card = n("div", "card");
-              card.append(
-                n("h3", null, selected.masked_name),
-                n("p", "muted", "電話末四碼 " + selected.phone_last4),
-                b(
-                  "換人",
-                  function () {
-                    selected = null;
-                    paint();
-                  },
-                  "text-button",
-                ),
-              );
-              frm.append(card);
-              note(frm, "資料已帶入，不用再打一次。");
-            } else {
-              var search = f("舊客 · 查姓名或電話末四碼", "search"),
-                results = n("div", "card");
-              frm.append(search.wrap, results);
-              function find() {
-                results.replaceChildren();
-                var list = S.state.customers
-                  .filter(function (c) {
-                    return (c.masked_name + (c.phone_last4 || "")).includes(
-                      search.input.value,
-                    );
-                  })
-                  .slice(0, 8);
-                list.forEach(function (c) {
-                  results.append(
-                    row(c.masked_name, "末四碼 " + c.phone_last4, function () {
-                      selected = c;
-                      // 有上次服務才帶出來；沒有就讓設計師自己選，不猜「剪髮」。
-                      if (!picked.length && c.last_service)
-                        picked = [c.last_service];
-                      paint();
-                    }),
-                  );
-                });
-                if (!list.length) note(results, "查無資料，可新增示範客人。");
+        var data =
+          mode === "block"
+            ? {
+                date: date.input.value,
+                start: time.input.value,
+                end: end.input.value,
               }
-              search.input.addEventListener("input", find);
-              find();
-              frm.append(
+            : {
+                date: date.input.value,
+                time: time.input.value,
+                customer_ref: selected.customer_ref,
+                services: picked.slice(),
+              };
+        if (existing) data.id = existing.id;
+        if (block) data.id = block.id;
+        S.confirm(
+          "確認這次示範",
+          date.input.value +
+            " " +
+            time.input.value +
+            " · " +
+            (mode === "block"
+              ? "不接客"
+              : selected.masked_name +
+                "／" +
+                picked.map(serviceLabel).join("＋")),
+          async function () {
+            var result = await S.mutate(
+              mode === "block"
+                ? block
+                  ? "update_block"
+                  : "block"
+                : existing
+                  ? "update_booking"
+                  : "book",
+              data,
+            );
+            content.replaceChildren(
+              n("div", "card", "已存入本次示範班表。沒有真的送出 POS。"),
+              b(
+                "查看班表",
+                function () {
+                  schedule({ date: date.input.value });
+                },
+                "primary full",
+              ),
+            );
+            if (result.booking)
+              content.append(
                 b(
-                  "新客 · 新增示範資料",
+                  "查看這筆預約",
                   function () {
-                    newCustomer(function (c) {
-                      // 新客沒有上次服務，一樣不預選；送出時表單會擋沒選項目。
-                      selected = c;
-                      paint();
-                    });
+                    booking({ id: result.booking.id });
                   },
                   "text-button full",
                 ),
               );
-            }
-            frm.append(n("h3", null, "項目（可複選）"));
-            choices(frm, S.state.settings.services, picked, function (id) {
-              picked = picked.includes(id)
-                ? picked.filter(function (x) {
-                    return x !== id;
-                  })
-                : picked.concat(id);
-              paint();
-            });
-            var duration =
-              S.state.settings.duration_mode === "fixed"
-                ? S.state.settings.fixed_duration
-                : picked.reduce(function (sum, id) {
-                    var x = S.state.settings.services.find(function (v) {
-                      return v.id === id;
-                    });
-                    return sum + (x ? x.duration : 0);
-                  }, 0);
-            note(frm, "本次安排 " + duration + " 分鐘，依示範設定計算。");
-          }
-          var fields = n("div", "inline-fields");
-          fields.append(date.wrap, time.wrap);
-          frm.append(fields);
-          if (mode === "block") {
-            end.input.required = true;
-            frm.append(end.wrap);
-          }
-          var save = submit(
-            mode === "block" ? "這段不接客（示範）" : "排進班表（示範）",
+            if (args.back)
+              content.append(
+                b(
+                  "回這段對話",
+                  function () {
+                    thread(args.back);
+                  },
+                  "text-button full",
+                ),
+              );
+          },
+        );
+      });
+      if (mode === "book") {
+        if (selected) {
+          var card = n("div", "card");
+          card.append(
+            n("h3", null, selected.masked_name),
+            n("p", "muted", "電話末四碼 " + selected.phone_last4),
+            b(
+              "換人",
+              function () {
+                selected = null;
+                paint();
+              },
+              "text-button",
+            ),
           );
-          save.disabled = S.state.read_only;
-          frm.append(save);
+          frm.append(card);
+          note(frm, "資料已帶入，不用再打一次。");
+        } else {
+          var search = f("舊客 · 查姓名或電話末四碼", "search"),
+            results = n("div", "card");
+          frm.append(search.wrap, results);
+          function find() {
+            results.replaceChildren();
+            var list = S.state.customers
+              .filter(function (c) {
+                return (c.masked_name + (c.phone_last4 || "")).includes(
+                  search.input.value,
+                );
+              })
+              .slice(0, 8);
+            list.forEach(function (c) {
+              results.append(
+                row(c.masked_name, "末四碼 " + c.phone_last4, function () {
+                  selected = c;
+                  // 有上次服務才帶出來；沒有就讓設計師自己選，不猜「剪髮」。
+                  if (!picked.length && c.last_service)
+                    picked = [c.last_service];
+                  paint();
+                }),
+              );
+            });
+            if (!list.length) note(results, "查無資料，可新增示範客人。");
+          }
+          search.input.addEventListener("input", find);
+          find();
+          frm.append(
+            b(
+              "新客 · 新增示範資料",
+              function () {
+                newCustomer(function (c) {
+                  // 新客沒有上次服務，一樣不預選；送出時表單會擋沒選項目。
+                  selected = c;
+                  paint();
+                });
+              },
+              "text-button full",
+            ),
+          );
         }
-        paint();
-      },
-      true,
-    );
+        frm.append(n("h3", null, "項目（可複選）"));
+        choices(frm, S.state.settings.services, picked, function (id) {
+          picked = picked.includes(id)
+            ? picked.filter(function (x) {
+                return x !== id;
+              })
+            : picked.concat(id);
+          paint();
+        });
+        var duration =
+          S.state.settings.duration_mode === "fixed"
+            ? S.state.settings.fixed_duration
+            : picked.reduce(function (sum, id) {
+                var x = S.state.settings.services.find(function (v) {
+                  return v.id === id;
+                });
+                return sum + (x ? x.duration : 0);
+              }, 0);
+        note(frm, "本次安排 " + duration + " 分鐘，依示範設定計算。");
+      }
+      var fields = n("div", "inline-fields");
+      fields.append(date.wrap, time.wrap);
+      frm.append(fields);
+      if (mode === "block") {
+        end.input.required = true;
+        frm.append(end.wrap);
+      }
+      var save = submit(
+        mode === "block" ? "這段不接客（示範）" : "排進班表（示範）",
+      );
+      save.disabled = S.state.read_only;
+      frm.append(save);
+    }
+    paint();
   }
 
   function newCustomer(done) {
@@ -969,22 +1010,127 @@
         return;
       }
       data.rows.forEach(function (x) {
-        host.append(
-          row(
-            x.masked_name || "客人",
-            "更新 " + x.updated_at.replace("T", " ").slice(0, 16),
-            function () {
-              thread({ ref: x.conversation_ref, customer_ref: x.customer_ref });
-            },
-          ),
-        );
+        host.append(conversationRow(x));
       });
+  }
+  function speaker(role, simulated) {
+    return role === "user"
+      ? "客人"
+      : role === "designer"
+        ? simulated
+          ? "你（僅演練，未送出）"
+          : "設計師"
+        : "預約小幫手";
+  }
+  function stamp(iso) {
+    return iso.slice(5, 10).replace("-", "/") + " " + iso.slice(11, 16);
+  }
+  function conversationRow(x) {
+    // 一列要能認出是誰：遮罩姓名＋最近 1～2 句（客人講的那句在前）＋時間。
+    // 那幾句是伺服器從逐字稿挑的，前端只負責顯示，不自己拼、不自己補。
+    var item = b(
+        "",
+        function () {
+          thread({ ref: x.conversation_ref, customer_ref: x.customer_ref });
+        },
+        "list-row",
+      ),
+      txt = n("span", "grow"),
+      head = n("div", "row between"),
+      lines = x.preview || [];
+    head.append(
+      n("b", null, x.masked_name || "客人"),
+      n("small", "muted", stamp(x.updated_at)),
+    );
+    txt.append(head);
+    lines.forEach(function (m) {
+      txt.append(n("div", "preview", speaker(m.role) + "：" + m.text));
+    });
+    if (!lines.length)
+      txt.append(n("div", "muted", "這段對話還沒有內容可以顯示。"));
+    item.append(avatar(x.masked_name), txt, n("span", "chevron", "›"));
+    return item;
+  }
+  /* 對不到客人的對話：由設計師自己指名要排給誰。系統不替他配一位——
+     配錯人就是把別人的預約排到這個人身上，而畫面上看不出來。 */
+  function pickCustomer(done) {
+    S.open(
+      "手動選一位客人",
+      function (host) {
+        note(host, "這段對話沒有對到名單上的客人；請你指定要排給誰，系統不會自己配。");
+        var search = f("找姓名或電話末四碼", "search"),
+          list = n("div", "card");
+        host.append(search.wrap, list);
+        function draw() {
+          list.replaceChildren();
+          var rows = S.state.customers
+            .filter(function (c) {
+              return (c.masked_name + (c.phone_last4 || "")).includes(
+                search.input.value.trim(),
+              );
+            })
+            .slice(0, 8);
+          rows.forEach(function (c) {
+            list.append(
+              row(c.masked_name, "末四碼 " + (c.phone_last4 || "未提供"), function () {
+                S.close();
+                done(c);
+              }),
+            );
+          });
+          if (!rows.length) note(list, "查無資料。");
+        }
+        search.input.addEventListener("input", draw);
+        draw();
+      },
+      true,
+    );
   }
   function thread(args) {
     S.open("對話內容", async function (host) {
       var response = await A.transcript(args.ref),
-        data = response.result;
+        data = response.result,
+        who = customer(args.customer_ref);
       warning(host);
+      // 畫面上方先說清楚這是誰：認得出就寫遮罩姓名與末四碼，認不出就寫「未辨識」。
+      var head = n("div", "card thread-who"),
+        title = n("div", "row"),
+        label = n("div", "grow");
+      label.append(
+        n("b", null, who ? who.masked_name : "未辨識"),
+        n(
+          "div",
+          "muted",
+          who
+            ? "電話末四碼 " + (who.phone_last4 || "未提供")
+            : "這段對話還沒對到名單上的客人。",
+        ),
+      );
+      title.append(avatar(who ? who.masked_name : "？"), label);
+      head.append(title);
+      if (who)
+        S.state.bookings
+          .filter(function (x) {
+            return x.customer_ref === who.customer_ref && x.status !== "cancelled";
+          })
+          .sort(function (a, c) {
+            return (a.date + a.time).localeCompare(c.date + c.time);
+          })
+          .forEach(function (x) {
+            head.append(
+              n(
+                "div",
+                "booked",
+                "已排 " +
+                  x.date.slice(5).replace("-", "/") +
+                  " " +
+                  x.time +
+                  " · " +
+                  x.service_label,
+              ),
+            );
+          });
+      host.append(head);
       var controls = n("div", "actions"),
         takeover = b("", async function () {
           var on = !S.state.takeovers[args.ref];
@@ -1001,16 +1147,25 @@
           );
         });
       controls.append(takeover);
-      if (customer(args.customer_ref))
-        controls.append(
-          b(
-            "幫他預約",
-            function () {
-              add({ customer: customer(args.customer_ref) });
-            },
-            "primary",
-          ),
-        );
+      // 排單一律回預約頁那張表單，帶著這位客人；剩下日期、時間、項目要填。
+      var carry = { ref: args.ref, customer_ref: args.customer_ref };
+      function toBookings(c) {
+        S.closeAll();
+        bookings({ customer: c, back: carry });
+      }
+      controls.append(
+        who
+          ? b(
+              "幫他排一筆",
+              function () {
+                toBookings(who);
+              },
+              "primary",
+            )
+          : b("這段對話還沒對到客人", function () {
+              pickCustomer(toBookings);
+            }),
+      );
       host.append(controls);
       var history = n("div", "thread");
       host.append(history);
@@ -1028,17 +1183,7 @@
               "turn " + (m.role === "designer" ? "mine" : "theirs"),
             );
             wrap.append(
-              n(
-                "div",
-                "speaker",
-                m.role === "user"
-                  ? "客人"
-                  : m.role === "designer"
-                    ? m.simulated
-                      ? "你（僅演練，未送出）"
-                      : "設計師"
-                    : "預約小幫手",
-              ),
+              n("div", "speaker", speaker(m.role, m.simulated)),
               n("div", "bubble", m.redacted_content),
             );
             history.append(wrap);

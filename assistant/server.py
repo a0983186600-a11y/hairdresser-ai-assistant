@@ -75,7 +75,7 @@ from assistant.agent.toolsmith import ToolsmithError, ToolsmithStore
 from assistant.config.loader import Config, load_config
 from assistant.demo_data.generate import ANCHOR, DATA_DIR, load_dataset
 from assistant.tools.registry import dispatch
-from assistant.workbench import Workbench, WorkbenchError
+from assistant.workbench import Workbench, WorkbenchError, conversation_preview
 
 __all__ = ["app", "create_app", "now", "FRONTEND_DIR", "DEMO_PAGES"]
 
@@ -488,7 +488,21 @@ def create_app() -> FastAPI:
 
     @application.get("/api/workbench/conversations")
     def conversations() -> dict:
-        return _read_tool("list_recent_conversations", {"limit": 50})
+        # 清單一列只有遮罩姓名跟更新時間時認不出是誰，所以每列補上最近 1～2 句。
+        # 句子一律取逐字稿那條路（同一套遮罩）；某一段讀不到就留空，
+        # 少一行字而已，不會讓整份清單掛掉。
+        payload = _read_tool("list_recent_conversations", {"limit": 50})
+        rows = []
+        for row in payload.get("rows", []):
+            try:
+                messages = _read_tool(
+                    "get_conversation_transcript",
+                    {"conversation_ref": row.get("conversation_ref"), "message_limit": 8},
+                )["result"]["messages"]
+            except HTTPException:
+                messages = []
+            rows.append({**row, "preview": conversation_preview(messages)})
+        return {**payload, "rows": rows}
 
     @application.get("/api/workbench/conversations/{conversation_ref}")
     def transcript(conversation_ref: str) -> dict:

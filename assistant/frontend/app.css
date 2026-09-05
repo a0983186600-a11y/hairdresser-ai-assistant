@@ -791,6 +791,12 @@ img {
 .policy-mode small { color: var(--muted); line-height: 1.5; }
 .policy-mode[aria-checked="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .policy-mode[aria-checked="true"] b::before { content: "● "; }
+.manual-book { margin-bottom: 14px; }
+.manual-book > div:not(:empty) { margin-top: 10px; padding-top: 4px; border-top: 1px solid var(--line); }
+.preview { font-size: 12.5px; line-height: 1.5; margin-top: 3px; overflow-wrap: anywhere; }
+.conversation-list .list-row { align-items: flex-start; }
+.conversation-list .avatar, .conversation-list .chevron { margin-top: 2px; }
+.booked { margin-top: 8px; font-size: 12.5px; color: var(--sig); }
 .booking-tabs { display: flex; gap: 4px; background: var(--paper-2); padding: 4px; border-radius: 12px; margin-bottom: 18px; }
 .booking-tabs button { flex: 1; background: transparent; border: 0; padding: 11px; border-radius: 9px; }
 .booking-tabs [aria-selected="true"] { background: var(--ink); color: white; }

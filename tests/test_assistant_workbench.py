@@ -440,3 +440,67 @@ def test_the_booking_form_does_not_guess_cut_when_there_is_no_last_service():
     text = source.read_text(encoding="utf-8")
     assert 'last_service || "cut"' not in text
     assert 'picked = ["cut"]' not in text
+
+
+# ── 對話清單要看得到內容，排單要帶著身分（Steve 2026-09-05 在示範站上的回饋）──
+
+
+def test_the_conversation_list_carries_the_last_lines_not_only_a_name(client):
+    """一列只有遮罩姓名＋更新時間時，設計師認不出這是誰——要帶最近 1～2 句。"""
+    response = client.get("/api/workbench/conversations")
+    rows = response.json()["rows"]
+
+    assert rows
+    for row in rows:
+        assert isinstance(row["preview"], list), row
+        assert len(row["preview"]) <= 2, row
+        for line in row["preview"]:
+            assert line["text"].strip()
+            assert len(line["text"]) <= 40, line
+            assert line["role"] in {"user", "assistant", "designer"}, line
+    spoken = [row for row in rows if row["preview"]]
+    assert spoken, "示範對話都有訊息，清單不該一句都帶不出來"
+    for row in spoken:
+        roles = [line["role"] for line in row["preview"]]
+        # 客人講的那句排前面：那才是設計師拿來認人的線索。
+        if "user" in roles:
+            assert roles[0] == "user", row
+    assert "full_name" not in response.text
+
+
+def test_a_conversation_preview_never_invents_a_line_that_was_not_said():
+    """認不出內容就回空清單。列上少一行字沒關係，編一句沒人講過的話不行。"""
+    from assistant.workbench import conversation_preview
+
+    assert conversation_preview([]) == []
+    assert conversation_preview([{"role": "user", "redacted_content": "   "}]) == []
+    assert conversation_preview([{"role": "user", "redacted_content": 12}]) == []
+    picked = conversation_preview(
+        [
+            {"role": "user", "created_at": "2026-09-01T10:00", "redacted_content": "客" * 80},
+            {"role": "assistant", "created_at": "2026-09-01T10:05", "redacted_content": "好的"},
+        ]
+    )
+    assert [line["role"] for line in picked] == ["user", "assistant"]
+    assert len(picked[0]["text"]) == 40
+    assert picked[0]["text"].endswith("…")
+    same = conversation_preview(
+        [{"role": "user", "created_at": "2026-09-01T10:00", "redacted_content": "只有一句"}]
+    )
+    assert same == [{"role": "user", "text": "只有一句", "at": "2026-09-01T10:00"}]
+
+
+def test_a_conversation_row_carries_the_customer_the_booking_form_needs(client):
+    """點進對話再按「幫他排一筆」那條路：清單那一列的客編就是 book 收得下的客編。"""
+    s = state(client)
+    row = client.get("/api/workbench/conversations").json()["rows"][0]
+
+    assert row["customer_ref"] in {c["customer_ref"] for c in s["customers"]}
+    request = {**free_booking(s), "customer_ref": row["customer_ref"]}
+    booked = action(client, "book", **request)
+    assert booked.status_code == 200, booked.text
+    assert booked.json()["booking"]["masked_name"] == row["masked_name"]
+    assert booked.json()["booking"]["id"] in [b["id"] for b in state(client)["bookings"]]
+    # 對不到名單上的客人就排不進去——畫面上那顆按鈕也因此不准自己配一位。
+    stranger = action(client, "book", **{**request, "customer_ref": "not-mine"})
+    assert stranger.status_code == 404
