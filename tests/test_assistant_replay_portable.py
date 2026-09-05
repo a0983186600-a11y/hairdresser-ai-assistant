@@ -26,7 +26,7 @@ def test_every_recording_works_when_the_process_starts_outside_the_repo(monkeypa
     monkeypatch.chdir(tmp_path)
     client = TestClient(server.create_app())
     prompts = re.findall(r'data-quick-prompt="([^"]+)"', client.get("/").text)
-    assert len(prompts) == 7
+    assert len(prompts) == 8
     replies = [client.post("/api/chat", json={"message": prompt}).json() for prompt in prompts]
     assert all(reply["reply"] != NO_RECORDING_REPLY and reply["tool_calls"] for reply in replies)
     assert client.get("/health").json()["replay_available"] is True

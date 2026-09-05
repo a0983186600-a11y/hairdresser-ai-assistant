@@ -108,5 +108,15 @@
     draft: function (ref) {
       return send("/api/workbench/draft/" + encodeURIComponent(ref));
     },
+    sessionTools: function (sessionId) {
+      return send(
+        "/api/workbench/tools?session_id=" + encodeURIComponent(sessionId || ""),
+      );
+    },
+    // 送出去的只有一個 id。程式碼早就在伺服器上了——讓瀏覽器指定要跑什麼，
+    // 等於開一條「誰都能送一段程式碼進來」的路，沙盒擋不住那條路本身。
+    adoptTool: function (proposalId) {
+      return post("/api/workbench/tools/adopt", { proposal_id: proposalId });
+    },
   };
 })(window);

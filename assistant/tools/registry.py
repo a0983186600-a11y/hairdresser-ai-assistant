@@ -217,11 +217,18 @@ def _draft_parameters(config: Config) -> dict[str, Any]:
     }
 
 
-def tool_schemas(config: Config) -> list[dict[str, Any]]:
+def tool_schemas(config: Config, *, toolsmith: Any = None) -> list[dict[str, Any]]:
     """11 個工具的 OpenAI function-calling 宣告，原封不動送進端點。
 
     八個查詢 ＋ 一個確定性草稿 ＋ 兩個提案。提案工具跟其他九個一樣是**只讀**的：
     它們回一張待確認的單子，寫入要等設計師在卡片上按下確認。
+
+    `toolsmith` 是**這一段對話**的工具工坊（`assistant.agent.toolsmith.Toolsmith`）。
+    給了就在固定十一個後面附上「提案新工具」以及這段對話已經採用的那幾支。
+    不給就是原本的十一個——所以固定清單永遠是固定的，長出來的那些只活在某一段對話裡。
+
+    這裡刻意用鴨子型別而不是 import 那個類別：`toolsmith` 反過來要用這個模組的
+    `TOOL_NAMES`（擋撞名），互相 import 會繞成一個圈。
     """
     schemas = [
         {
@@ -255,6 +262,8 @@ def tool_schemas(config: Config) -> list[dict[str, Any]]:
         }
         for name in PROPOSAL_TOOL_NAMES
     )
+    if toolsmith is not None:
+        schemas.extend(toolsmith.schemas())
     return schemas
 
 

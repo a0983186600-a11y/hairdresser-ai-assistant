@@ -971,3 +971,84 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
+/* --- 助理當場寫的那一支工具（示範限定） -------------------------------------
+ *
+ * 刻意長得跟回訪草稿（`.draft`）同一族：兩張都是「助理準備好了，等你決定」。
+ * 程式碼收在 `<details>` 裡預設收合——要看得到，但不該把整段對話擠爆。
+ */
+.proposal {
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  margin-top: 8px;
+  box-shadow: var(--shadow);
+}
+.proposal .cap {
+  font-size: 11px;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.proposal .desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.proposal details {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.proposal summary {
+  font-size: 12px;
+  cursor: pointer;
+}
+.proposal pre {
+  max-width: 100%;
+  overflow: auto;
+  background: var(--ink);
+  color: white;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0 0;
+}
+.proposal pre code {
+  font-family: ui-monospace, monospace;
+  font-size: 11.5px;
+  white-space: pre;
+}
+.proposal .answer-table {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.proposal table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.proposal th,
+.proposal td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.proposal th {
+  background: var(--paper-2);
+  white-space: nowrap;
+}
+.proposal .state {
+  margin-top: 10px;
+  color: var(--muted);
+}
+.proposal .state.adopted {
+  color: var(--green);
+}
+.proposal ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 11px;
+  color: var(--muted);
+}

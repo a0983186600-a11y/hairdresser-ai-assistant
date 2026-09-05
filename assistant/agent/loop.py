@@ -114,6 +114,9 @@ def _summarise(payload: dict[str, Any]) -> str:
             return "沒有符合條件的資料"
         shown = len(payload["rows"])
         return f"{count} 筆" + (f"（只帶回前 {shown} 筆）" if shown < count else "")
+    if isinstance(payload.get("summary"), str) and payload["summary"]:
+        # 工坊那邊的工具自己講了一句（「跑出 5 筆，等你決定要不要採用」）。
+        return payload["summary"]
     return "1 筆"
 
 
@@ -130,12 +133,34 @@ def _proposal_of(payload: dict[str, Any]) -> dict[str, Any] | None:
     return result if isinstance(result, dict) else None
 
 
+def _tool_proposal_of(payload: dict[str, Any]) -> dict[str, Any] | None:
+    """模型當場寫的那支工具要帶到瀏覽器——採用卡上的程式碼與結果就是它。
+
+    只有工坊的提案會回東西給 UI。查詢工具的完整結果照舊留在伺服器上：那裡面有
+    遮罩過的逐字稿與整份消費明細，一旦習慣「工具結果都送到前端」，下一個加進來的
+    工具就會把不該出門的東西一起帶出去。
+    """
+    card = payload.get("card")
+    if isinstance(card, dict) and card.get("kind") == "tool_proposal":
+        return card
+    return None
+
+
+def _shown_arguments(payload: dict[str, Any], arguments: dict[str, Any]) -> dict[str, Any]:
+    """工具卡上那一行 `工具名(參數)`。提案的原始碼不放這裡——它在卡片上有自己的位置。"""
+    trimmed = {k: v for k, v in arguments.items() if k not in {"scope", "designer_ref"}}
+    if _tool_proposal_of(payload) is not None:
+        trimmed.pop("code", None)
+    return trimmed
+
+
 def _run_one_call(
     call: dict[str, Any],
     provider: SalonDataProvider,
     scope: DesignerScope,
     config: Config,
     as_of: datetime,
+    toolsmith: Any = None,
 ) -> tuple[ToolCallRecord, dict[str, Any]]:
     name = (call.get("function") or {}).get("name", "")
     raw = (call.get("function") or {}).get("arguments") or "{}"
@@ -155,17 +180,22 @@ def _run_one_call(
             },
         }
     else:
-        payload = dispatch(name, arguments, provider, scope, config, as_of=as_of)
+        if toolsmith is not None and toolsmith.handles(name):
+            # 工坊的工具（提案，以及這段對話已經採用的那幾支）走沙盒，不走 `dispatch`。
+            payload = toolsmith.run(name, arguments, scope=scope, as_of=as_of)
+        else:
+            payload = dispatch(name, arguments, provider, scope, config, as_of=as_of)
 
     duration_ms = int((time.monotonic() - started) * 1000)
     record = ToolCallRecord(
         name=name,
         # 記的是**實際跑的**參數（注入與夾住之後），不是模型原本寫的——
         # UI 上「數字是哪來的」要對得起來。
-        arguments={k: v for k, v in arguments.items() if k not in {"scope", "designer_ref"}},
+        arguments=_shown_arguments(payload, arguments),
         result_summary=_summarise(payload),
         duration_ms=duration_ms,
         proposal=_proposal_of(payload),
+        tool_proposal=_tool_proposal_of(payload),
     )
     message = {
         "role": "tool",
@@ -185,11 +215,16 @@ def run_chat(
     as_of: datetime,
     session: ChatSession | None = None,
     client: ChatClient | None = None,
+    toolsmith: Any = None,
 ) -> ChatResult:
     """設計師問一句，助理答一句（中間可以打工具）。
 
     `as_of` 是這一層唯一的「現在」，由呼叫端提供、必填且 timezone-aware；每一次
     provider 查詢都拿它當「今天」，這一層自己不准讀系統時鐘。
+
+    `toolsmith` 是**這一段對話**的工具工坊（見 `assistant.agent.toolsmith`）。給了
+    就多一個「當場寫一支新工具」的選項，加上這段對話已經採用的那幾支；不給就是
+    原本的固定九個。工坊只在記憶體裡，換一段對話就是一間新的。
     """
     _require_timezone(as_of)
 
@@ -199,12 +234,18 @@ def run_chat(
         client = build_client_from_env(config)
 
     model_name = os.environ.get(config.model.model_env) or config.model.model_default
-    tools = tool_schemas(config)
+    tools = tool_schemas(config, toolsmith=toolsmith)
+
+    system = build_system_prompt(config, as_of)
+    if toolsmith is not None:
+        from assistant.agent.toolsmith import toolsmith_prompt
+
+        system = f"{system}\n\n{toolsmith_prompt()}"
 
     history = [dict(entry) for entry in (session.history if session is not None else [])]
     user_message = {"role": "user", "content": message}
     messages: list[dict[str, Any]] = [
-        {"role": "system", "content": build_system_prompt(config, as_of)},
+        {"role": "system", "content": system},
         *history,
         user_message,
     ]
@@ -228,7 +269,9 @@ def run_chat(
             break
 
         for call in tool_calls:
-            record, tool_message = _run_one_call(call, provider, scope, config, as_of)
+            record, tool_message = _run_one_call(
+                call, provider, scope, config, as_of, toolsmith
+            )
             records.append(record)
             messages.append(tool_message)
             transcript.append(tool_message)

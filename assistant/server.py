@@ -71,6 +71,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_valida
 import assistant.agent as agent
 from assistant.adapters.mock import MockSalonDataProvider
 from assistant.adapters.schemas import TAIPEI, DesignerScope
+from assistant.agent.toolsmith import ToolsmithError, ToolsmithStore
 from assistant.config.loader import Config, load_config
 from assistant.demo_data.generate import ANCHOR, DATA_DIR, load_dataset
 from assistant.tools.registry import dispatch
@@ -278,6 +279,18 @@ class WorkbenchAction(BaseModel):
     data: dict[str, Any] = Field(default_factory=dict)
 
 
+class AdoptToolRequest(BaseModel):
+    """「採用」那顆鍵送過來的全部東西。只有一個 id——程式碼早就在伺服器上了。
+
+    刻意不收 code：讓瀏覽器把要跑的程式碼送上來，等於開一條「誰都能指定跑什麼」
+    的路，沙盒擋得住破壞，擋不住這條路本身不該存在。
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    proposal_id: str = Field(min_length=1, max_length=64)
+
+
 class _Runtime:
     """一個 app 的全部可變狀態。放在 app 上而不是模組上，測試才不會互相污染。"""
 
@@ -312,6 +325,8 @@ class _Runtime:
 
         self._mock: MockSalonDataProvider | None = None
         self.sessions: dict[str, agent.ChatSession] = {}
+        # 一段對話一間工坊，全部只在記憶體：重啟服務就沒了，這是刻意的。
+        self.toolsmiths = ToolsmithStore(limit=SESSION_LIMIT)
 
     # --- 兩個模式共用的取用點 -------------------------------------------------
 
@@ -437,6 +452,15 @@ def create_app() -> FastAPI:
         response.headers["Cache-Control"] = "no-store"
         return workbenches[identity]
 
+    def _require_same_origin(request: Request) -> None:
+        """會改東西的端點共用這一道。抽成一支是因為它有兩個呼叫點——
+        兩份各自長大的同源檢查，遲早會有一份忘了跟上。"""
+        origin = request.headers.get("origin")
+        if (origin and origin != str(request.base_url).rstrip("/")) or (
+            request.headers.get("sec-fetch-site") == "cross-site"
+        ):
+            raise HTTPException(403, "請從工作台本身操作。")
+
     def _read_tool(name: str, arguments: dict) -> dict:
         try:
             payload = dispatch(name, arguments, runtime.provider(), runtime.scope,
@@ -480,11 +504,7 @@ def create_app() -> FastAPI:
         # Server-owned mode, never a browser checkbox or data.mode.
         if runtime.mode != MODE_DEMO:
             raise HTTPException(403, "正式資料只供唯讀，這裡不能更動預約或設定。")
-        origin = request.headers.get("origin")
-        if (origin and origin != str(request.base_url).rstrip("/")) or (
-            request.headers.get("sec-fetch-site") == "cross-site"
-        ):
-            raise HTTPException(403, "請從工作台本身操作。")
+        _require_same_origin(request)
         if payload.kind in {"takeover", "message"}:
             _read_tool("get_conversation_transcript",
                        {"conversation_ref": payload.data.get("conversation_ref")})
@@ -496,6 +516,37 @@ def create_app() -> FastAPI:
                 raise HTTPException(exc.status, str(exc)) from exc
             except ValidationError as exc:
                 raise HTTPException(422, "請檢查項目、日期、工時及必填資料，尚未儲存。") from exc
+
+    @application.get("/api/workbench/tools")
+    def session_tools(session_id: str | None = None) -> dict[str, Any]:
+        """這一段對話目前長出了哪幾支工具。沒有這段對話就是空的，不會順手建一間。"""
+        workshop = runtime.toolsmiths.peek(session_id)
+        return {
+            "tools": workshop.adopted() if workshop is not None else [],
+            "read_only": runtime.mode != MODE_DEMO,
+            "notice": "這些工具只活在這一段對話裡：不會寫進磁碟，重啟服務就沒了。",
+        }
+
+    @application.post("/api/workbench/tools/adopt")
+    def adopt_tool(payload: AdoptToolRequest, request: Request) -> dict[str, Any]:
+        """人在卡片上按了「採用」。
+
+        只在示範模式開放。正式模式那顆 provider 是**正在服務真實客人**的唯讀連線，
+        讓模型當場寫的程式碼去讀它，即使沙盒擋得住破壞，也擋不住「這些列到底該不該
+        被算成這個數字」——那是沒有人審過的算法。示範限定不是還沒做完，是界線。
+        """
+        if runtime.mode != MODE_DEMO:
+            raise HTTPException(403, "示範限定：正式模式不採用當場寫出來的工具。")
+        _require_same_origin(request)
+
+        workshop = runtime.toolsmiths.owner_of(payload.proposal_id)
+        if workshop is None:
+            raise HTTPException(404, "找不到這份提案，可能已經過期了。")
+        try:
+            adopted = workshop.adopt(payload.proposal_id)
+        except ToolsmithError as exc:
+            raise HTTPException(exc.status, exc.message) from exc
+        return {"adopted": adopted, "tools": workshop.adopted()}
 
     @application.get("/api/workbench/calendar/{calendar_key}.ics")
     def demo_calendar(calendar_key: str, request: Request, response: Response) -> Response:
@@ -541,6 +592,8 @@ def create_app() -> FastAPI:
     @application.post("/api/chat")
     def chat(payload: ChatRequest) -> dict[str, Any]:
         session = runtime.sessions.get(payload.session_id) if payload.session_id else None
+        # 第一句話還沒有 session_id，所以先拿一間沒掛號的，答完再用新的 id 掛上去。
+        workshop = runtime.toolsmiths.acquire(payload.session_id)
         started = time.monotonic()
 
         def model_failure(code: str, status: int, retryable: bool) -> HTTPException:
@@ -560,6 +613,7 @@ def create_app() -> FastAPI:
                 as_of=runtime.as_of(),
                 session=session,
                 client=runtime.client,
+                toolsmith=workshop,
             )
         except httpx.TimeoutException as exc:
             raise model_failure("model_timeout", 504, True) from exc
@@ -583,6 +637,7 @@ def create_app() -> FastAPI:
         session_id = session.session_id if session else uuid.uuid4().hex
         history = result.transcript or (session.history if session else [])
         runtime.remember(agent.ChatSession(session_id=session_id, history=list(history)))
+        runtime.toolsmiths.bind(session_id, workshop)
         return {
             "reply": result.reply,
             "tool_calls": [record.model_dump() for record in result.tool_calls],

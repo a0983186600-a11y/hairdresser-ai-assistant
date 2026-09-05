@@ -210,6 +210,8 @@ def test_chat_returns_the_tool_calls_so_the_ui_can_show_its_working(
             "duration_ms": 12,
             # 查詢工具沒有待確認的動作；只有提案工具會把那張單子帶到瀏覽器。
             "proposal": None,
+            # 查詢工具沒有待採用的新工具；只有 propose_new_tool 會把程式碼帶到瀏覽器。
+            "tool_proposal": None,
         }
     ]
     assert payload["session_id"]

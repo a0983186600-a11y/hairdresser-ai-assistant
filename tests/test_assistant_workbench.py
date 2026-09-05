@@ -191,7 +191,7 @@ def test_new_frontend_uses_the_design_shell_and_keeps_all_replay_prompts(client)
     assert "data-workbench" in home
     assert "data-sheet-root" in home
     assert "data-tour-start" in home
-    assert home.count("data-quick-prompt=") == 7
+    assert home.count("data-quick-prompt=") == 8
     assert "support.js" not in home
 
 

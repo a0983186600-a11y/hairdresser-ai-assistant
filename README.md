@@ -20,8 +20,8 @@
 | 賽道 | Track 01 AI Agents & Automation（BUILDMODE 2026） |
 | 授權 | MIT（見 `LICENSE`） |
 | 零金鑰可跑 | `docker compose -f docker-compose.demo.yml up` → http://127.0.0.1:8100 |
-| 工具數 | 11（8 個查詢 ＋ 1 個確定性草稿 ＋ 2 個只讀提案） |
-| 測試 | 353 個（`pytest -q` → 351 passed, 2 skipped），**不需要金鑰** |
+| 工具數 | 11 個固定（8 個查詢 ＋ 1 個確定性草稿 ＋ 2 個只讀提案）＋ 對話中當場長出的（示範限定，按「採用」才算） |
+| 測試 | 422 個（`pytest -q` → 420 passed, 2 skipped），**不需要金鑰** |
 | 架構細節 | `docs/architecture.md` |
 
 ---
@@ -251,7 +251,7 @@ HTTP 400
 SQL 一律帶 `LIMIT`、參數一律繫結，`customer_ref` / `conversation_ref` 進來一定
 **再用 scope 查一次**。它不在公開 repo（見文末揭露段）。
 
-## 5. 七個快捷問法（首頁點一下就送）
+## 5. 八個快捷問法（首頁點一下就送）
 
 以下輸出是在零金鑰 Replay 模式下，對匯出目錄真的打 `POST /api/chat` 拿到的。
 `TOOL` 那幾行是回應裡的 `tool_calls`：**每個數字是哪個工具、帶什麼參數、
@@ -417,6 +417,36 @@ TOOL propose_booking {"customer": "葉○雅", "start": "明天下午三點", "s
 拆不出來的欄位不會被補上一個看起來合理的值：客人對到兩位就回頭要末四碼，
 只講「三點」沒講哪天就標「還缺 日期與時間」，而缺欄位的卡片上根本沒有確認鍵。
 
+
+### ⑧ 幫我看每個星期幾各有幾次到店，我想知道哪一天最忙。
+
+```
+TOOL propose_new_tool {"name": "visits_by_weekday",
+                       "description": "統計每個星期幾各有幾次到店，找出最忙的日子"} -> 跑出 7 列，等你決定要不要採用
+
+工具跑出來了，結果如下（基於 100 位客人的最近到店紀錄，共 546 筆）：
+
+| 星期 | 到店次數 |
+|------|---------|
+| 星期六 | 93 |
+| 星期一 | 81 |
+| 星期二 | 81 |
+| 星期三 | 77 |
+| 星期五 | 77 |
+| 星期日 | 70 |
+| 星期四 | 67 |
+
+**結論：星期六最忙**，比第二名（星期一、二）多了 12 次。星期四最閒，只有 67 次。
+
+這支工具 `visits_by_weekday` 還沒被採用，你覺得有用的話按「採用」就會加進工具清單。
+```
+
+**這一題十一個固定工具答不出來**：沒有任何一個會回「所有到店紀錄」，
+所以按星期分佈這件事，靠現成的工具湊不出來。助理於是當場寫了一支——
+上面那行 `propose_new_tool` 就是它寫的那支工具，程式碼與結果都攤在卡片上，
+**按了「採用」才算數**。詳見下一節最後那一小節。
+
+
 ## 6. 十一個工具
 
 八個查詢工具（規格見 `assistant/adapters/schemas.py`，每個欄位都有型別與上下限）
@@ -460,6 +490,56 @@ TOOL propose_booking {"customer": "葉○雅", "start": "明天下午三點", "s
 5. 對話摘要只能整理遮罩逐字稿，不准推測客人沒說的需求或說預約已成功。
 
 這五條同時是模型對決的評分項（第 12 節），兩邊是**同一份字**。
+
+### 第十個能力：助理會自己長工具（示範限定）
+
+九個工具是**固定**的。但設計師的問題不會只有九種——「每個星期幾各有幾次到店」
+就答不出來：沒有一個工具會回「所有到店紀錄」，用現成的湊不出來。
+
+所以助理多了一個 `propose_new_tool`：**當場寫一支只讀的小工具**，
+跑給人看，人按了「採用」才算數。這條路上每一關都刻意留了一道人可以喊停的門：
+
+```
+模型寫程式 → check_code（讀，不執行）→ 另開一個行程跑 → 卡片上攤開程式碼與結果
+          → 人按「採用」→ 這一段對話的工具清單多一支 → 下次可以直接叫
+```
+
+**模型寫的程式碼會被執行，這件事躲不掉。** 問題從來不是要不要讓它發生，
+而是它在哪裡跑、跑的時候手上有什麼（`assistant/tools/sandbox.py`）：
+
+| 第一層：先讀，不執行 | 第二層：關進另一個行程 |
+|---|---|
+| AST 白名單，只准 import `datetime`／`math`／`statistics`／`collections`／`itertools`／`re`／`decimal`／`json` | `python -I -S`，**空的環境變數**（連金鑰長什麼樣子都看不到） |
+| 擋 dunder 與底線開頭的屬性、`exec`／`eval`／`compile`／`open`／`getattr`… | CPU 5 秒、記憶體 256MB、牆上時鐘 8 秒 |
+| 擋 `os`／`sys`／`subprocess`／`socket`／`pathlib`… 與 `global`／`nonlocal` | 輸出 64KB、list 200 筆截斷 |
+| 沒有 `def run(provider, as_of)` 就不放行 | 行程裡那顆 provider 只有那 8 個方法，姓名電話**已經遮罩** |
+
+違規的程式**一行都不會跑**，回的是「第幾行、哪個節點、為什麼」——模型才改得動。
+例外一律變成結構化錯誤，伺服器不會因為模型寫壞一支工具就倒。
+
+（macOS 沒有實作 `RLIMIT_AS`，`setrlimit` 回 EINVAL。套不上時
+`limits.memory_limit_applied` 照實回 `False`，不假裝有套上；牆上時鐘仍然是硬上限。
+Linux 容器裡兩道都在。**寧可少一道防線，也不要在回報上撒謊。**）
+
+三條界線：
+
+1. **提案不改任何狀態。** 跑完就是一份「程式碼＋結果＋狀態」，等人決定。
+   沒有人按採用，工具清單一個字都不會變。
+2. **採用只影響那一段對話。** 不寫磁碟、不進固定九個、別的瀏覽器 session 看不到，
+   重啟服務就沒了——這是刻意的，不是還沒做完。
+3. **同一個問題最多試兩次。** 第三次直接擋掉，讓它老實說答不出來。
+   這是「不准補一位看起來合理的客人」的程式碼版本。
+
+**只在示範模式開放**（`POST /api/workbench/tools/adopt` 在正式模式回 403）。
+正式那顆 provider 連的是正在服務真實客人的唯讀連線；沙盒擋得住「這支工具會不會
+弄壞東西」，擋不住「它算得對不對」——而那是沒有人審過的算法。
+
+模型也不是靠猜的：`propose_new_tool` 的說明裡附了那 8 個方法的**完整簽名與回傳鍵名**，
+而且是從 pydantic 模型長出來的，欄位改名它自動跟著改
+（`test_the_reference_lists_the_keys_a_list_method_really_hands_over` 釘住這件事）。
+沒有這一段時實跑過一次：模型漏掉 `as_of`、對著一個 list 呼叫 `.get('customers')`、
+把 `visited_at` 猜成 `visit_time`，兩次都失敗後老實說答不出來——守衛是對的，
+但它其實只是不知道門把在哪。要嘛給它真的，要嘛讓它問，就是不要讓它猜。
 
 ## 7. 隱私設計
 
@@ -570,7 +650,7 @@ defaults.yaml → 同目錄 local.yaml → $ASSISTANT_CONFIG_PATH → 呼叫端�
 ```bash
 uv sync --extra dev
 uv run pytest -q
-# 351 passed, 2 skipped
+# 420 passed, 2 skipped
 ```
 
 （pip：`pip install -e ".[dev]" && pytest -q`。Docker：
@@ -599,6 +679,9 @@ optional extra 裡，單獨 `uv sync` 只裝執行時要的東西，跑起來會
 | `test_assistant_demo_data.py` | 固定 seed 逐 byte 可重現（重現性同時是洩密掃描的放行條件） |
 | `test_assistant_server_api.py` | `/health`、`/api/chat`、`/api/mode`；切不到 production 就 400 |
 | `test_assistant_server_frontend.py` | 前端頁面與 fixtures 對得起來 |
+| `test_assistant_tools_sandbox.py` | 模型寫的程式碼跑在哪：白名單、逃逸嘗試、逾時、記憶體、截斷 |
+| `test_assistant_agent_toolsmith.py` | 提案不改狀態、採用只影響這段對話、同一題最多兩次、說明書不准跟沙盒對不上 |
+| `test_assistant_server_toolsmith.py` | 採用要按一下：同源檢查、正式模式 403、卡片上看得到程式碼 |
 | `test_assistant_agent_live.py` | 端到端打真模型（**沒金鑰就 skip**） |
 
 私有 repo 那邊還有兩支不會跟著公開的守衛：一支用 AST 掃描確認

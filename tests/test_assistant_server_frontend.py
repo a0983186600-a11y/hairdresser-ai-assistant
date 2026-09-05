@@ -111,16 +111,19 @@ def test_the_badge_can_be_switched_from_the_screen(client):
     assert "/api/mode" in scripts
 
 
-def test_the_home_page_offers_the_seven_quick_prompts(client):
+def test_the_home_page_offers_the_eight_quick_prompts(client):
     home = (FRONTEND / "index.html").read_text("utf-8")
     prompts = re.findall(r'data-quick-prompt="([^"]+)"', home)
 
-    assert len(prompts) == 7, prompts
-    assert len(set(prompts)) == 7
+    assert len(prompts) == 8, prompts
+    assert len(set(prompts)) == 8
     joined = "".join(prompts)
     # 七個意圖各一個關鍵詞；文案以 assistant/replay/ 的七段錄音原句為準（見下面那條守衛）。
-    # 最後那個是「聊天 → 確認卡 → 才寫入」那條路的入口，六顆查詢之外唯一會動手的一顆。
-    for expected in ("消費金額最高", "沒回來", "流失", "每次服務", "卡在哪", "回訪訊息", "排一筆"):
+    # 最後兩顆：「聊天 → 確認卡 → 才寫入」的入口（排一筆），以及「固定工具答不了、
+    # 助理當場寫一支」的入口（星期幾）。
+    for expected in (
+        "消費金額最高", "沒回來", "流失", "每次服務", "卡在哪", "回訪訊息", "星期幾", "排一筆",
+    ):
         assert expected in joined, expected
 
 
@@ -151,7 +154,13 @@ def test_the_chat_renders_one_card_per_tool_call_not_just_the_answer(client):
     assert "正在查" in chat, "卡片要先說它正在查什麼"
     assert "查完了" in chat, "只有正在查沒有查完了，就沒有『翻面』這個動作"
     assert re.search(r"CARD_GAP_MS\s*=\s*\d+", chat), "沒有逐張間隔就是同時出現"
-    assert not re.search(r"""["']details["']""", chat), (
+    # 2026-09-05 縮小範圍（不是放寬）：`details` 這個字現在也出現在檔尾
+    # 「助理當場寫的那支工具」那張卡上——那裡收起來的是**程式碼**，卡片本身、
+    # 結果表與採用鍵全部攤在外面。所以這條改成守它上面那一整段：工具卡與增量
+    # 繪製那一段，一個 details 都不准有。找不到那個函式就照舊守整份檔案。
+    grown_at = chat.find("function toolProposal(")
+    drawing = chat if grown_at < 0 else chat[:grown_at]
+    assert not re.search(r"""["']details["']""", drawing), (
         "工具卡不准收在 <details> 裡：預設關著等於沒有畫出來"
     )
 
@@ -253,7 +262,7 @@ def test_every_quick_prompt_has_a_replay_recording():
 
     html = (FRONTEND / "index.html").read_text("utf-8")
     prompts = re.findall(r'data-quick-prompt="([^"]+)"', html)
-    assert len(prompts) == 7, prompts
+    assert len(prompts) == 8, prompts
     recorded = set(load_recordings(REPLAY_DIR))
     missing = [p for p in prompts if normalize_message(p) not in recorded]
     assert not missing, f"這些快捷鈕沒有錄音，零金鑰模式會啞掉：{missing}"

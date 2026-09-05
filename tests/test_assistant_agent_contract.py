@@ -31,9 +31,10 @@ def test_run_chat_signature_is_frozen():
         "as_of",
         "session",
         "client",
+        "toolsmith",
     ]
     assert params["message"].kind is inspect.Parameter.POSITIONAL_OR_KEYWORD
-    for name in ("provider", "scope", "config", "as_of", "session", "client"):
+    for name in ("provider", "scope", "config", "as_of", "session", "client", "toolsmith"):
         assert params[name].kind is inspect.Parameter.KEYWORD_ONLY, name
     assert params["provider"].default is inspect.Parameter.empty
     assert params["scope"].default is inspect.Parameter.empty
@@ -45,6 +46,10 @@ def test_run_chat_signature_is_frozen():
     assert params["client"].default is None
     # client 不再是「隨便什麼」：型別釘成 ChatClient Protocol，第二階段兩邊靠它對接。
     assert params["client"].annotation == "ChatClient | None"
+    # toolsmith 是後來加的第七個洞：這一段對話的工具工坊。**預設 None**——
+    # 不給就是原本那九個固定工具，所以「助理會自己長工具」是一個選配的能力，
+    # 不是每個呼叫端都被迫接受的行為。
+    assert params["toolsmith"].default is None
     assert signature.return_annotation in (ChatResult, "ChatResult")
 
 

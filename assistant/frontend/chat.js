@@ -349,6 +349,12 @@
     it.cards.forEach(function (one, i) {
       if (!one.done && i < (m.done || 0)) flip(one, calls[i]);
     });
+    if (!it.grown) it.grown = {};
+    calls.forEach(function (call, i) {
+      if (!call.tool_proposal || it.grown[i] || i >= (m.done || 0)) return;
+      it.grown[i] = true;
+      it.wrap.append(toolProposal(call.tool_proposal));
+    });
     if (m.answered && !it.tail) {
       it.tail = calls.some(function (x) {
         return x.name === DRAFT_TOOL;
@@ -516,6 +522,111 @@
       },
       true,
     );
+  }
+  /* --- 助理當場寫的那一支工具：看得到程式碼，按了才算數 -------------------
+   *
+   * 卡片上非有程式碼不可。沙盒擋得住「這支工具會不會弄壞東西」，擋不住
+   * 「這支工具算得對不對」——算式對不對只有設計師本人看得出來，所以採用是一個
+   * 人的動作，不是模型自己完成的一步。伺服器回的 status 就照著畫：
+   * ok 才有那顆「採用」，被拒或出錯只講發生什麼事，不給按。
+   */
+  function proposalRows(rows) {
+    var scroller = n("div", "answer-table"),
+      table = n("table"),
+      head = n("thead"),
+      body = n("tbody"),
+      shown = rows.slice(0, 10),
+      columns = Object.keys(shown[0]),
+      heading = n("tr");
+    columns.forEach(function (key) {
+      heading.append(n("th", null, key));
+    });
+    head.append(heading);
+    shown.forEach(function (row) {
+      var line = n("tr");
+      columns.forEach(function (key) {
+        var cell = row[key];
+        line.append(n("td", null, cell === null || cell === undefined ? "—" : String(cell)));
+      });
+      body.append(line);
+    });
+    table.append(head, body);
+    scroller.append(table);
+    return scroller;
+  }
+  function proposalResult(p) {
+    var rows = p.rows;
+    if (Array.isArray(rows) && rows.length && typeof rows[0] === "object" && rows[0] !== null)
+      return proposalRows(rows);
+    var pre = n("pre");
+    pre.append(n("code", null, p.result_preview || "（沒有結果）"));
+    return pre;
+  }
+  function toolProposal(p) {
+    var wrap = n("div", "proposal grown-tool"),
+      code = n("details"),
+      pre = n("pre"),
+      status = n("div", "state");
+    wrap.append(
+      n("div", "cap", "助理當場寫了一支工具 · 尚未採用"),
+      n("b", "tool-title", p.name),
+      n("div", "desc", p.description),
+    );
+    code.append(n("summary", null, "看它寫了什麼"));
+    pre.append(n("code", null, p.code));
+    code.append(pre);
+    wrap.append(code);
+
+    if (p.status === "ok") {
+      wrap.append(proposalResult(p));
+      // 講畫面上看得到的那個數字。`row_count` 算的是 run() 回的那個東西有幾格——
+      // 模型回一個包了四個鍵的 dict 時，那是 4，但表上是 7 列，兩個數字對不起來。
+      status.textContent =
+        (p.rows && p.rows.length ? "在沙盒跑出 " + p.rows.length + " 列" : "在沙盒跑完了") +
+        (p.truncated ? "（已截斷）" : "") +
+        "。這支工具還沒有加進來，要不要採用由你決定。";
+      wrap.append(status);
+      var bar = n("div", "actions"),
+        yes = b("採用", null, "primary"),
+        no = b("不要", null, "secondary");
+      no.addEventListener("click", function () {
+        bar.replaceWith(n("div", "state", "沒有採用，這支工具就到這裡。"));
+      });
+      yes.addEventListener("click", function () {
+        yes.disabled = true;
+        no.disabled = true;
+        adoptProposal(p, bar);
+      });
+      bar.append(no, yes);
+      wrap.append(bar);
+    } else {
+      // 被拒或出錯：講伺服器說的那句，不要自己翻譯成「暫時無法使用」。
+      status.textContent =
+        (p.status === "rejected" ? "沙盒拒絕了這段程式碼：" : "這支工具跑出錯誤：") +
+        ((p.error && p.error.message) || "沒有說明");
+      wrap.append(status);
+      var lines = (p.error && p.error.violations) || [];
+      if (lines.length) {
+        var list = n("ul");
+        lines.slice(0, 6).forEach(function (one) {
+          list.append(n("li", null, "第 " + one.line + " 行：" + one.detail));
+        });
+        wrap.append(list);
+      }
+    }
+    return wrap;
+  }
+  async function adoptProposal(p, bar) {
+    try {
+      await g.AssistantApi.adoptTool(p.proposal_id);
+      bar.replaceWith(
+        n("div", "state adopted", "已加入這次對話的工具：" + p.name +
+          "。接著問就能直接用它；重新整理或重啟服務就沒了。"),
+      );
+    } catch (e) {
+      // 伺服器說不行（正式唯讀、提案過期、撞名）就照它的話講。
+      bar.replaceWith(n("div", "error", "沒有加入：" + e.message));
+    }
   }
   g.AssistantChat = {
     ask: ask,

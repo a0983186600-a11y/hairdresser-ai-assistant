@@ -69,6 +69,10 @@ class ToolCallRecord(_Base):
     #: 按下確認要送的 payload）。它非帶到瀏覽器不可——確認卡上那幾格就是它。
     #: 裡面只有遮罩過的姓名與識別碼，跟查詢工具的完整結果不同，那個一樣不出門。
     proposal: dict[str, Any] | None = None
+    #: **只有 `propose_new_tool` 會填**：模型當場寫的那支工具（名字、說明、原始碼、
+    #: 沙盒跑出來的前幾列、狀態）。它非帶到瀏覽器不可——「採用」是人的動作，
+    #: 而人要先看得到程式碼跟結果才決定得了。裡面的列已經過沙盒那層遮罩。
+    tool_proposal: dict[str, Any] | None = None
 
 
 class ChatResult(_Base):
