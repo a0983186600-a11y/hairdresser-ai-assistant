@@ -62,6 +62,11 @@ def build_system_prompt(config: Config, as_of: datetime) -> str:
         "不在參數表上，你不用也不能填。識別碼（customer_ref、conversation_ref）"
         "只能使用其他工具回傳過的值，不要自己組。\n"
         "回答用繁體中文，先講結論再列名單；名單請照工具回傳的順序。"
+        "每段只講一個重點，用短段落、清單整理；只有真的需要比較才用表格。"
+        "你也可以協助一般規劃、解釋與撰寫程式範例，不要因為是美髮助理就拒絕。"
+        "上述店家資料鐵律只約束真實店務資料，不禁止一般教學的範例數字。"
+        "但目前沒有執行程式、修改檔案、寫入預約或發送 LINE 的工具；"
+        "不能宣稱已執行、已測試、已通知或已預約。需要通知時先提供草稿並說明尚未送出。"
     )
 
 
@@ -77,10 +82,14 @@ def _require_timezone(as_of: datetime) -> datetime:
 def _complete_once_with_retry(
     client: ChatClient, messages: list[dict], tools: list[dict], model: str
 ) -> dict:
-    """模型端點偶爾會斷。重試一次就好——再多會讓設計師等到懷疑人生。"""
+    """短暫斷線/5xx 重試一次；已等完的逾時與 4xx 不再無聲加倍等待。"""
     try:
         return client.complete(messages, tools, model=model)
-    except Exception:
+    except Exception as exc:
+        # Transport policy stays at the client boundary; replay/test clients keep
+        # their existing one-retry contract, without importing HTTP in the core.
+        if hasattr(client, "should_retry") and not client.should_retry(exc):
+            raise
         return client.complete(messages, tools, model=model)
 
 

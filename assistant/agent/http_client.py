@@ -31,6 +31,15 @@ class HttpChatClient:
 
     is_replay = False
 
+    @staticmethod
+    def should_retry(error: Exception) -> bool:
+        """Already timed out, auth/rate-limit/invalid input: no immediate retry."""
+        if isinstance(error, httpx.TimeoutException):
+            return False
+        if isinstance(error, httpx.HTTPStatusError):
+            return error.response.status_code >= 500
+        return isinstance(error, httpx.TransportError)
+
     def __init__(
         self,
         base_url: str,

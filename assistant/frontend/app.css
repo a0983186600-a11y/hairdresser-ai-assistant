@@ -750,17 +750,32 @@ img {
   animation-delay: 0.36s;
 }
 .price-row {
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+}
+.service-summary {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  padding: 15px 0;
+  text-align: left;
+  border: 0;
+  background: transparent;
+}
+.service-meta { font-size: 12px; color: var(--muted); text-align: right; }
+.price-editor {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 0 0 14px;
 }
-.price-row > .row,
-.price-row > .inline-fields {
+.price-editor[hidden] { display: none; }
+.price-editor > .row,
+.price-editor > .inline-fields {
   grid-column: 1 / -1;
 }
-.price-row > .field:has(input[type="checkbox"]) {
+.price-editor > .field:has(input[type="checkbox"]) {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -771,6 +786,33 @@ img {
 .price-row input {
   padding: 8px;
 }
+.policy-modes { display: grid; gap: 10px; margin: 12px 0; }
+.policy-mode { display: grid; gap: 6px; text-align: left; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+.policy-mode small { color: var(--muted); line-height: 1.5; }
+.policy-mode[aria-checked="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.policy-mode[aria-checked="true"] b::before { content: "● "; }
+.booking-tabs { display: flex; gap: 4px; background: var(--paper-2); padding: 4px; border-radius: 12px; margin-bottom: 18px; }
+.booking-tabs button { flex: 1; background: transparent; border: 0; padding: 11px; border-radius: 9px; }
+.booking-tabs [aria-selected="true"] { background: var(--ink); color: white; }
+.answer { white-space: normal; overflow-wrap: anywhere; min-width: 0; }
+.answer p { margin: 0 0 8px; line-height: 1.7; }
+.answer h3 { margin: 16px 0 8px; font-size: 16px; }
+.answer > :first-child { margin-top: 0; }
+.answer > :last-child { margin-bottom: 0; }
+.answer ul, .answer ol { padding-left: 22px; margin: 10px 0; }
+.answer li { padding: 3px 0; line-height: 1.65; }
+.answer-table { max-width: 100%; overflow-x: auto; margin: 12px 0; border: 1px solid var(--line); border-radius: 10px; }
+.answer table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.answer th, .answer td { padding: 10px; text-align: left; border-bottom: 1px solid var(--line); }
+.answer th { background: var(--paper-2); white-space: nowrap; }
+.answer code { font-family: ui-monospace, monospace; font-size: 12px; background: var(--paper-2); border-radius: 4px; padding: 2px 4px; }
+.answer pre { max-width: 100%; overflow: auto; background: var(--ink); color: white; border-radius: 10px; padding: 14px; }
+.answer pre code { background: none; padding: 0; white-space: pre; }
+.draft > .answer { background: transparent; border: 0; }
+.tool-title { display: block; font-size: 13px; margin-bottom: 5px; }
+.tool-details { margin-top: 8px; font-size: 11px; color: var(--muted); }
+.tool-details .call { overflow-wrap: anywhere; padding-top: 8px; }
+.waiting-label { margin-left: 8px; color: var(--muted); font-size: 12px; }
 .price-row .row > input {
   width: 65px;
   border: 1px solid var(--line);

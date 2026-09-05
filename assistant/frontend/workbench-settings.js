@@ -26,13 +26,14 @@
     x.input.checked = value;
     return x;
   }
-  function save(host, draft) {
+  function save(host, draft, saved) {
     var btn = b(
       "儲存示範設定",
       async function () {
         btn.disabled = true;
         try {
           await S.mutate("settings", draft());
+          if (saved) saved();
           S.toast("已儲存示範設定，開單工時會一起更新。");
         } catch (e) {
           S.fail(host, e);
@@ -77,7 +78,14 @@
       function (host) {
         var draft = clone(),
           rows = n("div"),
+          expanded = new Set(),
           readers = [];
+        function configured(s) {
+          return s.price_mode === "length"
+            ? [s.short, s.medium, s.long].every(function (x) { return x !== null; })
+            : s.price !== null;
+        }
+        draft.services.forEach(function (s) { if (!configured(s)) expanded.add(s.id); });
         U.warning(host);
         host.append(rows);
         function read() {
@@ -99,11 +107,24 @@
             var row = n("section", "price-row"),
               head = n("div", "row"),
               title = n("b", "grow", s.name),
+              editor = n("div", "price-editor"),
               dur = f("工時（分）", "number", s.duration);
+            var amounts = s.price_mode === "length"
+              ? [s.short, s.medium, s.long].map(function (x) { return x === null ? "未填" : S.money(x); }).join(" / ")
+              : s.price === null ? "價格未填" : S.money(s.price);
+            var toggle = b("", function () {
+              read();
+              if (expanded.has(s.id)) expanded.delete(s.id); else expanded.add(s.id);
+              draw();
+            }, "service-summary");
+            toggle.setAttribute("aria-label", "編輯" + s.name);
+            toggle.setAttribute("aria-expanded", expanded.has(s.id));
+            toggle.append(title, n("span", "service-meta", s.duration + " 分 · " + amounts + (s.price_from ? " 起" : "")), n("span", "chev", expanded.has(s.id) ? "⌃" : "⌄"));
+            editor.hidden = !expanded.has(s.id);
             dur.input.min = 15;
             dur.input.max = 600;
             head.append(
-              title,
+              n("span", "muted grow", "設定 " + s.name),
               b(
                 "移除",
                 function () {
@@ -116,7 +137,8 @@
                 "text-button",
               ),
             );
-            row.append(head, dur.wrap);
+            row.append(toggle, editor);
+            editor.append(head, dur.wrap);
             var mode = select(
                 "價格方式",
                 [
@@ -130,12 +152,12 @@
               short = priceField("短髮", s.short),
               medium = priceField("中長", s.medium),
               long = priceField("長髮", s.long);
-            row.append(mode.wrap, from.wrap);
+            editor.append(mode.wrap, from.wrap);
             if (s.price_mode === "length") {
               var group = n("div", "inline-fields");
               group.append(short.wrap, medium.wrap, long.wrap);
-              row.append(group);
-            } else row.append(price.wrap);
+              editor.append(group);
+            } else editor.append(price.wrap);
             function money(input) {
               return input.value === "" ? null : Number(input.value);
             }
@@ -193,6 +215,7 @@
                 medium: null,
                 long: null,
               });
+              expanded.add("custom-" + i);
               name.input.value = "";
               draw();
             },
@@ -202,6 +225,10 @@
         save(host, function () {
           read();
           return draft;
+        }, function () {
+          expanded.clear();
+          draft.services.forEach(function (s) { if (!configured(s)) expanded.add(s.id); });
+          draw();
         });
       },
       true,
@@ -235,11 +262,36 @@
         fixed.input.min = 15;
         fixed.input.max = 600;
         fixed.wrap.hidden = mode.input.value !== "fixed";
+        // Same underlying setting as before, presented as the two design cards.
+        mode.wrap.hidden = true;
+        var modeCards = n("div", "policy-modes");
+        modeCards.setAttribute("role", "radiogroup");
+        modeCards.setAttribute("aria-label", "每位客人預留的時間");
+        function drawModes() {
+          modeCards.replaceChildren();
+          [
+            ["service", "依項目估工時", "照項目設定計算，多個項目會加總。"],
+            ["fixed", "固定每位一樣久", "不管做什麼，都預留相同時間。"]
+          ].forEach(function (item) {
+            var button = b("", function () {
+              mode.input.value = item[0];
+              fixed.wrap.hidden = item[0] !== "fixed";
+              drawModes();
+            }, "policy-mode");
+            button.setAttribute("role", "radio");
+            button.setAttribute("aria-checked", mode.input.value === item[0]);
+            button.append(n("b", null, item[1]), n("small", null, item[2]));
+            modeCards.append(button);
+          });
+        }
+        drawModes();
         mode.input.addEventListener("change", function () {
           fixed.wrap.hidden = mode.input.value !== "fixed";
+          drawModes();
         });
         host.append(
           mode.wrap,
+          modeCards,
           fixed.wrap,
           step.wrap,
           same.wrap,

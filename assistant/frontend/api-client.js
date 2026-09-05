@@ -52,6 +52,8 @@
             typeof detail === "string" ? detail : JSON.stringify(detail),
           );
           failure.status = response.status;
+          failure.code = detail && detail.code;
+          failure.retryable = detail && detail.retryable;
           throw failure;
         }
         return body;

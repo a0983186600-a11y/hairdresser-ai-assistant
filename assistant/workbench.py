@@ -94,7 +94,7 @@ class Settings(BaseModel):
     fixed_duration: int = Field(default=60, ge=15, le=600)
     step: Literal[15, 30, 60, 90, 120] = 30
     same_day: bool = True
-    open_time: str = "11:00"
+    open_time: str = "12:00"
     close_time: str = "20:00"
     open_through: str
     rules: list[Rule] = Field(default_factory=list, max_length=30)

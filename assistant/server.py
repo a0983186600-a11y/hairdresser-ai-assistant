@@ -53,7 +53,9 @@ from __future__ import annotations
 
 import importlib
 import json
+import logging
 import os
+import time
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -539,6 +541,16 @@ def create_app() -> FastAPI:
     @application.post("/api/chat")
     def chat(payload: ChatRequest) -> dict[str, Any]:
         session = runtime.sessions.get(payload.session_id) if payload.session_id else None
+        started = time.monotonic()
+
+        def model_failure(code: str, status: int, retryable: bool) -> HTTPException:
+            # 不記客人原文、憑證、上游 response body。
+            logging.getLogger(__name__).warning(
+                "assistant_chat_failed code=%s elapsed_ms=%d",
+                code, int((time.monotonic() - started) * 1000),
+            )
+            return HTTPException(status_code=status, detail={"code": code, "retryable": retryable})
+
         try:
             result = agent.run_chat(
                 payload.message,
@@ -549,6 +561,19 @@ def create_app() -> FastAPI:
                 session=session,
                 client=runtime.client,
             )
+        except httpx.TimeoutException as exc:
+            raise model_failure("model_timeout", 504, True) from exc
+        except httpx.HTTPStatusError as exc:
+            status = exc.response.status_code
+            code = (
+                "model_auth" if status in {401, 403}
+                else "model_busy" if status == 429
+                else "model_request" if status < 500
+                else "model_unavailable"
+            )
+            raise model_failure(code, 503, status == 429 or status >= 500) from exc
+        except httpx.TransportError as exc:
+            raise model_failure("model_unavailable", 503, True) from exc
         except NotImplementedError as exc:
             # 第二階段的 agent 迴圈還沒合進來時，給一句看得懂的話而不是 500 堆疊。
             raise HTTPException(

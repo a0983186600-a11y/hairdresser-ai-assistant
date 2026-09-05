@@ -21,13 +21,80 @@
     session = null,
     busy = false,
     generation = 0;
+  // Text nodes only: generated HTML is never interpreted and code never executes.
+  function inline(host, text) {
+    String(text).split(/(\*\*[^*\n]+\*\*|`[^`\n]+`)/g).forEach(function (part) {
+      host.append(part.startsWith("**") && part.endsWith("**")
+        ? n("strong", null, part.slice(2, -2))
+        : part.startsWith("`") && part.endsWith("`")
+          ? n("code", null, part.slice(1, -1)) : document.createTextNode(part));
+    });
+  }
+  function answer(text) {
+    var wrap = n("div", "bubble answer"), lines = String(text).split("\n"), i = 0;
+    function cells(line) { return line.trim().replace(/^\||\|$/g, "").split("|"); }
+    while (i < lines.length) {
+      var line = lines[i];
+      if (!line.trim()) { i++; continue; }
+      if (/^\s*```/.test(line)) {
+        var code = [], pre = n("pre"); i++;
+        while (i < lines.length && !/^\s*```/.test(lines[i])) code.push(lines[i++]);
+        pre.append(n("code", null, code.join("\n"))); wrap.append(pre); i++; continue;
+      }
+      if (line.includes("|") && i + 1 < lines.length && /^\s*\|?\s*:?-{3,}/.test(lines[i + 1])) {
+        var table = n("table"), head = n("thead"), body = n("tbody"), scroller = n("div", "answer-table");
+        function tableRow(values, tag, parent) {
+          var tr = n("tr"); values.forEach(function (value) {
+            var cell = n(tag); inline(cell, value.trim()); tr.append(cell);
+          }); parent.append(tr);
+        }
+        tableRow(cells(line), "th", head); i += 2;
+        while (i < lines.length && lines[i].includes("|") && lines[i].trim()) tableRow(cells(lines[i++]), "td", body);
+        table.append(head, body); scroller.append(table); wrap.append(scroller); continue;
+      }
+      if (/^\s*(?:[-*+] |\d+[.)] )/.test(line)) {
+        var ordered = /^\s*\d/.test(line), list = n(ordered ? "ol" : "ul");
+        while (i < lines.length && (ordered ? /^\s*\d+[.)] / : /^\s*[-*+] /).test(lines[i])) {
+          var item = n("li"); inline(item, lines[i++].replace(/^\s*(?:[-*+] |\d+[.)] )/, "")); list.append(item);
+        }
+        wrap.append(list); continue;
+      }
+      var heading = line.match(/^#{1,6}\s+(.+)/), paragraph = n(heading ? "h3" : "p");
+      inline(paragraph, heading ? heading[1] : line); wrap.append(paragraph); i++;
+    }
+    return wrap;
+  }
+  function failureText(e) {
+    var codes = {
+      model_timeout: "模型回覆逾時，這題沒有完成。你可以重試，不必重打問題。",
+      model_auth: "模型連線憑證需要檢查，請先處理設定；重試同一句暫時無法解決。",
+      model_busy: "模型目前忙碌或達到額度限制，請稍後再試。",
+      model_request: "模型未接受這個請求，需要檢查相容性設定。",
+      model_unavailable: "模型連線暫時中斷，請稍後重試。"
+    };
+    return (codes[e.code] || ({
+      401: "預覽登入已失效，請重新登入。", 410: "臨時預覽已到期，需要重新開啟入口。",
+      429: "預覽請求太頻繁或已達測試上限，請稍後再試。",
+      502: "模型或預覽連線暫時中斷，請稍後重試。",
+      504: "模型回覆逾時，請稍後重試。"
+    })[e.status] || (e.status ? "這題沒有完成，請稍後重試。" : "連線中斷，請確認網路或服務已啟動。")) +
+      " 這裡的助理只有查詢與草稿工具，不會代送預約或 LINE。";
+  }
   function signature(call) {
     return call.name + "(" + JSON.stringify(call.arguments) + ")";
   }
   function card(call) {
+    var labels = {
+      rank_customers_by_spend: "消費排行", list_inactive_customers: "久未回訪的客人",
+      search_customer_segment: "篩選客人", get_customer_history: "客人消費紀錄",
+      list_recent_conversations: "近期對話", get_conversation_transcript: "讀取對話內容",
+      get_retention_watchlist: "回訪關心名單", get_service_metrics: "項目統計",
+      draft_follow_up_message: "準備訊息草稿"
+    };
     var wrap = n("div", "toolcard fade"),
-      state = n("div", "state", "正在查…");
-    wrap.append(state, n("div", "call", signature(call)));
+      state = n("div", "state", "正在查…"), parameters = n("div", "tool-details");
+    parameters.append(n("div", "call", signature(call)));
+    wrap.append(n("b", "tool-title", labels[call.name] || call.name), state, parameters);
     return { node: wrap, state: state, done: false };
   }
   function flip(item, call) {
@@ -39,7 +106,7 @@
   function draft(reply) {
     var wrap = n("div", "draft"),
       bar = n("div", "actions");
-    wrap.append(n("div", "cap", "回訪草稿 · 尚未送出"), n("div", "body", reply));
+    wrap.append(n("div", "cap", "回訪草稿 · 尚未送出"), answer(reply));
     bar.append(
       b(
         "複製",
@@ -94,16 +161,19 @@
       it.waiting = n("div", "bubble waiting");
       it.waiting.setAttribute("aria-label", "正在查資料");
       it.waiting.append(n("span"), n("span"), n("span"));
+      it.elapsed = n("small", "waiting-label");
+      it.waiting.append(it.elapsed);
       it.wrap.append(it.waiting);
     } else if (!m.pending && it.waiting) {
       it.waiting.remove();
       it.waiting = null;
     }
+    if (m.pending && it.elapsed) it.elapsed.textContent = "處理中 · " + (m.elapsed || 0) + " 秒";
     if (m.error) {
       if (!it.tail) {
         it.tail = n("div", "error", m.text);
-        it.wrap.append(
-          it.tail,
+        it.wrap.append(it.tail);
+        if (m.retryable !== false) it.wrap.append(
           b(
             "重試這一題",
             function () {
@@ -138,7 +208,7 @@
         return x.name === DRAFT_TOOL;
       })
         ? draft(m.text)
-        : n("div", "bubble", m.text);
+        : answer(m.text);
       it.wrap.append(it.tail);
     }
   }
@@ -217,6 +287,12 @@
       });
     paint();
     scrollToLatest();
+    var started = Date.now(), timer = setInterval(function () {
+      if (version === generation && pending.pending) {
+        pending.elapsed = Math.floor((Date.now() - started) / 1000);
+        paint();
+      }
+    }, 1000);
     try {
       var result = await g.AssistantApi.ask(text, session);
       if (version !== generation) return;
@@ -235,12 +311,12 @@
       Object.assign(pending, {
         pending: false,
         error: true,
-        text:
-          "這題沒有完成，沒有改動任何預約。" +
-          (e.status ? " 請稍後重試。" : " 請確認網路或服務已啟動。"),
+        text: failureText(e),
+        retryable: e.retryable !== false && ![401, 410].includes(e.status),
         question: text,
       });
     } finally {
+      clearInterval(timer);
       if (version === generation) {
         busy = false;
         paint();

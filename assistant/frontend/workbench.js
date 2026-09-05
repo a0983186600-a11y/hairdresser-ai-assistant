@@ -106,6 +106,28 @@
 
   function bookings() {
     S.open("預約", function (host) {
+      var tabs = n("div", "booking-tabs"), content = n("div"), version = 0;
+      tabs.setAttribute("role", "tablist");
+      tabs.setAttribute("aria-label", "預約工作");
+      host.append(tabs, content);
+      function show(kind, selected) {
+        version++;
+        var turn = version;
+        Array.from(tabs.children).forEach(function (x) { x.setAttribute("aria-selected", x === selected); });
+        content.replaceChildren();
+        if (kind === "records") bookingRecords(content);
+        else conversationList(content, function () { return turn === version; }).catch(function (e) {
+          if (turn === version) S.fail(content, e);
+        });
+      }
+      [["conversations", "客人對話"], ["records", "預約紀錄"]].forEach(function (item) {
+        var tab = b(item[1], function () { show(item[0], tab); });
+        tab.setAttribute("role", "tab"); tabs.append(tab);
+      });
+      show("conversations", tabs.firstChild);
+    });
+  }
+  function bookingRecords(host) {
       warning(host);
       var search = f("找客人、服務或日期", "search"),
         filter = "all";
@@ -182,7 +204,6 @@
         ),
       );
       draw();
-    });
   }
 
   function booking(args) {
@@ -400,6 +421,7 @@
       host.append(buttons);
       var visits = n("div", "card");
       visits.append(n("h3", null, "消費紀錄"));
+      note(visits, "示範消費紀錄 · 尚未同步 POS，以下不是客人的真實消費。 ");
       host.append(visits);
       if (c.customer_ref.startsWith("demo-customer-")) {
         note(visits, "這位是本次演練新增的客人，尚無到店紀錄。");
@@ -929,6 +951,11 @@
 
   function inbox() {
     S.open("客人訊息", async function (host) {
+      await conversationList(host);
+    });
+  }
+  async function conversationList(host, stillCurrent) {
+      host.classList.add("conversation-list");
       note(
         host,
         S.health.mode === "demo"
@@ -936,6 +963,7 @@
           : "以下由助理的正式唯讀資料來源查詢；不能在此接手或發送。",
       );
       var data = await A.conversations();
+      if (stillCurrent && !stillCurrent()) return;
       if (!data.rows.length) {
         note(host, "目前沒有近期對話。");
         return;
@@ -951,7 +979,6 @@
           ),
         );
       });
-    });
   }
   function thread(args) {
     S.open("對話內容", async function (host) {
