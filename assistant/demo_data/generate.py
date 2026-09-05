@@ -178,6 +178,17 @@ def _ref(kind: str, seed: int, key: object) -> str:
     return str(uuid.uuid5(_DEMO_NAMESPACE, f"{kind}:{seed}:{key}"))
 
 
+def _pos_customer_id(seed: int, key: object) -> str | None:
+    """公司系統（POS）的客編。跟 `_ref` 一樣不吃亂數狀態，加這個欄位不會動到別的檔。
+
+    四個人裡大約一個是 `None`——「未綁 POS」是真的會發生的狀態（LINE 上聊過、
+    公司系統裡對不到檔），設計稿要求畫面上分得出來。全部給編號就等於在畫面上
+    宣稱每個人都已經綁好了。
+    """
+    digest = uuid.uuid5(_DEMO_NAMESPACE, f"pos:{seed}:{key}").int
+    return None if digest % 4 == 0 else str(20000 + digest % 9000)
+
+
 def _fake_name(rng: random.Random, used: set[str]) -> str:
     for _ in range(200):
         length = 1 if rng.random() < 0.18 else 2
@@ -294,6 +305,7 @@ def _build(seed: int) -> dict[str, list[dict]]:
                     .replace(hour=12, minute=0)
                     .isoformat(),
                     "line_user_ref": f"demo-line-user-{customer_index:04d}",
+                    "pos_customer_id": _pos_customer_id(seed, customer_index),
                 }
             )
             profiles[customer_ref] = profile

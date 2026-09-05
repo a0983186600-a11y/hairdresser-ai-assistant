@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 import pytest
 from fastapi.testclient import TestClient
 
+from assistant.demo_data.generate import load_dataset
+
 
 @pytest.fixture
 def client(monkeypatch):
@@ -75,8 +77,36 @@ def test_profile_examples_are_separate_from_identity_and_real_notes(client):
         assert p["cycle_days"] > 0
         assert p["pinned"]
     assert s["notes"] == {}, "Do not silently turn made-up examples into customer notes"
-    # Customer identity and POS status cannot be invented to make a demo pretty.
-    assert all("pos_customer_id" not in c for c in s["customers"])
+    # Identity fields never ride along with the made-up presentation examples.
+    for p in profiles.values():
+        assert not {"pos_customer_id", "masked_name", "phone_last4"} & set(p)
+
+
+def test_pos_binding_comes_from_the_dataset_and_is_never_invented(client):
+    """畫面要分得出「POS 已綁定」與「未綁 POS」，但那個答案只能來自資料集。
+
+    這條原本寫成「`customers` 裡不准出現 `pos_customer_id`」——那時候資料集裡
+    根本沒有這個欄位，任何值都只可能是為了畫面好看編出來的。現在欄位有了
+    （`assistant/demo_data/generate.py` 的固定 seed 產的），守的東西不變：
+    **值只能照抄資料集**，資料集沒有就是 `None`，工作台不准自己算一個。
+    """
+    dataset = load_dataset()
+    s = client.get("/api/workbench").json()
+    truth = {c["customer_ref"]: c.get("pos_customer_id") for c in dataset["customers"]}
+
+    for row in s["customers"]:
+        assert "pos_customer_id" in row
+        assert row["pos_customer_id"] == truth[row["customer_ref"]]
+    # 兩種狀態都要真的存在，否則畫面上那顆陶土色標籤只是裝飾。
+    values = [c["pos_customer_id"] for c in s["customers"]]
+    assert any(v for v in values) and any(v is None for v in values)
+
+    # 這一刻在示範裡新建的客人，公司系統裡還沒有他的檔：不准先給他一個號碼。
+    created = client.post("/api/workbench/actions", json={"kind": "customer", "data": {
+        "name": "示範新客", "phone_last4": "0009",
+    }})
+    assert created.status_code == 200
+    assert created.json()["customer"]["pos_customer_id"] is None
 
 
 def test_new_booking_never_leaks_to_model_fixture_or_another_session(client):

@@ -5,7 +5,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "何皓",
     "line_user_ref": "demo-line-user-0000",
-    "phone": "0987593586"
+    "phone": "0987593586",
+    "pos_customer_id": "26337"
   },
   {
     "created_at": "2025-11-22T12:00:00+08:00",
@@ -13,7 +14,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "何亭恩",
     "line_user_ref": "demo-line-user-0001",
-    "phone": "0903229836"
+    "phone": "0903229836",
+    "pos_customer_id": "25457"
   },
   {
     "created_at": "2026-04-23T12:00:00+08:00",
@@ -21,7 +23,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蘇蓁",
     "line_user_ref": "demo-line-user-0002",
-    "phone": "0952614498"
+    "phone": "0952614498",
+    "pos_customer_id": "22285"
   },
   {
     "created_at": "2025-08-12T12:00:00+08:00",
@@ -29,7 +32,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "洪承",
     "line_user_ref": "demo-line-user-0003",
-    "phone": "0928425723"
+    "phone": "0928425723",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-15T12:00:00+08:00",
@@ -37,7 +41,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蔡恩頎",
     "line_user_ref": "demo-line-user-0004",
-    "phone": "0948509899"
+    "phone": "0948509899",
+    "pos_customer_id": "23989"
   },
   {
     "created_at": "2025-09-10T12:00:00+08:00",
@@ -45,7 +50,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉恩筱",
     "line_user_ref": "demo-line-user-0005",
-    "phone": "0982564559"
+    "phone": "0982564559",
+    "pos_customer_id": "21279"
   },
   {
     "created_at": "2025-10-12T12:00:00+08:00",
@@ -53,7 +59,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蕭丞舒",
     "line_user_ref": "demo-line-user-0006",
-    "phone": "0987696082"
+    "phone": "0987696082",
+    "pos_customer_id": "27677"
   },
   {
     "created_at": "2025-09-18T12:00:00+08:00",
@@ -61,7 +68,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "廖禾薇",
     "line_user_ref": "demo-line-user-0007",
-    "phone": "0911387882"
+    "phone": "0911387882",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-17T12:00:00+08:00",
@@ -69,7 +77,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "郭喬",
     "line_user_ref": "demo-line-user-0008",
-    "phone": "0936535270"
+    "phone": "0936535270",
+    "pos_customer_id": "25215"
   },
   {
     "created_at": "2025-07-27T12:00:00+08:00",
@@ -77,7 +86,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "謝翊",
     "line_user_ref": "demo-line-user-0009",
-    "phone": "0995028486"
+    "phone": "0995028486",
+    "pos_customer_id": "28927"
   },
   {
     "created_at": "2026-07-11T12:00:00+08:00",
@@ -85,7 +95,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "許澤",
     "line_user_ref": "demo-line-user-0010",
-    "phone": "0989475622"
+    "phone": "0989475622",
+    "pos_customer_id": "28518"
   },
   {
     "created_at": "2026-04-04T12:00:00+08:00",
@@ -93,7 +104,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "莊雅澤",
     "line_user_ref": "demo-line-user-0011",
-    "phone": "0982005936"
+    "phone": "0982005936",
+    "pos_customer_id": "22782"
   },
   {
     "created_at": "2025-08-04T12:00:00+08:00",
@@ -101,7 +113,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉琁雅",
     "line_user_ref": "demo-line-user-0012",
-    "phone": "0970661786"
+    "phone": "0970661786",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-02T12:00:00+08:00",
@@ -109,7 +122,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "王靖亭",
     "line_user_ref": "demo-line-user-0013",
-    "phone": "0938720907"
+    "phone": "0938720907",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-12T12:00:00+08:00",
@@ -117,7 +131,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "郭翊柏",
     "line_user_ref": "demo-line-user-0014",
-    "phone": "0994840601"
+    "phone": "0994840601",
+    "pos_customer_id": "20735"
   },
   {
     "created_at": "2025-10-10T12:00:00+08:00",
@@ -125,7 +140,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "李宥",
     "line_user_ref": "demo-line-user-0015",
-    "phone": "0975216695"
+    "phone": "0975216695",
+    "pos_customer_id": "21874"
   },
   {
     "created_at": "2025-11-05T12:00:00+08:00",
@@ -133,7 +149,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "潘湘宜",
     "line_user_ref": "demo-line-user-0016",
-    "phone": "0996541376"
+    "phone": "0996541376",
+    "pos_customer_id": "22679"
   },
   {
     "created_at": "2025-07-23T12:00:00+08:00",
@@ -141,7 +158,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蔡家薇",
     "line_user_ref": "demo-line-user-0017",
-    "phone": "0994153554"
+    "phone": "0994153554",
+    "pos_customer_id": "24506"
   },
   {
     "created_at": "2025-09-01T12:00:00+08:00",
@@ -149,7 +167,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "黃淇澐",
     "line_user_ref": "demo-line-user-0018",
-    "phone": "0946907231"
+    "phone": "0946907231",
+    "pos_customer_id": "26669"
   },
   {
     "created_at": "2026-01-19T12:00:00+08:00",
@@ -157,7 +176,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "莊昀皓",
     "line_user_ref": "demo-line-user-0019",
-    "phone": "0949276366"
+    "phone": "0949276366",
+    "pos_customer_id": "22073"
   },
   {
     "created_at": "2025-12-11T12:00:00+08:00",
@@ -165,7 +185,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "洪宏喬",
     "line_user_ref": "demo-line-user-0020",
-    "phone": "0931919879"
+    "phone": "0931919879",
+    "pos_customer_id": "23973"
   },
   {
     "created_at": "2025-08-30T12:00:00+08:00",
@@ -173,7 +194,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "楊凱晴",
     "line_user_ref": "demo-line-user-0021",
-    "phone": "0981467947"
+    "phone": "0981467947",
+    "pos_customer_id": "25419"
   },
   {
     "created_at": "2026-04-09T12:00:00+08:00",
@@ -181,7 +203,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "吳澐品",
     "line_user_ref": "demo-line-user-0022",
-    "phone": "0919081121"
+    "phone": "0919081121",
+    "pos_customer_id": "26382"
   },
   {
     "created_at": "2025-07-29T12:00:00+08:00",
@@ -189,7 +212,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "楊沛承",
     "line_user_ref": "demo-line-user-0023",
-    "phone": "0946078677"
+    "phone": "0946078677",
+    "pos_customer_id": "20961"
   },
   {
     "created_at": "2025-12-14T12:00:00+08:00",
@@ -197,7 +221,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "何琁宏",
     "line_user_ref": "demo-line-user-0024",
-    "phone": "0966098217"
+    "phone": "0966098217",
+    "pos_customer_id": "27910"
   },
   {
     "created_at": "2025-07-22T12:00:00+08:00",
@@ -205,7 +230,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉凱睿",
     "line_user_ref": "demo-line-user-0025",
-    "phone": "0903503212"
+    "phone": "0903503212",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-31T12:00:00+08:00",
@@ -213,7 +239,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "周翊澤",
     "line_user_ref": "demo-line-user-0026",
-    "phone": "0947749566"
+    "phone": "0947749566",
+    "pos_customer_id": "20026"
   },
   {
     "created_at": "2025-10-05T12:00:00+08:00",
@@ -221,7 +248,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蘇睿頎",
     "line_user_ref": "demo-line-user-0027",
-    "phone": "0983513963"
+    "phone": "0983513963",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-29T12:00:00+08:00",
@@ -229,7 +257,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "江妤禾",
     "line_user_ref": "demo-line-user-0028",
-    "phone": "0939942359"
+    "phone": "0939942359",
+    "pos_customer_id": "24371"
   },
   {
     "created_at": "2026-07-21T12:00:00+08:00",
@@ -237,7 +266,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉彥禹",
     "line_user_ref": "demo-line-user-0029",
-    "phone": "0940028575"
+    "phone": "0940028575",
+    "pos_customer_id": "28013"
   },
   {
     "created_at": "2025-08-15T12:00:00+08:00",
@@ -245,7 +275,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "呂品",
     "line_user_ref": "demo-line-user-0030",
-    "phone": "0976773058"
+    "phone": "0976773058",
+    "pos_customer_id": "23059"
   },
   {
     "created_at": "2025-08-03T12:00:00+08:00",
@@ -253,7 +284,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蕭丞",
     "line_user_ref": "demo-line-user-0031",
-    "phone": "0992990638"
+    "phone": "0992990638",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-25T12:00:00+08:00",
@@ -261,7 +293,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "周亭宜",
     "line_user_ref": "demo-line-user-0032",
-    "phone": "0912170538"
+    "phone": "0912170538",
+    "pos_customer_id": "22811"
   },
   {
     "created_at": "2025-12-28T12:00:00+08:00",
@@ -269,7 +302,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "徐禾祐",
     "line_user_ref": "demo-line-user-0033",
-    "phone": "0980065674"
+    "phone": "0980065674",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-03T12:00:00+08:00",
@@ -277,7 +311,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "賴宥澤",
     "line_user_ref": "demo-line-user-0034",
-    "phone": "0945430959"
+    "phone": "0945430959",
+    "pos_customer_id": "22970"
   },
   {
     "created_at": "2025-12-21T12:00:00+08:00",
@@ -285,7 +320,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "許瑄澤",
     "line_user_ref": "demo-line-user-0035",
-    "phone": "0915501344"
+    "phone": "0915501344",
+    "pos_customer_id": "26487"
   },
   {
     "created_at": "2025-09-12T12:00:00+08:00",
@@ -293,7 +329,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "王淇皓",
     "line_user_ref": "demo-line-user-0036",
-    "phone": "0981609103"
+    "phone": "0981609103",
+    "pos_customer_id": "21942"
   },
   {
     "created_at": "2025-12-20T12:00:00+08:00",
@@ -301,7 +338,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "呂苡筱",
     "line_user_ref": "demo-line-user-0037",
-    "phone": "0963989822"
+    "phone": "0963989822",
+    "pos_customer_id": "27982"
   },
   {
     "created_at": "2025-08-11T12:00:00+08:00",
@@ -309,7 +347,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "潘家",
     "line_user_ref": "demo-line-user-0038",
-    "phone": "0995498411"
+    "phone": "0995498411",
+    "pos_customer_id": "28375"
   },
   {
     "created_at": "2026-02-23T12:00:00+08:00",
@@ -317,7 +356,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "洪承睿",
     "line_user_ref": "demo-line-user-0039",
-    "phone": "0922780470"
+    "phone": "0922780470",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-15T12:00:00+08:00",
@@ -325,7 +365,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蘇雅宏",
     "line_user_ref": "demo-line-user-0040",
-    "phone": "0975030990"
+    "phone": "0975030990",
+    "pos_customer_id": "26934"
   },
   {
     "created_at": "2025-09-30T12:00:00+08:00",
@@ -333,7 +374,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "張宏湘",
     "line_user_ref": "demo-line-user-0041",
-    "phone": "0978021057"
+    "phone": "0978021057",
+    "pos_customer_id": "26493"
   },
   {
     "created_at": "2025-11-04T12:00:00+08:00",
@@ -341,7 +383,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "江頎祐",
     "line_user_ref": "demo-line-user-0042",
-    "phone": "0995122698"
+    "phone": "0995122698",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-06T12:00:00+08:00",
@@ -349,7 +392,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "高薇湘",
     "line_user_ref": "demo-line-user-0043",
-    "phone": "0913384662"
+    "phone": "0913384662",
+    "pos_customer_id": "23962"
   },
   {
     "created_at": "2025-12-19T12:00:00+08:00",
@@ -357,7 +401,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "王承",
     "line_user_ref": "demo-line-user-0044",
-    "phone": "0982334592"
+    "phone": "0982334592",
+    "pos_customer_id": "20773"
   },
   {
     "created_at": "2025-08-24T12:00:00+08:00",
@@ -365,7 +410,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "李恩",
     "line_user_ref": "demo-line-user-0045",
-    "phone": "0983837197"
+    "phone": "0983837197",
+    "pos_customer_id": "28713"
   },
   {
     "created_at": "2025-09-02T12:00:00+08:00",
@@ -373,7 +419,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "林丞晴",
     "line_user_ref": "demo-line-user-0046",
-    "phone": "0953323099"
+    "phone": "0953323099",
+    "pos_customer_id": "22287"
   },
   {
     "created_at": "2026-03-07T12:00:00+08:00",
@@ -381,7 +428,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "李宥瑄",
     "line_user_ref": "demo-line-user-0047",
-    "phone": "0923992645"
+    "phone": "0923992645",
+    "pos_customer_id": "27977"
   },
   {
     "created_at": "2026-07-11T12:00:00+08:00",
@@ -389,7 +437,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "呂湘凱",
     "line_user_ref": "demo-line-user-0048",
-    "phone": "0962677094"
+    "phone": "0962677094",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-13T12:00:00+08:00",
@@ -397,7 +446,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "賴薇軒",
     "line_user_ref": "demo-line-user-0049",
-    "phone": "0937553014"
+    "phone": "0937553014",
+    "pos_customer_id": "22538"
   },
   {
     "created_at": "2026-08-04T12:00:00+08:00",
@@ -405,7 +455,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "謝翊淇",
     "line_user_ref": "demo-line-user-0050",
-    "phone": "0940615372"
+    "phone": "0940615372",
+    "pos_customer_id": "20267"
   },
   {
     "created_at": "2025-08-17T12:00:00+08:00",
@@ -413,7 +464,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉淇沛",
     "line_user_ref": "demo-line-user-0051",
-    "phone": "0954134030"
+    "phone": "0954134030",
+    "pos_customer_id": "26490"
   },
   {
     "created_at": "2025-08-08T12:00:00+08:00",
@@ -421,7 +473,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "徐舒彥",
     "line_user_ref": "demo-line-user-0052",
-    "phone": "0922032537"
+    "phone": "0922032537",
+    "pos_customer_id": "25539"
   },
   {
     "created_at": "2025-09-19T12:00:00+08:00",
@@ -429,7 +482,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "曾家",
     "line_user_ref": "demo-line-user-0053",
-    "phone": "0993930777"
+    "phone": "0993930777",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-01-27T12:00:00+08:00",
@@ -437,7 +491,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "林琁靖",
     "line_user_ref": "demo-line-user-0054",
-    "phone": "0961619262"
+    "phone": "0961619262",
+    "pos_customer_id": "28609"
   },
   {
     "created_at": "2026-03-11T12:00:00+08:00",
@@ -445,7 +500,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "張宥岑",
     "line_user_ref": "demo-line-user-0055",
-    "phone": "0917719150"
+    "phone": "0917719150",
+    "pos_customer_id": "24210"
   },
   {
     "created_at": "2026-01-02T12:00:00+08:00",
@@ -453,7 +509,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "黃祐皓",
     "line_user_ref": "demo-line-user-0056",
-    "phone": "0967686355"
+    "phone": "0967686355",
+    "pos_customer_id": "28207"
   },
   {
     "created_at": "2025-09-27T12:00:00+08:00",
@@ -461,7 +518,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "徐宜湘",
     "line_user_ref": "demo-line-user-0057",
-    "phone": "0970562352"
+    "phone": "0970562352",
+    "pos_customer_id": "23881"
   },
   {
     "created_at": "2025-08-31T12:00:00+08:00",
@@ -469,7 +527,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "黃妤丞",
     "line_user_ref": "demo-line-user-0058",
-    "phone": "0945321572"
+    "phone": "0945321572",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-04-24T12:00:00+08:00",
@@ -477,7 +536,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "楊祐宸",
     "line_user_ref": "demo-line-user-0059",
-    "phone": "0925364547"
+    "phone": "0925364547",
+    "pos_customer_id": "21533"
   },
   {
     "created_at": "2026-07-02T12:00:00+08:00",
@@ -485,7 +545,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "劉凱柏",
     "line_user_ref": "demo-line-user-0060",
-    "phone": "0997098573"
+    "phone": "0997098573",
+    "pos_customer_id": "25718"
   },
   {
     "created_at": "2025-09-04T12:00:00+08:00",
@@ -493,7 +554,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "莊宥苡",
     "line_user_ref": "demo-line-user-0061",
-    "phone": "0902751144"
+    "phone": "0902751144",
+    "pos_customer_id": "25506"
   },
   {
     "created_at": "2025-08-04T12:00:00+08:00",
@@ -501,7 +563,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "江沛",
     "line_user_ref": "demo-line-user-0062",
-    "phone": "0918366528"
+    "phone": "0918366528",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-11T12:00:00+08:00",
@@ -509,7 +572,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "江亭沛",
     "line_user_ref": "demo-line-user-0063",
-    "phone": "0973549531"
+    "phone": "0973549531",
+    "pos_customer_id": "24158"
   },
   {
     "created_at": "2025-09-20T12:00:00+08:00",
@@ -517,7 +581,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉頎昀",
     "line_user_ref": "demo-line-user-0064",
-    "phone": "0979551984"
+    "phone": "0979551984",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-18T12:00:00+08:00",
@@ -525,7 +590,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "呂琁淇",
     "line_user_ref": "demo-line-user-0065",
-    "phone": "0919697251"
+    "phone": "0919697251",
+    "pos_customer_id": "26882"
   },
   {
     "created_at": "2025-08-07T12:00:00+08:00",
@@ -533,7 +599,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉舒柏",
     "line_user_ref": "demo-line-user-0066",
-    "phone": "0982390137"
+    "phone": "0982390137",
+    "pos_customer_id": "20807"
   },
   {
     "created_at": "2026-02-07T12:00:00+08:00",
@@ -541,7 +608,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "鄭軒苡",
     "line_user_ref": "demo-line-user-0067",
-    "phone": "0942207603"
+    "phone": "0942207603",
+    "pos_customer_id": "22250"
   },
   {
     "created_at": "2026-07-16T12:00:00+08:00",
@@ -549,7 +617,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "潘琁",
     "line_user_ref": "demo-line-user-0068",
-    "phone": "0981494968"
+    "phone": "0981494968",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-01-06T12:00:00+08:00",
@@ -557,7 +626,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "廖品湘",
     "line_user_ref": "demo-line-user-0069",
-    "phone": "0934602166"
+    "phone": "0934602166",
+    "pos_customer_id": "22365"
   },
   {
     "created_at": "2026-06-26T12:00:00+08:00",
@@ -565,7 +635,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "吳宏喬",
     "line_user_ref": "demo-line-user-0070",
-    "phone": "0978851351"
+    "phone": "0978851351",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-19T12:00:00+08:00",
@@ -573,7 +644,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "李祐琁",
     "line_user_ref": "demo-line-user-0071",
-    "phone": "0986624077"
+    "phone": "0986624077",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-11T12:00:00+08:00",
@@ -581,7 +653,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "謝雅昀",
     "line_user_ref": "demo-line-user-0072",
-    "phone": "0975172579"
+    "phone": "0975172579",
+    "pos_customer_id": "23525"
   },
   {
     "created_at": "2025-08-25T12:00:00+08:00",
@@ -589,7 +662,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "曾澐雅",
     "line_user_ref": "demo-line-user-0073",
-    "phone": "0920812459"
+    "phone": "0920812459",
+    "pos_customer_id": "25469"
   },
   {
     "created_at": "2025-10-20T12:00:00+08:00",
@@ -597,7 +671,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "鄭宸宥",
     "line_user_ref": "demo-line-user-0074",
-    "phone": "0981662631"
+    "phone": "0981662631",
+    "pos_customer_id": "27025"
   },
   {
     "created_at": "2026-08-16T12:00:00+08:00",
@@ -605,7 +680,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "王丞睿",
     "line_user_ref": "demo-line-user-0075",
-    "phone": "0908250966"
+    "phone": "0908250966",
+    "pos_customer_id": "22877"
   },
   {
     "created_at": "2025-12-16T12:00:00+08:00",
@@ -613,7 +689,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "張翊",
     "line_user_ref": "demo-line-user-0076",
-    "phone": "0912527204"
+    "phone": "0912527204",
+    "pos_customer_id": "27835"
   },
   {
     "created_at": "2026-02-28T12:00:00+08:00",
@@ -621,7 +698,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "周舒丞",
     "line_user_ref": "demo-line-user-0077",
-    "phone": "0946808149"
+    "phone": "0946808149",
+    "pos_customer_id": "21735"
   },
   {
     "created_at": "2025-08-16T12:00:00+08:00",
@@ -629,7 +707,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "呂薇祐",
     "line_user_ref": "demo-line-user-0078",
-    "phone": "0996357062"
+    "phone": "0996357062",
+    "pos_customer_id": "28021"
   },
   {
     "created_at": "2025-09-22T12:00:00+08:00",
@@ -637,7 +716,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "張澤靖",
     "line_user_ref": "demo-line-user-0079",
-    "phone": "0938925701"
+    "phone": "0938925701",
+    "pos_customer_id": "28745"
   },
   {
     "created_at": "2025-08-25T12:00:00+08:00",
@@ -645,7 +725,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蔡禹澐",
     "line_user_ref": "demo-line-user-0080",
-    "phone": "0979626236"
+    "phone": "0979626236",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-12T12:00:00+08:00",
@@ -653,7 +734,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "張澐喬",
     "line_user_ref": "demo-line-user-0081",
-    "phone": "0987527726"
+    "phone": "0987527726",
+    "pos_customer_id": "25947"
   },
   {
     "created_at": "2025-09-09T12:00:00+08:00",
@@ -661,7 +743,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "楊禹舒",
     "line_user_ref": "demo-line-user-0082",
-    "phone": "0913096645"
+    "phone": "0913096645",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-23T12:00:00+08:00",
@@ -669,7 +752,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "郭頎皓",
     "line_user_ref": "demo-line-user-0083",
-    "phone": "0969639935"
+    "phone": "0969639935",
+    "pos_customer_id": "20898"
   },
   {
     "created_at": "2025-10-07T12:00:00+08:00",
@@ -677,7 +761,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "呂澐湘",
     "line_user_ref": "demo-line-user-0084",
-    "phone": "0915797697"
+    "phone": "0915797697",
+    "pos_customer_id": "27659"
   },
   {
     "created_at": "2025-09-10T12:00:00+08:00",
@@ -685,7 +770,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "呂承琁",
     "line_user_ref": "demo-line-user-0085",
-    "phone": "0916977395"
+    "phone": "0916977395",
+    "pos_customer_id": "26238"
   },
   {
     "created_at": "2026-07-22T12:00:00+08:00",
@@ -693,7 +779,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蘇凱",
     "line_user_ref": "demo-line-user-0086",
-    "phone": "0931616934"
+    "phone": "0931616934",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-01-04T12:00:00+08:00",
@@ -701,7 +788,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "何彥承",
     "line_user_ref": "demo-line-user-0087",
-    "phone": "0928000505"
+    "phone": "0928000505",
+    "pos_customer_id": "28451"
   },
   {
     "created_at": "2025-08-17T12:00:00+08:00",
@@ -709,7 +797,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "陳靖頎",
     "line_user_ref": "demo-line-user-0088",
-    "phone": "0934409375"
+    "phone": "0934409375",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-10-21T12:00:00+08:00",
@@ -717,7 +806,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "何宸",
     "line_user_ref": "demo-line-user-0089",
-    "phone": "0905160502"
+    "phone": "0905160502",
+    "pos_customer_id": "21222"
   },
   {
     "created_at": "2025-08-05T12:00:00+08:00",
@@ -725,7 +815,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "張靖澐",
     "line_user_ref": "demo-line-user-0090",
-    "phone": "0954104607"
+    "phone": "0954104607",
+    "pos_customer_id": "26947"
   },
   {
     "created_at": "2025-09-05T12:00:00+08:00",
@@ -733,7 +824,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "賴喬澤",
     "line_user_ref": "demo-line-user-0091",
-    "phone": "0960142828"
+    "phone": "0960142828",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-25T12:00:00+08:00",
@@ -741,7 +833,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "楊品禹",
     "line_user_ref": "demo-line-user-0092",
-    "phone": "0978674612"
+    "phone": "0978674612",
+    "pos_customer_id": "26297"
   },
   {
     "created_at": "2025-08-18T12:00:00+08:00",
@@ -749,7 +842,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "曾喬柏",
     "line_user_ref": "demo-line-user-0093",
-    "phone": "0902893926"
+    "phone": "0902893926",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-04-15T12:00:00+08:00",
@@ -757,7 +851,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉宏",
     "line_user_ref": "demo-line-user-0094",
-    "phone": "0909438296"
+    "phone": "0909438296",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-30T12:00:00+08:00",
@@ -765,7 +860,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "潘蓁",
     "line_user_ref": "demo-line-user-0095",
-    "phone": "0946025362"
+    "phone": "0946025362",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-10T12:00:00+08:00",
@@ -773,7 +869,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "羅苡宸",
     "line_user_ref": "demo-line-user-0096",
-    "phone": "0918915617"
+    "phone": "0918915617",
+    "pos_customer_id": "20918"
   },
   {
     "created_at": "2026-01-21T12:00:00+08:00",
@@ -781,7 +878,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "周瑄禹",
     "line_user_ref": "demo-line-user-0097",
-    "phone": "0901108503"
+    "phone": "0901108503",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-27T12:00:00+08:00",
@@ -789,7 +887,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "廖宏軒",
     "line_user_ref": "demo-line-user-0098",
-    "phone": "0932308834"
+    "phone": "0932308834",
+    "pos_customer_id": "25622"
   },
   {
     "created_at": "2026-01-07T12:00:00+08:00",
@@ -797,7 +896,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "徐翊宸",
     "line_user_ref": "demo-line-user-0099",
-    "phone": "0905112772"
+    "phone": "0905112772",
+    "pos_customer_id": "25978"
   },
   {
     "created_at": "2026-03-01T12:00:00+08:00",
@@ -805,7 +905,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "洪蓁宥",
     "line_user_ref": "demo-line-user-0100",
-    "phone": "0936095261"
+    "phone": "0936095261",
+    "pos_customer_id": "21271"
   },
   {
     "created_at": "2025-09-02T12:00:00+08:00",
@@ -813,7 +914,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "徐柏淇",
     "line_user_ref": "demo-line-user-0101",
-    "phone": "0977129778"
+    "phone": "0977129778",
+    "pos_customer_id": "20646"
   },
   {
     "created_at": "2026-01-20T12:00:00+08:00",
@@ -821,7 +923,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "王宸澐",
     "line_user_ref": "demo-line-user-0102",
-    "phone": "0972765354"
+    "phone": "0972765354",
+    "pos_customer_id": "27074"
   },
   {
     "created_at": "2025-09-13T12:00:00+08:00",
@@ -829,7 +932,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "劉昀柏",
     "line_user_ref": "demo-line-user-0103",
-    "phone": "0939907515"
+    "phone": "0939907515",
+    "pos_customer_id": "26325"
   },
   {
     "created_at": "2026-08-01T12:00:00+08:00",
@@ -837,7 +941,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "莊軒喬",
     "line_user_ref": "demo-line-user-0104",
-    "phone": "0965279294"
+    "phone": "0965279294",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-10T12:00:00+08:00",
@@ -845,7 +950,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "吳宏晴",
     "line_user_ref": "demo-line-user-0105",
-    "phone": "0939777186"
+    "phone": "0939777186",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-24T12:00:00+08:00",
@@ -853,7 +959,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "陳喬雅",
     "line_user_ref": "demo-line-user-0106",
-    "phone": "0945522310"
+    "phone": "0945522310",
+    "pos_customer_id": "28501"
   },
   {
     "created_at": "2025-11-06T12:00:00+08:00",
@@ -861,7 +968,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "潘軒彥",
     "line_user_ref": "demo-line-user-0107",
-    "phone": "0908137810"
+    "phone": "0908137810",
+    "pos_customer_id": "20609"
   },
   {
     "created_at": "2025-08-06T12:00:00+08:00",
@@ -869,7 +977,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "許淇恩",
     "line_user_ref": "demo-line-user-0108",
-    "phone": "0995868880"
+    "phone": "0995868880",
+    "pos_customer_id": "28695"
   },
   {
     "created_at": "2025-12-01T12:00:00+08:00",
@@ -877,7 +986,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "賴恩恩",
     "line_user_ref": "demo-line-user-0109",
-    "phone": "0963645673"
+    "phone": "0963645673",
+    "pos_customer_id": "25589"
   },
   {
     "created_at": "2026-02-19T12:00:00+08:00",
@@ -885,7 +995,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "蕭亭宜",
     "line_user_ref": "demo-line-user-0110",
-    "phone": "0948095375"
+    "phone": "0948095375",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-17T12:00:00+08:00",
@@ -893,7 +1004,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "葉彥湘",
     "line_user_ref": "demo-line-user-0111",
-    "phone": "0941572426"
+    "phone": "0941572426",
+    "pos_customer_id": "25662"
   },
   {
     "created_at": "2025-10-22T12:00:00+08:00",
@@ -901,7 +1013,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "楊澤軒",
     "line_user_ref": "demo-line-user-0112",
-    "phone": "0961126248"
+    "phone": "0961126248",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-22T12:00:00+08:00",
@@ -909,7 +1022,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "陳湘翊",
     "line_user_ref": "demo-line-user-0113",
-    "phone": "0966657145"
+    "phone": "0966657145",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-11T12:00:00+08:00",
@@ -917,7 +1031,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "潘丞彥",
     "line_user_ref": "demo-line-user-0114",
-    "phone": "0955641679"
+    "phone": "0955641679",
+    "pos_customer_id": "23223"
   },
   {
     "created_at": "2025-08-08T12:00:00+08:00",
@@ -925,7 +1040,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "賴雅薇",
     "line_user_ref": "demo-line-user-0115",
-    "phone": "0987730442"
+    "phone": "0987730442",
+    "pos_customer_id": "24194"
   },
   {
     "created_at": "2025-10-15T12:00:00+08:00",
@@ -933,7 +1049,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "楊彥禹",
     "line_user_ref": "demo-line-user-0116",
-    "phone": "0922063414"
+    "phone": "0922063414",
+    "pos_customer_id": "26379"
   },
   {
     "created_at": "2026-07-20T12:00:00+08:00",
@@ -941,7 +1058,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "郭蓁禹",
     "line_user_ref": "demo-line-user-0117",
-    "phone": "0942286936"
+    "phone": "0942286936",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-27T12:00:00+08:00",
@@ -949,7 +1067,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "江翊琁",
     "line_user_ref": "demo-line-user-0118",
-    "phone": "0901873460"
+    "phone": "0901873460",
+    "pos_customer_id": "21021"
   },
   {
     "created_at": "2025-09-21T12:00:00+08:00",
@@ -957,7 +1076,8 @@
     "designer_ref": "8e9aee2f-e217-5a32-b690-73830c8b84d0",
     "full_name": "謝妤亭",
     "line_user_ref": "demo-line-user-0119",
-    "phone": "0964155431"
+    "phone": "0964155431",
+    "pos_customer_id": "28689"
   },
   {
     "created_at": "2025-10-21T12:00:00+08:00",
@@ -965,7 +1085,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "許亭",
     "line_user_ref": "demo-line-user-0120",
-    "phone": "0945474972"
+    "phone": "0945474972",
+    "pos_customer_id": "20441"
   },
   {
     "created_at": "2026-03-31T12:00:00+08:00",
@@ -973,7 +1094,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "王薇",
     "line_user_ref": "demo-line-user-0121",
-    "phone": "0914827478"
+    "phone": "0914827478",
+    "pos_customer_id": "22797"
   },
   {
     "created_at": "2025-08-16T12:00:00+08:00",
@@ -981,7 +1103,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "謝頎澐",
     "line_user_ref": "demo-line-user-0122",
-    "phone": "0932063777"
+    "phone": "0932063777",
+    "pos_customer_id": "27522"
   },
   {
     "created_at": "2025-09-08T12:00:00+08:00",
@@ -989,7 +1112,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "呂宥舒",
     "line_user_ref": "demo-line-user-0123",
-    "phone": "0907330924"
+    "phone": "0907330924",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-14T12:00:00+08:00",
@@ -997,7 +1121,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "高凱軒",
     "line_user_ref": "demo-line-user-0124",
-    "phone": "0987750984"
+    "phone": "0987750984",
+    "pos_customer_id": "22513"
   },
   {
     "created_at": "2025-11-07T12:00:00+08:00",
@@ -1005,7 +1130,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪柏承",
     "line_user_ref": "demo-line-user-0125",
-    "phone": "0935849007"
+    "phone": "0935849007",
+    "pos_customer_id": "20089"
   },
   {
     "created_at": "2025-08-10T12:00:00+08:00",
@@ -1013,7 +1139,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "林凱宸",
     "line_user_ref": "demo-line-user-0126",
-    "phone": "0910684876"
+    "phone": "0910684876",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-26T12:00:00+08:00",
@@ -1021,7 +1148,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "羅翊亭",
     "line_user_ref": "demo-line-user-0127",
-    "phone": "0941875316"
+    "phone": "0941875316",
+    "pos_customer_id": "24078"
   },
   {
     "created_at": "2025-10-06T12:00:00+08:00",
@@ -1029,7 +1157,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "徐亭淇",
     "line_user_ref": "demo-line-user-0128",
-    "phone": "0961980849"
+    "phone": "0961980849",
+    "pos_customer_id": "25577"
   },
   {
     "created_at": "2025-10-26T12:00:00+08:00",
@@ -1037,7 +1166,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蘇澐喬",
     "line_user_ref": "demo-line-user-0129",
-    "phone": "0904784734"
+    "phone": "0904784734",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-07T12:00:00+08:00",
@@ -1045,7 +1175,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "葉家柏",
     "line_user_ref": "demo-line-user-0130",
-    "phone": "0934517652"
+    "phone": "0934517652",
+    "pos_customer_id": "20326"
   },
   {
     "created_at": "2025-11-19T12:00:00+08:00",
@@ -1053,7 +1184,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "許妤",
     "line_user_ref": "demo-line-user-0131",
-    "phone": "0919729866"
+    "phone": "0919729866",
+    "pos_customer_id": "26302"
   },
   {
     "created_at": "2025-07-13T12:00:00+08:00",
@@ -1061,7 +1193,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "楊皓瑄",
     "line_user_ref": "demo-line-user-0132",
-    "phone": "0993183323"
+    "phone": "0993183323",
+    "pos_customer_id": "25871"
   },
   {
     "created_at": "2025-08-05T12:00:00+08:00",
@@ -1069,7 +1202,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "謝凱蓁",
     "line_user_ref": "demo-line-user-0133",
-    "phone": "0921290755"
+    "phone": "0921290755",
+    "pos_customer_id": "25673"
   },
   {
     "created_at": "2025-08-30T12:00:00+08:00",
@@ -1077,7 +1211,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "羅筱舒",
     "line_user_ref": "demo-line-user-0134",
-    "phone": "0921868555"
+    "phone": "0921868555",
+    "pos_customer_id": "21201"
   },
   {
     "created_at": "2025-07-30T12:00:00+08:00",
@@ -1085,7 +1220,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "王丞晴",
     "line_user_ref": "demo-line-user-0135",
-    "phone": "0989931572"
+    "phone": "0989931572",
+    "pos_customer_id": "23079"
   },
   {
     "created_at": "2025-11-13T12:00:00+08:00",
@@ -1093,7 +1229,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蘇祐昀",
     "line_user_ref": "demo-line-user-0136",
-    "phone": "0931263945"
+    "phone": "0931263945",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-01-01T12:00:00+08:00",
@@ -1101,7 +1238,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蘇薇苡",
     "line_user_ref": "demo-line-user-0137",
-    "phone": "0976446442"
+    "phone": "0976446442",
+    "pos_customer_id": "20182"
   },
   {
     "created_at": "2026-03-07T12:00:00+08:00",
@@ -1109,7 +1247,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪苡品",
     "line_user_ref": "demo-line-user-0138",
-    "phone": "0985904933"
+    "phone": "0985904933",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-12-03T12:00:00+08:00",
@@ -1117,7 +1256,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "徐丞沛",
     "line_user_ref": "demo-line-user-0139",
-    "phone": "0930083708"
+    "phone": "0930083708",
+    "pos_customer_id": "24319"
   },
   {
     "created_at": "2025-08-07T12:00:00+08:00",
@@ -1125,7 +1265,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "許柏",
     "line_user_ref": "demo-line-user-0140",
-    "phone": "0984276384"
+    "phone": "0984276384",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-20T12:00:00+08:00",
@@ -1133,7 +1274,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "陳舒彥",
     "line_user_ref": "demo-line-user-0141",
-    "phone": "0928618940"
+    "phone": "0928618940",
+    "pos_customer_id": "28453"
   },
   {
     "created_at": "2026-01-04T12:00:00+08:00",
@@ -1141,7 +1283,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蕭恩筱",
     "line_user_ref": "demo-line-user-0142",
-    "phone": "0983537241"
+    "phone": "0983537241",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-07-31T12:00:00+08:00",
@@ -1149,7 +1292,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "許禹宏",
     "line_user_ref": "demo-line-user-0143",
-    "phone": "0909686967"
+    "phone": "0909686967",
+    "pos_customer_id": "23021"
   },
   {
     "created_at": "2025-08-31T12:00:00+08:00",
@@ -1157,7 +1301,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "謝禾禹",
     "line_user_ref": "demo-line-user-0144",
-    "phone": "0988865368"
+    "phone": "0988865368",
+    "pos_customer_id": "26585"
   },
   {
     "created_at": "2025-08-21T12:00:00+08:00",
@@ -1165,7 +1310,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "黃丞瑄",
     "line_user_ref": "demo-line-user-0145",
-    "phone": "0917494617"
+    "phone": "0917494617",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-12-24T12:00:00+08:00",
@@ -1173,7 +1319,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "劉皓",
     "line_user_ref": "demo-line-user-0146",
-    "phone": "0933395525"
+    "phone": "0933395525",
+    "pos_customer_id": "21822"
   },
   {
     "created_at": "2025-10-12T12:00:00+08:00",
@@ -1181,7 +1328,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "呂柏彥",
     "line_user_ref": "demo-line-user-0147",
-    "phone": "0920274990"
+    "phone": "0920274990",
+    "pos_customer_id": "22609"
   },
   {
     "created_at": "2025-08-25T12:00:00+08:00",
@@ -1189,7 +1337,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "郭琁薇",
     "line_user_ref": "demo-line-user-0148",
-    "phone": "0909693779"
+    "phone": "0909693779",
+    "pos_customer_id": "26831"
   },
   {
     "created_at": "2025-10-15T12:00:00+08:00",
@@ -1197,7 +1346,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蔡軒頎",
     "line_user_ref": "demo-line-user-0149",
-    "phone": "0941198520"
+    "phone": "0941198520",
+    "pos_customer_id": "26962"
   },
   {
     "created_at": "2025-12-06T12:00:00+08:00",
@@ -1205,7 +1355,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "王凱",
     "line_user_ref": "demo-line-user-0150",
-    "phone": "0968964693"
+    "phone": "0968964693",
+    "pos_customer_id": "22190"
   },
   {
     "created_at": "2026-07-30T12:00:00+08:00",
@@ -1213,7 +1364,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "呂翊宥",
     "line_user_ref": "demo-line-user-0151",
-    "phone": "0944011794"
+    "phone": "0944011794",
+    "pos_customer_id": "21275"
   },
   {
     "created_at": "2026-01-07T12:00:00+08:00",
@@ -1221,7 +1373,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蔡凱凱",
     "line_user_ref": "demo-line-user-0152",
-    "phone": "0956684754"
+    "phone": "0956684754",
+    "pos_customer_id": "27757"
   },
   {
     "created_at": "2025-09-18T12:00:00+08:00",
@@ -1229,7 +1382,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "莊睿彥",
     "line_user_ref": "demo-line-user-0153",
-    "phone": "0916149320"
+    "phone": "0916149320",
+    "pos_customer_id": "21949"
   },
   {
     "created_at": "2025-07-21T12:00:00+08:00",
@@ -1237,7 +1391,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "周品",
     "line_user_ref": "demo-line-user-0154",
-    "phone": "0918447283"
+    "phone": "0918447283",
+    "pos_customer_id": "22033"
   },
   {
     "created_at": "2026-04-23T12:00:00+08:00",
@@ -1245,7 +1400,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "陳淇禹",
     "line_user_ref": "demo-line-user-0155",
-    "phone": "0965246537"
+    "phone": "0965246537",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-29T12:00:00+08:00",
@@ -1253,7 +1409,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "林亭",
     "line_user_ref": "demo-line-user-0156",
-    "phone": "0952779103"
+    "phone": "0952779103",
+    "pos_customer_id": "23463"
   },
   {
     "created_at": "2025-11-15T12:00:00+08:00",
@@ -1261,7 +1418,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "黃柏岑",
     "line_user_ref": "demo-line-user-0157",
-    "phone": "0944355532"
+    "phone": "0944355532",
+    "pos_customer_id": "27322"
   },
   {
     "created_at": "2026-04-01T12:00:00+08:00",
@@ -1269,7 +1427,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪亭彥",
     "line_user_ref": "demo-line-user-0158",
-    "phone": "0950882841"
+    "phone": "0950882841",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-30T12:00:00+08:00",
@@ -1277,7 +1436,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "王皓薇",
     "line_user_ref": "demo-line-user-0159",
-    "phone": "0905148191"
+    "phone": "0905148191",
+    "pos_customer_id": "22725"
   },
   {
     "created_at": "2026-04-06T12:00:00+08:00",
@@ -1285,7 +1445,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "鄭禾筱",
     "line_user_ref": "demo-line-user-0160",
-    "phone": "0927547310"
+    "phone": "0927547310",
+    "pos_customer_id": "24862"
   },
   {
     "created_at": "2026-04-19T12:00:00+08:00",
@@ -1293,7 +1454,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "郭禾",
     "line_user_ref": "demo-line-user-0161",
-    "phone": "0929094583"
+    "phone": "0929094583",
+    "pos_customer_id": "20491"
   },
   {
     "created_at": "2025-12-07T12:00:00+08:00",
@@ -1301,7 +1463,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "羅睿湘",
     "line_user_ref": "demo-line-user-0162",
-    "phone": "0987757600"
+    "phone": "0987757600",
+    "pos_customer_id": "26567"
   },
   {
     "created_at": "2025-09-15T12:00:00+08:00",
@@ -1309,7 +1472,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "劉祐",
     "line_user_ref": "demo-line-user-0163",
-    "phone": "0925716965"
+    "phone": "0925716965",
+    "pos_customer_id": "27230"
   },
   {
     "created_at": "2026-04-09T12:00:00+08:00",
@@ -1317,7 +1481,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪宏",
     "line_user_ref": "demo-line-user-0164",
-    "phone": "0956321230"
+    "phone": "0956321230",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-29T12:00:00+08:00",
@@ -1325,7 +1490,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "劉湘禹",
     "line_user_ref": "demo-line-user-0165",
-    "phone": "0942703497"
+    "phone": "0942703497",
+    "pos_customer_id": "28317"
   },
   {
     "created_at": "2026-05-25T12:00:00+08:00",
@@ -1333,7 +1499,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "許柏昀",
     "line_user_ref": "demo-line-user-0166",
-    "phone": "0912157001"
+    "phone": "0912157001",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-10-05T12:00:00+08:00",
@@ -1341,7 +1508,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "羅亭",
     "line_user_ref": "demo-line-user-0167",
-    "phone": "0913359206"
+    "phone": "0913359206",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-26T12:00:00+08:00",
@@ -1349,7 +1517,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "葉禹凱",
     "line_user_ref": "demo-line-user-0168",
-    "phone": "0924950228"
+    "phone": "0924950228",
+    "pos_customer_id": "27986"
   },
   {
     "created_at": "2026-05-02T12:00:00+08:00",
@@ -1357,7 +1526,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "王恩淇",
     "line_user_ref": "demo-line-user-0169",
-    "phone": "0930856790"
+    "phone": "0930856790",
+    "pos_customer_id": "24055"
   },
   {
     "created_at": "2026-07-13T12:00:00+08:00",
@@ -1365,7 +1535,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "江亭湘",
     "line_user_ref": "demo-line-user-0170",
-    "phone": "0945645713"
+    "phone": "0945645713",
+    "pos_customer_id": "26007"
   },
   {
     "created_at": "2025-07-16T12:00:00+08:00",
@@ -1373,7 +1544,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "郭祐丞",
     "line_user_ref": "demo-line-user-0171",
-    "phone": "0951908834"
+    "phone": "0951908834",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-04T12:00:00+08:00",
@@ -1381,7 +1553,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "王筱祐",
     "line_user_ref": "demo-line-user-0172",
-    "phone": "0948015064"
+    "phone": "0948015064",
+    "pos_customer_id": "27458"
   },
   {
     "created_at": "2025-08-29T12:00:00+08:00",
@@ -1389,7 +1562,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪皓瑄",
     "line_user_ref": "demo-line-user-0173",
-    "phone": "0955620103"
+    "phone": "0955620103",
+    "pos_customer_id": "25067"
   },
   {
     "created_at": "2025-07-26T12:00:00+08:00",
@@ -1397,7 +1571,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蘇靖凱",
     "line_user_ref": "demo-line-user-0174",
-    "phone": "0995901734"
+    "phone": "0995901734",
+    "pos_customer_id": "27513"
   },
   {
     "created_at": "2026-06-29T12:00:00+08:00",
@@ -1405,7 +1580,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蔡承",
     "line_user_ref": "demo-line-user-0175",
-    "phone": "0930761320"
+    "phone": "0930761320",
+    "pos_customer_id": "23023"
   },
   {
     "created_at": "2025-07-16T12:00:00+08:00",
@@ -1413,7 +1589,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "羅丞恩",
     "line_user_ref": "demo-line-user-0176",
-    "phone": "0904931628"
+    "phone": "0904931628",
+    "pos_customer_id": "25410"
   },
   {
     "created_at": "2026-03-02T12:00:00+08:00",
@@ -1421,7 +1598,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "陳宏淇",
     "line_user_ref": "demo-line-user-0177",
-    "phone": "0930235915"
+    "phone": "0930235915",
+    "pos_customer_id": "22673"
   },
   {
     "created_at": "2025-10-08T12:00:00+08:00",
@@ -1429,7 +1607,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "吳昀",
     "line_user_ref": "demo-line-user-0178",
-    "phone": "0995973267"
+    "phone": "0995973267",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-10-25T12:00:00+08:00",
@@ -1437,7 +1616,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "郭宜",
     "line_user_ref": "demo-line-user-0179",
-    "phone": "0977870387"
+    "phone": "0977870387",
+    "pos_customer_id": "27821"
   },
   {
     "created_at": "2025-11-29T12:00:00+08:00",
@@ -1445,7 +1625,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "葉淇苡",
     "line_user_ref": "demo-line-user-0180",
-    "phone": "0946269807"
+    "phone": "0946269807",
+    "pos_customer_id": "26942"
   },
   {
     "created_at": "2025-08-18T12:00:00+08:00",
@@ -1453,7 +1634,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "王翊瑄",
     "line_user_ref": "demo-line-user-0181",
-    "phone": "0948101729"
+    "phone": "0948101729",
+    "pos_customer_id": "26362"
   },
   {
     "created_at": "2025-08-26T12:00:00+08:00",
@@ -1461,7 +1643,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "陳丞品",
     "line_user_ref": "demo-line-user-0182",
-    "phone": "0914678168"
+    "phone": "0914678168",
+    "pos_customer_id": "28453"
   },
   {
     "created_at": "2025-09-29T12:00:00+08:00",
@@ -1469,7 +1652,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "潘澐頎",
     "line_user_ref": "demo-line-user-0183",
-    "phone": "0972115585"
+    "phone": "0972115585",
+    "pos_customer_id": "21679"
   },
   {
     "created_at": "2026-03-28T12:00:00+08:00",
@@ -1477,7 +1661,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "莊靖苡",
     "line_user_ref": "demo-line-user-0184",
-    "phone": "0948115706"
+    "phone": "0948115706",
+    "pos_customer_id": "20779"
   },
   {
     "created_at": "2025-08-20T12:00:00+08:00",
@@ -1485,7 +1670,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "潘宥丞",
     "line_user_ref": "demo-line-user-0185",
-    "phone": "0967562354"
+    "phone": "0967562354",
+    "pos_customer_id": "26779"
   },
   {
     "created_at": "2025-08-13T12:00:00+08:00",
@@ -1493,7 +1679,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "莊雅承",
     "line_user_ref": "demo-line-user-0186",
-    "phone": "0926183175"
+    "phone": "0926183175",
+    "pos_customer_id": "26467"
   },
   {
     "created_at": "2025-07-27T12:00:00+08:00",
@@ -1501,7 +1688,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪睿",
     "line_user_ref": "demo-line-user-0187",
-    "phone": "0950552771"
+    "phone": "0950552771",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-05T12:00:00+08:00",
@@ -1509,7 +1697,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "賴蓁宜",
     "line_user_ref": "demo-line-user-0188",
-    "phone": "0993520821"
+    "phone": "0993520821",
+    "pos_customer_id": "21498"
   },
   {
     "created_at": "2026-01-09T12:00:00+08:00",
@@ -1517,7 +1706,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "張筱",
     "line_user_ref": "demo-line-user-0189",
-    "phone": "0950633282"
+    "phone": "0950633282",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-16T12:00:00+08:00",
@@ -1525,7 +1715,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪彥宸",
     "line_user_ref": "demo-line-user-0190",
-    "phone": "0951137079"
+    "phone": "0951137079",
+    "pos_customer_id": "25891"
   },
   {
     "created_at": "2025-08-16T12:00:00+08:00",
@@ -1533,7 +1724,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "徐頎喬",
     "line_user_ref": "demo-line-user-0191",
-    "phone": "0977727988"
+    "phone": "0977727988",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-02-11T12:00:00+08:00",
@@ -1541,7 +1733,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蕭翊",
     "line_user_ref": "demo-line-user-0192",
-    "phone": "0931405114"
+    "phone": "0931405114",
+    "pos_customer_id": "22150"
   },
   {
     "created_at": "2026-03-01T12:00:00+08:00",
@@ -1549,7 +1742,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "莊岑宜",
     "line_user_ref": "demo-line-user-0193",
-    "phone": "0998311015"
+    "phone": "0998311015",
+    "pos_customer_id": "27873"
   },
   {
     "created_at": "2025-08-28T12:00:00+08:00",
@@ -1557,7 +1751,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "許凱宜",
     "line_user_ref": "demo-line-user-0194",
-    "phone": "0963223430"
+    "phone": "0963223430",
+    "pos_customer_id": "25130"
   },
   {
     "created_at": "2025-07-29T12:00:00+08:00",
@@ -1565,7 +1760,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "黃湘瑄",
     "line_user_ref": "demo-line-user-0195",
-    "phone": "0950561057"
+    "phone": "0950561057",
+    "pos_customer_id": "20161"
   },
   {
     "created_at": "2026-04-11T12:00:00+08:00",
@@ -1573,7 +1769,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "林品皓",
     "line_user_ref": "demo-line-user-0196",
-    "phone": "0930757463"
+    "phone": "0930757463",
+    "pos_customer_id": "21257"
   },
   {
     "created_at": "2025-09-19T12:00:00+08:00",
@@ -1581,7 +1778,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "廖宏靖",
     "line_user_ref": "demo-line-user-0197",
-    "phone": "0925871273"
+    "phone": "0925871273",
+    "pos_customer_id": "27527"
   },
   {
     "created_at": "2025-10-18T12:00:00+08:00",
@@ -1589,7 +1787,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "黃柏恩",
     "line_user_ref": "demo-line-user-0198",
-    "phone": "0999157863"
+    "phone": "0999157863",
+    "pos_customer_id": "22071"
   },
   {
     "created_at": "2025-10-19T12:00:00+08:00",
@@ -1597,7 +1796,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "李頎宸",
     "line_user_ref": "demo-line-user-0199",
-    "phone": "0941628388"
+    "phone": "0941628388",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-06-16T12:00:00+08:00",
@@ -1605,7 +1805,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "羅彥",
     "line_user_ref": "demo-line-user-0200",
-    "phone": "0963377405"
+    "phone": "0963377405",
+    "pos_customer_id": "24669"
   },
   {
     "created_at": "2026-01-19T12:00:00+08:00",
@@ -1613,7 +1814,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "賴蓁喬",
     "line_user_ref": "demo-line-user-0201",
-    "phone": "0972090599"
+    "phone": "0972090599",
+    "pos_customer_id": "20837"
   },
   {
     "created_at": "2026-03-03T12:00:00+08:00",
@@ -1621,7 +1823,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "賴宏",
     "line_user_ref": "demo-line-user-0202",
-    "phone": "0911776243"
+    "phone": "0911776243",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-16T12:00:00+08:00",
@@ -1629,7 +1832,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蘇湘舒",
     "line_user_ref": "demo-line-user-0203",
-    "phone": "0995912621"
+    "phone": "0995912621",
+    "pos_customer_id": "22137"
   },
   {
     "created_at": "2026-01-01T12:00:00+08:00",
@@ -1637,7 +1841,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "廖淇昀",
     "line_user_ref": "demo-line-user-0204",
-    "phone": "0929557039"
+    "phone": "0929557039",
+    "pos_customer_id": "21675"
   },
   {
     "created_at": "2025-07-21T12:00:00+08:00",
@@ -1645,7 +1850,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蕭澤雅",
     "line_user_ref": "demo-line-user-0205",
-    "phone": "0926016481"
+    "phone": "0926016481",
+    "pos_customer_id": "28021"
   },
   {
     "created_at": "2025-08-15T12:00:00+08:00",
@@ -1653,7 +1859,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "呂翊品",
     "line_user_ref": "demo-line-user-0206",
-    "phone": "0939474201"
+    "phone": "0939474201",
+    "pos_customer_id": "27333"
   },
   {
     "created_at": "2025-08-23T12:00:00+08:00",
@@ -1661,7 +1868,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "謝宜宸",
     "line_user_ref": "demo-line-user-0207",
-    "phone": "0948149029"
+    "phone": "0948149029",
+    "pos_customer_id": "23357"
   },
   {
     "created_at": "2025-10-09T12:00:00+08:00",
@@ -1669,7 +1877,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "周皓",
     "line_user_ref": "demo-line-user-0208",
-    "phone": "0944790450"
+    "phone": "0944790450",
+    "pos_customer_id": "21455"
   },
   {
     "created_at": "2026-04-03T12:00:00+08:00",
@@ -1677,7 +1886,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "賴品琁",
     "line_user_ref": "demo-line-user-0209",
-    "phone": "0992916885"
+    "phone": "0992916885",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-02-01T12:00:00+08:00",
@@ -1685,7 +1895,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "鄭喬",
     "line_user_ref": "demo-line-user-0210",
-    "phone": "0914632825"
+    "phone": "0914632825",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-10-30T12:00:00+08:00",
@@ -1693,7 +1904,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "林翊",
     "line_user_ref": "demo-line-user-0211",
-    "phone": "0956099465"
+    "phone": "0956099465",
+    "pos_customer_id": "23161"
   },
   {
     "created_at": "2025-11-17T12:00:00+08:00",
@@ -1701,7 +1913,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "江皓皓",
     "line_user_ref": "demo-line-user-0212",
-    "phone": "0945360105"
+    "phone": "0945360105",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-10-26T12:00:00+08:00",
@@ -1709,7 +1922,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "潘湘筱",
     "line_user_ref": "demo-line-user-0213",
-    "phone": "0913352689"
+    "phone": "0913352689",
+    "pos_customer_id": "20679"
   },
   {
     "created_at": "2025-10-13T12:00:00+08:00",
@@ -1717,7 +1931,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "張瑄晴",
     "line_user_ref": "demo-line-user-0214",
-    "phone": "0936821141"
+    "phone": "0936821141",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-26T12:00:00+08:00",
@@ -1725,7 +1940,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "周妤",
     "line_user_ref": "demo-line-user-0215",
-    "phone": "0929041550"
+    "phone": "0929041550",
+    "pos_customer_id": "23705"
   },
   {
     "created_at": "2025-12-31T12:00:00+08:00",
@@ -1733,7 +1949,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "賴凱恩",
     "line_user_ref": "demo-line-user-0216",
-    "phone": "0918598511"
+    "phone": "0918598511",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-16T12:00:00+08:00",
@@ -1741,7 +1958,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "劉喬琁",
     "line_user_ref": "demo-line-user-0217",
-    "phone": "0937196986"
+    "phone": "0937196986",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-09-04T12:00:00+08:00",
@@ -1749,7 +1967,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "蔡亭宸",
     "line_user_ref": "demo-line-user-0218",
-    "phone": "0902503460"
+    "phone": "0902503460",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-01-23T12:00:00+08:00",
@@ -1757,7 +1976,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "郭宥",
     "line_user_ref": "demo-line-user-0219",
-    "phone": "0997444405"
+    "phone": "0997444405",
+    "pos_customer_id": "20737"
   },
   {
     "created_at": "2025-09-11T12:00:00+08:00",
@@ -1765,7 +1985,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "洪品柏",
     "line_user_ref": "demo-line-user-0220",
-    "phone": "0976702174"
+    "phone": "0976702174",
+    "pos_customer_id": "26718"
   },
   {
     "created_at": "2025-07-31T12:00:00+08:00",
@@ -1773,7 +1994,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "謝淇翊",
     "line_user_ref": "demo-line-user-0221",
-    "phone": "0986175426"
+    "phone": "0986175426",
+    "pos_customer_id": "26773"
   },
   {
     "created_at": "2026-07-17T12:00:00+08:00",
@@ -1781,7 +2003,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "何宜品",
     "line_user_ref": "demo-line-user-0222",
-    "phone": "0973063737"
+    "phone": "0973063737",
+    "pos_customer_id": "25669"
   },
   {
     "created_at": "2025-09-04T12:00:00+08:00",
@@ -1789,7 +2012,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "江喬恩",
     "line_user_ref": "demo-line-user-0223",
-    "phone": "0981874061"
+    "phone": "0981874061",
+    "pos_customer_id": "26302"
   },
   {
     "created_at": "2026-01-22T12:00:00+08:00",
@@ -1797,7 +2021,8 @@
     "designer_ref": "52f701c6-f267-5e2e-85e7-405a69d495ad",
     "full_name": "江祐妤",
     "line_user_ref": "demo-line-user-0224",
-    "phone": "0936510430"
+    "phone": "0936510430",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-23T12:00:00+08:00",
@@ -1805,7 +2030,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "羅睿岑",
     "line_user_ref": "demo-line-user-0225",
-    "phone": "0920997709"
+    "phone": "0920997709",
+    "pos_customer_id": "25290"
   },
   {
     "created_at": "2025-09-27T12:00:00+08:00",
@@ -1813,7 +2039,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "謝軒彥",
     "line_user_ref": "demo-line-user-0226",
-    "phone": "0948931402"
+    "phone": "0948931402",
+    "pos_customer_id": "26098"
   },
   {
     "created_at": "2025-07-20T12:00:00+08:00",
@@ -1821,7 +2048,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "許睿",
     "line_user_ref": "demo-line-user-0227",
-    "phone": "0922641025"
+    "phone": "0922641025",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-13T12:00:00+08:00",
@@ -1829,7 +2057,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "葉淇妤",
     "line_user_ref": "demo-line-user-0228",
-    "phone": "0914023802"
+    "phone": "0914023802",
+    "pos_customer_id": "22739"
   },
   {
     "created_at": "2025-07-29T12:00:00+08:00",
@@ -1837,7 +2066,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "賴祐宜",
     "line_user_ref": "demo-line-user-0229",
-    "phone": "0913791079"
+    "phone": "0913791079",
+    "pos_customer_id": "25722"
   },
   {
     "created_at": "2026-04-08T12:00:00+08:00",
@@ -1845,7 +2075,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "洪禾靖",
     "line_user_ref": "demo-line-user-0230",
-    "phone": "0909263017"
+    "phone": "0909263017",
+    "pos_customer_id": "21878"
   },
   {
     "created_at": "2026-04-23T12:00:00+08:00",
@@ -1853,7 +2084,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "許禹皓",
     "line_user_ref": "demo-line-user-0231",
-    "phone": "0930452338"
+    "phone": "0930452338",
+    "pos_customer_id": "26018"
   },
   {
     "created_at": "2026-08-05T12:00:00+08:00",
@@ -1861,7 +2093,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "徐宏",
     "line_user_ref": "demo-line-user-0232",
-    "phone": "0957553280"
+    "phone": "0957553280",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-05T12:00:00+08:00",
@@ -1869,7 +2102,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "張承亭",
     "line_user_ref": "demo-line-user-0233",
-    "phone": "0945122304"
+    "phone": "0945122304",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-01-27T12:00:00+08:00",
@@ -1877,7 +2111,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "賴瑄晴",
     "line_user_ref": "demo-line-user-0234",
-    "phone": "0923585843"
+    "phone": "0923585843",
+    "pos_customer_id": "26387"
   },
   {
     "created_at": "2025-08-17T12:00:00+08:00",
@@ -1885,7 +2120,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "張禹禾",
     "line_user_ref": "demo-line-user-0235",
-    "phone": "0944289713"
+    "phone": "0944289713",
+    "pos_customer_id": "20703"
   },
   {
     "created_at": "2026-01-20T12:00:00+08:00",
@@ -1893,7 +2129,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "謝苡",
     "line_user_ref": "demo-line-user-0236",
-    "phone": "0935646132"
+    "phone": "0935646132",
+    "pos_customer_id": "21087"
   },
   {
     "created_at": "2026-04-19T12:00:00+08:00",
@@ -1901,7 +2138,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "呂柏澤",
     "line_user_ref": "demo-line-user-0237",
-    "phone": "0923343927"
+    "phone": "0923343927",
+    "pos_customer_id": "23403"
   },
   {
     "created_at": "2025-12-02T12:00:00+08:00",
@@ -1909,7 +2147,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "林瑄",
     "line_user_ref": "demo-line-user-0238",
-    "phone": "0913413272"
+    "phone": "0913413272",
+    "pos_customer_id": "27186"
   },
   {
     "created_at": "2026-01-02T12:00:00+08:00",
@@ -1917,7 +2156,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "吳沛",
     "line_user_ref": "demo-line-user-0239",
-    "phone": "0932356389"
+    "phone": "0932356389",
+    "pos_customer_id": "28933"
   },
   {
     "created_at": "2025-07-20T12:00:00+08:00",
@@ -1925,7 +2165,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "鄭睿彥",
     "line_user_ref": "demo-line-user-0240",
-    "phone": "0952675249"
+    "phone": "0952675249",
+    "pos_customer_id": "22399"
   },
   {
     "created_at": "2025-08-31T12:00:00+08:00",
@@ -1933,7 +2174,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "廖雅",
     "line_user_ref": "demo-line-user-0241",
-    "phone": "0934355889"
+    "phone": "0934355889",
+    "pos_customer_id": "25210"
   },
   {
     "created_at": "2025-08-14T12:00:00+08:00",
@@ -1941,7 +2183,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "莊澐",
     "line_user_ref": "demo-line-user-0242",
-    "phone": "0914806005"
+    "phone": "0914806005",
+    "pos_customer_id": "24486"
   },
   {
     "created_at": "2026-02-17T12:00:00+08:00",
@@ -1949,7 +2192,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "蘇翊",
     "line_user_ref": "demo-line-user-0243",
-    "phone": "0959772307"
+    "phone": "0959772307",
+    "pos_customer_id": "28147"
   },
   {
     "created_at": "2025-08-16T12:00:00+08:00",
@@ -1957,7 +2201,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "呂苡",
     "line_user_ref": "demo-line-user-0244",
-    "phone": "0940161153"
+    "phone": "0940161153",
+    "pos_customer_id": "27367"
   },
   {
     "created_at": "2025-08-27T12:00:00+08:00",
@@ -1965,7 +2210,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "楊澤宏",
     "line_user_ref": "demo-line-user-0245",
-    "phone": "0941018302"
+    "phone": "0941018302",
+    "pos_customer_id": "26319"
   },
   {
     "created_at": "2025-07-26T12:00:00+08:00",
@@ -1973,7 +2219,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "江皓澤",
     "line_user_ref": "demo-line-user-0246",
-    "phone": "0996112436"
+    "phone": "0996112436",
+    "pos_customer_id": "26115"
   },
   {
     "created_at": "2026-03-26T12:00:00+08:00",
@@ -1981,7 +2228,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "謝澤宥",
     "line_user_ref": "demo-line-user-0247",
-    "phone": "0926684343"
+    "phone": "0926684343",
+    "pos_customer_id": "25238"
   },
   {
     "created_at": "2026-01-24T12:00:00+08:00",
@@ -1989,7 +2237,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "許家宏",
     "line_user_ref": "demo-line-user-0248",
-    "phone": "0951303653"
+    "phone": "0951303653",
+    "pos_customer_id": "21247"
   },
   {
     "created_at": "2025-12-20T12:00:00+08:00",
@@ -1997,7 +2246,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "鄭沛晴",
     "line_user_ref": "demo-line-user-0249",
-    "phone": "0997409268"
+    "phone": "0997409268",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-13T12:00:00+08:00",
@@ -2005,7 +2255,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "楊柏",
     "line_user_ref": "demo-line-user-0250",
-    "phone": "0927856339"
+    "phone": "0927856339",
+    "pos_customer_id": "26486"
   },
   {
     "created_at": "2025-12-16T12:00:00+08:00",
@@ -2013,7 +2264,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "王舒亭",
     "line_user_ref": "demo-line-user-0251",
-    "phone": "0974474533"
+    "phone": "0974474533",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-07T12:00:00+08:00",
@@ -2021,7 +2273,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "莊岑睿",
     "line_user_ref": "demo-line-user-0252",
-    "phone": "0958813819"
+    "phone": "0958813819",
+    "pos_customer_id": "26355"
   },
   {
     "created_at": "2025-10-16T12:00:00+08:00",
@@ -2029,7 +2282,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "張舒湘",
     "line_user_ref": "demo-line-user-0253",
-    "phone": "0939720608"
+    "phone": "0939720608",
+    "pos_customer_id": "26551"
   },
   {
     "created_at": "2025-09-25T12:00:00+08:00",
@@ -2037,7 +2291,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "羅禾禾",
     "line_user_ref": "demo-line-user-0254",
-    "phone": "0975226303"
+    "phone": "0975226303",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-20T12:00:00+08:00",
@@ -2045,7 +2300,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "賴薇澐",
     "line_user_ref": "demo-line-user-0255",
-    "phone": "0918718640"
+    "phone": "0918718640",
+    "pos_customer_id": "23595"
   },
   {
     "created_at": "2025-09-04T12:00:00+08:00",
@@ -2053,7 +2309,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "曾宥承",
     "line_user_ref": "demo-line-user-0256",
-    "phone": "0913651177"
+    "phone": "0913651177",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-17T12:00:00+08:00",
@@ -2061,7 +2318,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "洪家皓",
     "line_user_ref": "demo-line-user-0257",
-    "phone": "0931623911"
+    "phone": "0931623911",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-01-07T12:00:00+08:00",
@@ -2069,7 +2327,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "呂亭凱",
     "line_user_ref": "demo-line-user-0258",
-    "phone": "0956759757"
+    "phone": "0956759757",
+    "pos_customer_id": "26391"
   },
   {
     "created_at": "2025-09-17T12:00:00+08:00",
@@ -2077,7 +2336,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "許岑澐",
     "line_user_ref": "demo-line-user-0259",
-    "phone": "0917210687"
+    "phone": "0917210687",
+    "pos_customer_id": "25666"
   },
   {
     "created_at": "2025-12-07T12:00:00+08:00",
@@ -2085,7 +2345,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "潘亭丞",
     "line_user_ref": "demo-line-user-0260",
-    "phone": "0921408483"
+    "phone": "0921408483",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-15T12:00:00+08:00",
@@ -2093,7 +2354,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "劉宥亭",
     "line_user_ref": "demo-line-user-0261",
-    "phone": "0938089035"
+    "phone": "0938089035",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-23T12:00:00+08:00",
@@ -2101,7 +2363,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "張恩翊",
     "line_user_ref": "demo-line-user-0262",
-    "phone": "0963965587"
+    "phone": "0963965587",
+    "pos_customer_id": "23782"
   },
   {
     "created_at": "2025-08-09T12:00:00+08:00",
@@ -2109,7 +2372,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "郭沛晴",
     "line_user_ref": "demo-line-user-0263",
-    "phone": "0985399182"
+    "phone": "0985399182",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-06-30T12:00:00+08:00",
@@ -2117,7 +2381,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "莊宏琁",
     "line_user_ref": "demo-line-user-0264",
-    "phone": "0927631809"
+    "phone": "0927631809",
+    "pos_customer_id": "26919"
   },
   {
     "created_at": "2026-07-15T12:00:00+08:00",
@@ -2125,7 +2390,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "楊筱",
     "line_user_ref": "demo-line-user-0265",
-    "phone": "0964621740"
+    "phone": "0964621740",
+    "pos_customer_id": "28646"
   },
   {
     "created_at": "2026-06-22T12:00:00+08:00",
@@ -2133,7 +2399,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "葉亭澤",
     "line_user_ref": "demo-line-user-0266",
-    "phone": "0921965386"
+    "phone": "0921965386",
+    "pos_customer_id": "26631"
   },
   {
     "created_at": "2025-09-29T12:00:00+08:00",
@@ -2141,7 +2408,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "何沛晴",
     "line_user_ref": "demo-line-user-0267",
-    "phone": "0918245617"
+    "phone": "0918245617",
+    "pos_customer_id": "20773"
   },
   {
     "created_at": "2025-09-21T12:00:00+08:00",
@@ -2149,7 +2417,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "賴宜瑄",
     "line_user_ref": "demo-line-user-0268",
-    "phone": "0986760509"
+    "phone": "0986760509",
+    "pos_customer_id": "21113"
   },
   {
     "created_at": "2025-09-17T12:00:00+08:00",
@@ -2157,7 +2426,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "江禾澐",
     "line_user_ref": "demo-line-user-0269",
-    "phone": "0936782817"
+    "phone": "0936782817",
+    "pos_customer_id": "21347"
   },
   {
     "created_at": "2026-01-15T12:00:00+08:00",
@@ -2165,7 +2435,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "鄭蓁翊",
     "line_user_ref": "demo-line-user-0270",
-    "phone": "0905842753"
+    "phone": "0905842753",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-24T12:00:00+08:00",
@@ -2173,7 +2444,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "莊禹沛",
     "line_user_ref": "demo-line-user-0271",
-    "phone": "0982399339"
+    "phone": "0982399339",
+    "pos_customer_id": "24129"
   },
   {
     "created_at": "2026-02-24T12:00:00+08:00",
@@ -2181,7 +2453,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "許澐",
     "line_user_ref": "demo-line-user-0272",
-    "phone": "0916075977"
+    "phone": "0916075977",
+    "pos_customer_id": "24021"
   },
   {
     "created_at": "2026-02-02T12:00:00+08:00",
@@ -2189,7 +2462,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "張沛皓",
     "line_user_ref": "demo-line-user-0273",
-    "phone": "0957726711"
+    "phone": "0957726711",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-12-29T12:00:00+08:00",
@@ -2197,7 +2471,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "鄭舒",
     "line_user_ref": "demo-line-user-0274",
-    "phone": "0995030958"
+    "phone": "0995030958",
+    "pos_customer_id": "28418"
   },
   {
     "created_at": "2025-09-14T12:00:00+08:00",
@@ -2205,7 +2480,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "羅宏頎",
     "line_user_ref": "demo-line-user-0275",
-    "phone": "0978056355"
+    "phone": "0978056355",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-08-26T12:00:00+08:00",
@@ -2213,7 +2489,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "蘇柏靖",
     "line_user_ref": "demo-line-user-0276",
-    "phone": "0926092690"
+    "phone": "0926092690",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-10-02T12:00:00+08:00",
@@ -2221,7 +2498,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "徐淇雅",
     "line_user_ref": "demo-line-user-0277",
-    "phone": "0964626194"
+    "phone": "0964626194",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-22T12:00:00+08:00",
@@ -2229,7 +2507,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "王澤宏",
     "line_user_ref": "demo-line-user-0278",
-    "phone": "0926415097"
+    "phone": "0926415097",
+    "pos_customer_id": "23214"
   },
   {
     "created_at": "2026-01-05T12:00:00+08:00",
@@ -2237,7 +2516,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "陳蓁湘",
     "line_user_ref": "demo-line-user-0279",
-    "phone": "0956193112"
+    "phone": "0956193112",
+    "pos_customer_id": "24465"
   },
   {
     "created_at": "2025-12-09T12:00:00+08:00",
@@ -2245,7 +2525,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "許彥淇",
     "line_user_ref": "demo-line-user-0280",
-    "phone": "0919983081"
+    "phone": "0919983081",
+    "pos_customer_id": "21214"
   },
   {
     "created_at": "2025-07-31T12:00:00+08:00",
@@ -2253,7 +2534,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "徐頎承",
     "line_user_ref": "demo-line-user-0281",
-    "phone": "0974621163"
+    "phone": "0974621163",
+    "pos_customer_id": "24777"
   },
   {
     "created_at": "2025-09-07T12:00:00+08:00",
@@ -2261,7 +2543,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "何柏",
     "line_user_ref": "demo-line-user-0282",
-    "phone": "0983921283"
+    "phone": "0983921283",
+    "pos_customer_id": "20591"
   },
   {
     "created_at": "2025-09-07T12:00:00+08:00",
@@ -2269,7 +2552,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "楊禹瑄",
     "line_user_ref": "demo-line-user-0283",
-    "phone": "0906708418"
+    "phone": "0906708418",
+    "pos_customer_id": "22879"
   },
   {
     "created_at": "2026-04-12T12:00:00+08:00",
@@ -2277,7 +2561,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "洪苡頎",
     "line_user_ref": "demo-line-user-0284",
-    "phone": "0990635188"
+    "phone": "0990635188",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-07-30T12:00:00+08:00",
@@ -2285,7 +2570,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "張禹",
     "line_user_ref": "demo-line-user-0285",
-    "phone": "0917009072"
+    "phone": "0917009072",
+    "pos_customer_id": null
   },
   {
     "created_at": "2026-03-13T12:00:00+08:00",
@@ -2293,7 +2579,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "葉禹晴",
     "line_user_ref": "demo-line-user-0286",
-    "phone": "0913916565"
+    "phone": "0913916565",
+    "pos_customer_id": "25061"
   },
   {
     "created_at": "2025-07-27T12:00:00+08:00",
@@ -2301,7 +2588,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "郭彥澤",
     "line_user_ref": "demo-line-user-0287",
-    "phone": "0940139630"
+    "phone": "0940139630",
+    "pos_customer_id": "22815"
   },
   {
     "created_at": "2026-03-13T12:00:00+08:00",
@@ -2309,7 +2597,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "吳品恩",
     "line_user_ref": "demo-line-user-0288",
-    "phone": "0983997553"
+    "phone": "0983997553",
+    "pos_customer_id": "24418"
   },
   {
     "created_at": "2026-03-07T12:00:00+08:00",
@@ -2317,7 +2606,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "郭亭亭",
     "line_user_ref": "demo-line-user-0289",
-    "phone": "0921802638"
+    "phone": "0921802638",
+    "pos_customer_id": "23003"
   },
   {
     "created_at": "2025-07-23T12:00:00+08:00",
@@ -2325,7 +2615,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "王亭家",
     "line_user_ref": "demo-line-user-0290",
-    "phone": "0974802106"
+    "phone": "0974802106",
+    "pos_customer_id": "24257"
   },
   {
     "created_at": "2025-10-10T12:00:00+08:00",
@@ -2333,7 +2624,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "陳家祐",
     "line_user_ref": "demo-line-user-0291",
-    "phone": "0958071001"
+    "phone": "0958071001",
+    "pos_customer_id": "27982"
   },
   {
     "created_at": "2026-03-18T12:00:00+08:00",
@@ -2341,7 +2633,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "楊澤睿",
     "line_user_ref": "demo-line-user-0292",
-    "phone": "0907466505"
+    "phone": "0907466505",
+    "pos_customer_id": "26027"
   },
   {
     "created_at": "2025-11-19T12:00:00+08:00",
@@ -2349,7 +2642,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "吳皓",
     "line_user_ref": "demo-line-user-0293",
-    "phone": "0933212066"
+    "phone": "0933212066",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-11-21T12:00:00+08:00",
@@ -2357,7 +2651,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "鄭澤頎",
     "line_user_ref": "demo-line-user-0294",
-    "phone": "0945769010"
+    "phone": "0945769010",
+    "pos_customer_id": null
   },
   {
     "created_at": "2025-10-07T12:00:00+08:00",
@@ -2365,7 +2660,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "林岑",
     "line_user_ref": "demo-line-user-0295",
-    "phone": "0969877226"
+    "phone": "0969877226",
+    "pos_customer_id": "26479"
   },
   {
     "created_at": "2026-08-02T12:00:00+08:00",
@@ -2373,7 +2669,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "高晴苡",
     "line_user_ref": "demo-line-user-0296",
-    "phone": "0919645683"
+    "phone": "0919645683",
+    "pos_customer_id": "28843"
   },
   {
     "created_at": "2025-07-16T12:00:00+08:00",
@@ -2381,7 +2678,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "呂凱品",
     "line_user_ref": "demo-line-user-0297",
-    "phone": "0983958234"
+    "phone": "0983958234",
+    "pos_customer_id": "27525"
   },
   {
     "created_at": "2025-10-19T12:00:00+08:00",
@@ -2389,7 +2687,8 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "許湘蓁",
     "line_user_ref": "demo-line-user-0298",
-    "phone": "0933245460"
+    "phone": "0933245460",
+    "pos_customer_id": "25387"
   },
   {
     "created_at": "2025-10-13T12:00:00+08:00",
@@ -2397,6 +2696,7 @@
     "designer_ref": "ada5935f-ac1b-542d-b47b-8f6c9b4221a6",
     "full_name": "劉沛昀",
     "line_user_ref": "demo-line-user-0299",
-    "phone": "0937824018"
+    "phone": "0937824018",
+    "pos_customer_id": "22549"
   }
 ]

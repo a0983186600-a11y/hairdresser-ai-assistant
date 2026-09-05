@@ -104,61 +104,402 @@
     else if (g.WorkbenchSettings) g.WorkbenchSettings.open(name);
   }
 
+  /* 點「預約」開的就是設計稿 §3 那張開單面板本身。
+     客人對話住在右上角的 ✉「訊息」，預約紀錄住在班表底下——同一件事只出現一次。 */
   function bookings(args) {
     args = args || {};
-    S.open("預約", function (host) {
-      // 手動排單住在兩個分頁**之上**，不跟著分頁被收走：這是設計師自己動手的入口，
-      // 從對話那頭帶著客人回來的時候也落在這裡（`args.customer`）。
-      var manual = n("div", "booking-toolbar"),
-        panel = n("div"),
-        opened = false,
-        built = false,
-        toggle = b(
-          "＋ 手動排一筆",
-          function () {
-            expand(!opened);
-          },
-          "primary full",
+    // 這一頁要打字（搜尋、日期、時間），助理球在這裡只會擋路——設計稿對需要
+    // 打字的畫面就是不放球。
+    S.open(
+      "預約",
+      function (host) {
+        bookingForm(host, args);
+      },
+      true,
+    );
+  }
+  /* 公司系統（POS）綁定狀態。資料裡沒有客編就是沒有：顯示陶土色「未綁 POS」，
+     不替他補一個看起來合理的號碼。 */
+  function posTag(c) {
+    var id = c && c.pos_customer_id;
+    return n("span", id ? "pos bound" : "pos unbound", id ? "POS " + id : "未綁 POS");
+  }
+  /* 上次做的項目——只帶他真的做過的。沒有到店紀錄就回空的，讓設計師自己選。
+     這裡填任何預設值都是替他編一次到店紀錄（Tai 案 2026-07-25）。 */
+  function lastServices(c) {
+    if (!c) return [];
+    if (c.last_services && c.last_services.length) return c.last_services.slice();
+    if (c.last_service) return [c.last_service];
+    return [];
+  }
+  function serviceById(id) {
+    return S.state.settings.services.find(function (x) {
+      return x.id === id;
+    });
+  }
+  function totalDuration(picked) {
+    if (S.state.settings.duration_mode === "fixed")
+      return picked.length ? S.state.settings.fixed_duration : 0;
+    return picked.reduce(function (sum, id) {
+      var x = serviceById(id);
+      return sum + (x ? x.duration : 0);
+    }, 0);
+  }
+  function lastVisitLine(c) {
+    var when = c.last_visit_label && c.last_visit_label !== "未到店"
+      ? c.last_visit_label.slice(5).replace("-", "/")
+      : null;
+    return when
+      ? "末四碼 " + (c.phone_last4 || "未提供") + " · 上次 " + when + " " + c.last_service_label
+      : "末四碼 " + (c.phone_last4 || "未提供") + " · 尚無到店紀錄";
+  }
+  /* 開單面板本體。點「預約」把它攤在 sheet 上、從對話／客人檔案／班表空檔帶身分
+     進來的也是同一份——規矩（不猜項目、工時依設定算、缺客人就擋）只寫這裡一次。 */
+  function bookingForm(host, args) {
+    var existing = args.booking || null,
+      block = args.block || null,
+      // 從對話、客人檔案、時段帶進來的：身分不用再打一次，也不長出「不接客」那個 tab。
+      carried = !!(args.customer || existing),
+      selected = args.customer || (existing && customer(existing.customer_ref)) || null,
+      picked = existing ? existing.services.slice() : lastServices(selected),
+      mode = block ? "block" : args.mode || "book",
+      who = "old",
+      chosenDate = existing ? existing.date : block ? block.date : args.date || S.state.days[0].date,
+      chosenTime = existing
+        ? existing.time
+        : block
+          ? block.start
+          : args.time || S.state.settings.open_time,
+      chosenEnd = block ? block.end : clock(Math.min(mins(chosenTime) + 60, 1200)),
+      newName = "",
+      newPhone = "";
+    warning(host);
+    var panel = n("div", "booking-panel");
+    host.append(panel);
+
+    function clientCard() {
+      var card = n("div", "client-card"),
+        who2 = n("div", "grow"),
+        tail = n("div", "client-pos");
+      who2.append(
+        n("b", null, selected.masked_name),
+        n("div", "client-phone", "末四碼 " + (selected.phone_last4 || "未提供")),
+      );
+      // 卡片上寫得比清單那一列白話：綁了就說綁了再給編號，沒綁就說同步時會建新檔。
+      if (selected.pos_customer_id)
+        tail.append(
+          n("span", "pos bound", "POS 已綁定"),
+          n("small", "pos-id", selected.pos_customer_id),
         );
-      toggle.setAttribute("aria-expanded", "false");
-      manual.append(toggle);
-      function expand(next) {
-        opened = next;
-        toggle.textContent = opened ? "收起手動排單" : "＋ 手動排一筆";
-        toggle.setAttribute("aria-expanded", String(opened));
-        panel.hidden = !opened;
-        content.hidden = opened;
-        if (opened && !built) {
-          bookingForm(panel, { customer: args.customer, back: args.back });
-          built = true;
+      else
+        tail.append(
+          n("span", "pos unbound", "POS 未綁定"),
+          n("small", null, "同步時會在公司系統建新檔"),
+        );
+      card.append(n("span", "avatar big", selected.masked_name.slice(0, 1)), who2, tail);
+      var line = n("div", "client-note");
+      line.append(
+        n(
+          "span",
+          "muted",
+          carried ? "資料是從對話帶過來的，不用再打一次。" : "查到了，不用再打一次。",
+        ),
+        b(
+          "換人",
+          function () {
+            selected = null;
+            picked = [];
+            paint();
+          },
+          "link-button",
+        ),
+      );
+      return [n("p", "kicker", "幫客人預約"), card, line];
+    }
+
+    function pickList(host2) {
+      var search = f("打名字或電話…", "search"),
+        results = n("div", "pick-list");
+      search.input.placeholder = "打名字或電話…";
+      search.wrap.classList.add("hide-label");
+      host2.append(search.wrap, results);
+      function find() {
+        results.replaceChildren();
+        var query = search.input.value.trim(),
+          rows = S.state.customers
+            .filter(function (c) {
+              return (c.masked_name + (c.phone_last4 || "")).includes(query);
+            })
+            .slice(0, 6);
+        rows.forEach(function (c) {
+          var item = b(
+              "",
+              function () {
+                selected = c;
+                // 有上次紀錄才帶項目出來；沒有就讓設計師自己選，不猜「剪髮」。
+                picked = lastServices(c);
+                paint();
+              },
+              "pick-row",
+            ),
+            text = n("span", "grow");
+          text.append(n("b", null, c.masked_name), n("small", null, lastVisitLine(c)));
+          item.append(n("span", "avatar", c.masked_name.slice(0, 1)), text, posTag(c));
+          results.append(item);
+        });
+        if (!rows.length)
+          results.append(
+            n("p", "empty", "查不到這個人。可以切到「新客 · 第一次來」建一筆示範資料。"),
+          );
+      }
+      search.input.addEventListener("input", find);
+      find();
+      host2.append(
+        b(
+          "從公司系統查 →",
+          function () {
+            S.toast("示範環境沒有接公司系統，這裡查不到 POS 客編。");
+          },
+          "link-button block",
+        ),
+      );
+    }
+
+    function paint() {
+      panel.replaceChildren();
+      if (mode === "book" && selected) clientCard().forEach(function (x) { panel.append(x); });
+      if (!carried && !block) {
+        var tabs = n("div", "mode-tabs");
+        tabs.setAttribute("role", "tablist");
+        tabs.setAttribute("aria-label", "排預約或不接客");
+        [
+          ["book", "排預約"],
+          ["block", "不接客"],
+        ].forEach(function (pair) {
+          var tab = b(pair[1], function () {
+            mode = pair[0];
+            paint();
+          });
+          tab.setAttribute("role", "tab");
+          tab.setAttribute("aria-selected", String(mode === pair[0]));
+          tabs.append(tab);
+        });
+        panel.append(tabs);
+      }
+      if (mode === "book" && !selected) {
+        var whoTabs = n("div", "who-tabs");
+        whoTabs.setAttribute("role", "tablist");
+        whoTabs.setAttribute("aria-label", "舊客或新客");
+        whoTabs.dataset.tour = "addwho";
+        [
+          ["old", "舊客 · 查一下就好"],
+          ["new", "新客 · 第一次來"],
+        ].forEach(function (pair) {
+          var tab = b(pair[1], function () {
+            who = pair[0];
+            paint();
+          });
+          tab.setAttribute("role", "tab");
+          tab.setAttribute("aria-selected", String(who === pair[0]));
+          whoTabs.append(tab);
+        });
+        panel.append(whoTabs);
+      }
+      var frm = form(panel, send);
+      if (mode === "book" && !selected) {
+        if (who === "old") pickList(frm);
+        else {
+          var grid = n("div", "field-grid"),
+            name = f("客人姓名", "text", newName),
+            phone = f("電話末四碼", "text", newPhone);
+          name.input.required = phone.input.required = true;
+          name.input.maxLength = 30;
+          name.input.placeholder = "怎麼稱呼";
+          phone.input.pattern = "[0-9]{4}";
+          phone.input.maxLength = 4;
+          phone.input.inputMode = "numeric";
+          phone.input.placeholder = "後四碼";
+          name.input.addEventListener("input", function () {
+            newName = name.input.value;
+          });
+          phone.input.addEventListener("input", function () {
+            newPhone = phone.input.value;
+          });
+          grid.append(name.wrap, phone.wrap);
+          frm.append(grid);
+          note(frm, "新客同步時會在公司系統建新檔。示範不會真的建 POS 客編，也請勿填真實個資。");
         }
       }
-      var tabs = n("div", "booking-tabs"), content = n("div"), version = 0;
-      tabs.setAttribute("role", "tablist");
-      tabs.setAttribute("aria-label", "預約工作");
-      manual.append(tabs);
-      panel.className = "manual-book";
-      host.append(manual, panel, content);
-      function show(kind, selected) {
-        expand(false);
-        version++;
-        var turn = version;
-        Array.from(tabs.children).forEach(function (x) { x.setAttribute("aria-selected", x === selected); });
-        content.replaceChildren();
-        content.classList.remove("conversation-list");
-        if (kind === "records") bookingRecords(content);
-        else conversationList(content, function () { return turn === version; }).catch(function (e) {
-          if (turn === version) S.fail(content, e);
+      if (mode === "book") {
+        var head = n("div", "section-head");
+        head.append(n("span", null, "選擇項目"), n("small", null, "可複選"));
+        frm.append(head);
+        var chips = n("div", "service-chips"),
+          durBox = n("div", "dur-box");
+        S.state.settings.services.forEach(function (s) {
+          var chip = b("", function () {
+            picked = picked.includes(s.id)
+              ? picked.filter(function (x) {
+                  return x !== s.id;
+                })
+              : picked.concat(s.id);
+            drawChips();
+          }, "service-chip");
+          chip.dataset.service = s.id;
+          chip.append(n("span", null, s.name), n("small", null, s.duration + " 分"));
+          chips.append(chip);
         });
+        function drawChips() {
+          Array.from(chips.children).forEach(function (chip) {
+            chip.setAttribute("aria-pressed", String(picked.includes(chip.dataset.service)));
+          });
+          var total = totalDuration(picked);
+          durBox.replaceChildren(
+            n("b", null, total ? total + " 分" : "—"),
+            n("small", null, total ? "依你設定的工時加總" : "還沒選項目"),
+          );
+        }
+        frm.append(chips);
+        var when = n("div", "field-grid"),
+          date = f("日期", "date", chosenDate),
+          time = f("時間", "time", chosenTime);
+        dates(date.input);
+        date.input.required = time.input.required = true;
+        ["input", "change"].forEach(function (evt) {
+          date.input.addEventListener(evt, function () {
+            chosenDate = date.input.value;
+          });
+          time.input.addEventListener(evt, function () {
+            chosenTime = time.input.value;
+          });
+        });
+        when.append(date.wrap, time.wrap);
+        var dur = n("div", "field dur-field");
+        dur.append(n("span", "field-label", "總工時"), durBox);
+        frm.append(when, dur);
+        drawChips();
+        var save = submit("排進班表（示範）");
+        save.disabled = S.state.read_only;
+        frm.append(save);
+        note(frm, "排進去之後，今晚會自動同步進公司系統。（示範不會真的送出）");
+      } else {
+        var span = n("div", "field-grid"),
+          bDate = f("日期", "date", chosenDate),
+          bFrom = f("從", "time", chosenTime),
+          bTo = f("到", "time", chosenEnd),
+          reason = f("備註（可留空）", "text", "");
+        dates(bDate.input);
+        bDate.input.required = bFrom.input.required = bTo.input.required = true;
+        reason.input.maxLength = 20;
+        reason.input.placeholder = "吃飯、進修、休息…";
+        ["input", "change"].forEach(function (evt) {
+          bDate.input.addEventListener(evt, function () {
+            chosenDate = bDate.input.value;
+          });
+          bFrom.input.addEventListener(evt, function () {
+            chosenTime = bFrom.input.value;
+          });
+          bTo.input.addEventListener(evt, function () {
+            chosenEnd = bTo.input.value;
+          });
+        });
+        span.append(bFrom.wrap, bTo.wrap);
+        frm.append(bDate.wrap, span, reason.wrap);
+        frm.blockReason = reason.input;
+        var stop = submit("這段不接客（示範）");
+        stop.disabled = S.state.read_only;
+        frm.append(stop);
       }
-      [["conversations", "客人對話"], ["records", "預約紀錄"]].forEach(function (item) {
-        var tab = b(item[1], function () { show(item[0], tab); });
-        tab.setAttribute("role", "tab"); tabs.append(tab);
-      });
-      show("conversations", tabs.firstChild);
-      // 從對話按「幫他排一筆」進來的話，表單直接攤開並且已經帶著那位客人。
-      expand(!!args.customer);
-    });
+
+      function send() {
+        if (mode === "book" && !selected && who === "old") {
+          S.fail(frm, new Error("請先查一位客人，或切到「新客 · 第一次來」。"));
+          return;
+        }
+        if (mode === "book" && !picked.length) {
+          S.fail(frm, new Error("請先選服務項目；沒選就送出等於替客人決定做什麼。"));
+          return;
+        }
+        var label =
+          mode === "block"
+            ? "不接客"
+            : (selected ? selected.masked_name : newName) +
+              "／" +
+              picked.map(serviceLabel).join("＋");
+        S.confirm(
+          "確認這次示範",
+          chosenDate + " " + chosenTime + " · " + label,
+          async function () {
+            var target = selected;
+            if (mode === "book" && !target) {
+              var made = await S.mutate("customer", { name: newName, phone_last4: newPhone });
+              target = made.customer;
+            }
+            var data =
+              mode === "block"
+                ? {
+                    date: chosenDate,
+                    start: chosenTime,
+                    end: chosenEnd,
+                    reason: frm.blockReason ? frm.blockReason.value : "",
+                  }
+                : {
+                    date: chosenDate,
+                    time: chosenTime,
+                    customer_ref: target.customer_ref,
+                    services: picked.slice(),
+                  };
+            if (existing) data.id = existing.id;
+            if (block) data.id = block.id;
+            var result = await S.mutate(
+              mode === "block"
+                ? block
+                  ? "update_block"
+                  : "block"
+                : existing
+                  ? "update_booking"
+                  : "book",
+              data,
+            );
+            done(result);
+          },
+        );
+      }
+    }
+
+    function done(result) {
+      panel.replaceChildren(
+        n("div", "card", "已存入本次示範班表。沒有真的送出 POS。"),
+        b(
+          "查看班表",
+          function () {
+            schedule({ date: chosenDate });
+          },
+          "primary full",
+        ),
+      );
+      if (result.booking)
+        panel.append(
+          b(
+            "查看這筆預約",
+            function () {
+              booking({ id: result.booking.id });
+            },
+            "text-button full",
+          ),
+        );
+      if (args.back)
+        panel.append(
+          b(
+            "回這段對話",
+            function () {
+              thread(args.back);
+            },
+            "text-button full",
+          ),
+        );
+    }
+    paint();
   }
   function bookingRecords(host) {
       warning(host);
@@ -255,15 +596,11 @@
         host.append(card);
         var pinned = S.state.notes[x.customer_ref];
         if (pinned) host.append(n("div", "card pinned", "釘選\n" + pinned));
-        host.append(
-          b(
-            "看他的檔案",
-            function () {
-              profile({ ref: x.customer_ref });
-            },
-            "primary full",
-          ),
-        );
+        // 同步狀態講白話，不講「狀態」「欄位」：設計師只需要知道還要不要動手。
+        if (x.status === "pending")
+          note(host, "今晚會自動同步進公司系統；要提前就按一下。");
+        else if (x.status === "confirmed")
+          note(host, "已同步進公司系統，改動會即時跟過去。");
         if (x.status !== "cancelled") {
           var actions = n("div", "actions");
           actions.append(
@@ -297,7 +634,7 @@
           if (x.status === "pending")
             host.append(
               b(
-                "模擬馬上同步",
+                "馬上同步（示範）",
                 function () {
                   S.confirm(
                     "模擬同步",
@@ -312,6 +649,15 @@
               ),
             );
         }
+        host.append(
+          b(
+            "看他的檔案",
+            function () {
+              profile({ ref: x.customer_ref });
+            },
+            "text-button full",
+          ),
+        );
       }
       draw();
     });
@@ -531,421 +877,229 @@
       true,
     );
   }
-  /* 排單表單本體。預約頁把它攤在分頁上面、其他入口把它開成一張 sheet——
-     兩邊是**同一份**表單，規矩（不猜項目、工時依設定算）只寫在這裡一次。 */
-  function bookingForm(host, args) {
-    warning(host);
-    var existing = args.booking || null,
-      block = args.block || null,
-      selected =
-        args.customer || (existing && customer(existing.customer_ref)),
-      picked = existing ? existing.services.slice() : [],
-      mode = block ? "block" : args.mode || "book";
-    var intro = n("div");
-    host.append(intro);
-    if (!args.customer && !existing && !block) {
-      var tabs = n("div", "chips");
-      [
-        ["book", "排預約"],
-        ["block", "不接客"],
-      ].forEach(function (p) {
-        var t = b(
-          p[1],
-          function () {
-            mode = p[0];
-            paint();
-          },
-          "chip",
-        );
-        tabs.append(t);
-      });
-      intro.append(tabs);
-    }
-    var content = n("div");
-    host.append(content);
-    var chosenDate = existing
-        ? existing.date
-        : block
-          ? block.date
-          : args.date || S.state.days[0].date,
-      chosenTime = existing
-        ? existing.time
-        : block
-          ? block.start
-          : args.time || S.state.settings.open_time;
-    function paint() {
-      content.replaceChildren();
-      if (intro.firstChild)
-        Array.from(intro.firstChild.children).forEach(function (t, i) {
-          t.setAttribute("aria-pressed", (i === 0) === (mode === "book"));
-        });
-      var date = f("日期", "date", chosenDate),
-        time = f(
-          mode === "block" ? "開始時間" : "時間",
-          "time",
-          chosenTime,
-        ),
-        end = f(
-          "結束時間",
-          "time",
-          block ? block.end : clock(Math.min(mins(chosenTime) + 60, 1200)),
-        );
-      dates(date.input);
-      date.input.required = time.input.required = true;
-      date.input.addEventListener("change", function () {
-        chosenDate = date.input.value;
-      });
-      time.input.addEventListener("change", function () {
-        chosenTime = time.input.value;
-      });
-      var frm = form(content, function () {
-        if (mode === "book" && (!selected || !picked.length)) {
-          S.fail(frm, new Error("請先選客人及服務項目。"));
-          return;
-        }
-        var data =
-          mode === "block"
-            ? {
-                date: date.input.value,
-                start: time.input.value,
-                end: end.input.value,
-              }
-            : {
-                date: date.input.value,
-                time: time.input.value,
-                customer_ref: selected.customer_ref,
-                services: picked.slice(),
-              };
-        if (existing) data.id = existing.id;
-        if (block) data.id = block.id;
-        S.confirm(
-          "確認這次示範",
-          date.input.value +
-            " " +
-            time.input.value +
-            " · " +
-            (mode === "block"
-              ? "不接客"
-              : selected.masked_name +
-                "／" +
-                picked.map(serviceLabel).join("＋")),
-          async function () {
-            var result = await S.mutate(
-              mode === "block"
-                ? block
-                  ? "update_block"
-                  : "block"
-                : existing
-                  ? "update_booking"
-                  : "book",
-              data,
-            );
-            content.replaceChildren(
-              n("div", "card", "已存入本次示範班表。沒有真的送出 POS。"),
-              b(
-                "查看班表",
-                function () {
-                  schedule({ date: date.input.value });
-                },
-                "primary full",
-              ),
-            );
-            if (result.booking)
-              content.append(
-                b(
-                  "查看這筆預約",
-                  function () {
-                    booking({ id: result.booking.id });
-                  },
-                  "text-button full",
-                ),
-              );
-            if (args.back)
-              content.append(
-                b(
-                  "回這段對話",
-                  function () {
-                    thread(args.back);
-                  },
-                  "text-button full",
-                ),
-              );
-          },
-        );
-      });
-      if (mode === "book") {
-        if (selected) {
-          var card = n("div", "card");
-          card.append(
-            n("h3", null, selected.masked_name),
-            n("p", "muted", "電話末四碼 " + selected.phone_last4),
-            b(
-              "換人",
-              function () {
-                selected = null;
-                paint();
-              },
-              "text-button",
-            ),
-          );
-          frm.append(card);
-          note(frm, "資料已帶入，不用再打一次。");
-        } else {
-          var search = f("舊客 · 查姓名或電話末四碼", "search"),
-            results = n("div", "card");
-          frm.append(search.wrap, results);
-          function find() {
-            results.replaceChildren();
-            var list = S.state.customers
-              .filter(function (c) {
-                return (c.masked_name + (c.phone_last4 || "")).includes(
-                  search.input.value,
-                );
-              })
-              .slice(0, 8);
-            list.forEach(function (c) {
-              results.append(
-                row(c.masked_name, "末四碼 " + c.phone_last4, function () {
-                  selected = c;
-                  // 有上次服務才帶出來；沒有就讓設計師自己選，不猜「剪髮」。
-                  if (!picked.length && c.last_service)
-                    picked = [c.last_service];
-                  paint();
-                }),
-              );
-            });
-            if (!list.length) note(results, "查無資料，可新增示範客人。");
-          }
-          search.input.addEventListener("input", find);
-          find();
-          frm.append(
-            b(
-              "新客 · 新增示範資料",
-              function () {
-                newCustomer(function (c) {
-                  // 新客沒有上次服務，一樣不預選；送出時表單會擋沒選項目。
-                  selected = c;
-                  paint();
-                });
-              },
-              "text-button full",
-            ),
-          );
-        }
-        frm.append(n("h3", null, "項目（可複選）"));
-        choices(frm, S.state.settings.services, picked, function (id) {
-          picked = picked.includes(id)
-            ? picked.filter(function (x) {
-                return x !== id;
-              })
-            : picked.concat(id);
-          paint();
-        });
-        var duration =
-          S.state.settings.duration_mode === "fixed"
-            ? S.state.settings.fixed_duration
-            : picked.reduce(function (sum, id) {
-                var x = S.state.settings.services.find(function (v) {
-                  return v.id === id;
-                });
-                return sum + (x ? x.duration : 0);
-              }, 0);
-        note(frm, "本次安排 " + duration + " 分鐘，依示範設定計算。");
-      }
-      var fields = n("div", "inline-fields");
-      fields.append(date.wrap, time.wrap);
-      frm.append(fields);
-      if (mode === "block") {
-        end.input.required = true;
-        frm.append(end.wrap);
-      }
-      var save = submit(
-        mode === "block" ? "這段不接客（示範）" : "排進班表（示範）",
-      );
-      save.disabled = S.state.read_only;
-      frm.append(save);
-    }
-    paint();
-  }
-
-  function newCustomer(done) {
-    S.open(
-      "新增示範客人",
-      function (host) {
-        note(host, "只用來演練，不會建立 POS 客編。請勿輸入真實個資。");
-        var name = f("示範姓名", "text"),
-          phone = f("電話末四碼", "text");
-        name.input.required = phone.input.required = true;
-        name.input.maxLength = 30;
-        phone.input.pattern = "[0-9]{4}";
-        phone.input.maxLength = 4;
-        phone.input.inputMode = "numeric";
-        var frm = form(host, async function () {
-          var btn = frm.querySelector("button");
-          btn.disabled = true;
-          try {
-            var result = await S.mutate("customer", {
-              name: name.input.value,
-              phone_last4: phone.input.value,
-            });
-            S.close();
-            done(result.customer);
-          } catch (e) {
-            S.fail(frm, e);
-          } finally {
-            btn.disabled = false;
-          }
-        });
-        frm.append(name.wrap, phone.wrap, submit("新增並帶入"));
-      },
-      true,
-    );
-  }
-
+  /* 班表＝設計稿 §2：一週一頁、一天一畫面、時間比例時間軸。
+     卡片高度就是實際時長（1.06 px/分），空檔按同一把尺留白並且可以點。 */
   function schedule(args) {
+    args = args || {};
     S.open("班表", function (host) {
-      var index = Math.max(
+      var SCALE = 1.06,
+        index = Math.max(
           0,
           S.state.days.findIndex(function (d) {
             return d.date === args.date;
           }),
         ),
-        nav = n("div", "row between"),
+        nav = n("div", "spine-nav"),
+        jumpRow = n("div", "spine-jump"),
         strip = n("div", "date-strip"),
-        area = n("div"),
-        jump = f("跳到日期", "date");
+        area = n("div", "spine"),
+        jump = f("跳到日期", "date"),
+        month = n("span", "spine-month"),
+        pills = [];
       strip.dataset.tour = "dates";
       dates(jump.input);
-      nav.append(
-        b(
+      var prev = b(
           "‹ 前 7 天",
           function () {
-            select(Math.max(0, index - 7));
+            select(Math.max(0, index - 7), true);
           },
-          "text-button",
+          "link-button",
         ),
+        next = b(
+          "後 7 天 ›",
+          function () {
+            select(Math.min(S.state.days.length - 1, index + 7), true);
+          },
+          "link-button",
+        );
+      nav.append(prev, next, month);
+      jumpRow.append(
+        jump.wrap,
         b(
           "回今天",
           function () {
             select(0);
           },
-          "text-button",
-        ),
-        b(
-          "後 7 天 ›",
-          function () {
-            select(Math.min(S.state.days.length - 1, index + 7));
-          },
-          "text-button",
+          "link-button",
         ),
       );
-      host.append(nav, jump.wrap, strip, area);
+      host.append(nav, jumpRow, strip, n("p", "strip-hint", "左右滑可以看更後面的日期"), area);
       jump.input.addEventListener("change", function () {
         var i = S.state.days.findIndex(function (d) {
           return d.date === jump.input.value;
         });
         if (i >= 0) select(i);
+        else S.toast("只能看到 " + S.state.days[S.state.days.length - 1].date + " 為止。");
       });
-      function select(i) {
+      S.state.days.forEach(function (d, i) {
+        var mm = d.date.slice(5, 7);
+        if (i === 0 || mm !== S.state.days[i - 1].date.slice(5, 7))
+          strip.append(n("span", "month-mark", Number(mm) + " 月"));
+        var item = b(
+          "",
+          function () {
+            select(i);
+          },
+          "date-chip",
+        );
+        item.setAttribute("aria-label", d.date + " 週" + d.weekday);
+        item.append(
+          n("small", null, "週" + d.weekday),
+          n("b", null, Number(d.date.slice(-2))),
+          n("small", "count", "·"),
+        );
+        pills.push(item);
+        strip.append(item);
+      });
+      // 月份標籤也佔寬度，所以置中要用實測位置算，不能拿索引乘膠囊寬度。
+      function center(smooth) {
+        var el = pills[index];
+        if (!el) return;
+        strip.scrollTo({
+          left: Math.max(0, el.offsetLeft - (strip.clientWidth - el.offsetWidth) / 2),
+          behavior: smooth ? "smooth" : "auto",
+        });
+      }
+      function select(i, smooth) {
         index = i;
         draw();
-        var target = strip.children[index];
-        if (target)
-          target.scrollIntoView({
-            block: "nearest",
-            inline: "center",
-            behavior: "smooth",
-          });
+        center(smooth);
+      }
+      function summary(day, opening, closing) {
+        var booked = day.slots.filter(function (s) {
+            return s.kind === "booking";
+          }).length,
+          free = 0,
+          cursor = opening;
+        day.slots.forEach(function (s) {
+          free += Math.max(0, mins(s.start) - cursor);
+          cursor = Math.max(cursor, mins(s.end));
+        });
+        free += Math.max(0, closing - cursor);
+        return booked
+          ? booked + " 筆 · 空 " + Math.round(free / 6) / 10 + " 小時"
+          : "整天空著";
       }
       function draw() {
-        strip.replaceChildren();
-        S.state.days.forEach(function (d, i) {
-          var item = b(
-            "",
-            function () {
-              select(i);
-            },
-            "date-chip",
-          );
-          item.setAttribute("aria-label", d.date + " 週" + d.weekday);
-          item.setAttribute("aria-pressed", i === index);
-          item.append(
-            n("small", null, "週" + d.weekday),
-            n("b", null, Number(d.date.slice(-2))),
-            n("small", null, d.slots.length || "·"),
-          );
-          strip.append(item);
+        pills.forEach(function (item, i) {
+          item.setAttribute("aria-pressed", String(i === index));
+          item.querySelector(".count").textContent = S.state.days[i].slots.length || "·";
         });
-        area.replaceChildren();
         var day = S.state.days[index];
         jump.input.value = day.date;
-        area.append(
-          n("h3", null, day.date + " 週" + day.weekday),
-          n("p", "note", "示範基準日 " + S.state.as_of.slice(0, 10) + " · 已載入至 " + S.state.days[S.state.days.length - 1].date),
-          n(
-            "p",
-            "note",
-            "示範時間軸 · 空白只表示尚未排單，不代表正式 POS 可約。",
-          ),
-        );
-        var slots = day.slots,
-          opening = mins(S.state.settings.open_time),
+        month.textContent = Number(day.date.slice(5, 7)) + " 月";
+        prev.disabled = index === 0;
+        next.disabled = index >= S.state.days.length - 1;
+        area.replaceChildren();
+        var opening = mins(S.state.settings.open_time),
           closing = mins(S.state.settings.close_time);
-        slots.forEach(function (s) {
+        day.slots.forEach(function (s) {
           opening = Math.min(opening, mins(s.start));
           closing = Math.max(closing, mins(s.end));
         });
+        var head = n("div", "spine-head");
+        head.append(
+          n("b", null, day.date.slice(5).replace("-", "/")),
+          n(
+            "span",
+            "spine-when",
+            index === 0 ? "今天" : index === 1 ? "明天" : "週" + day.weekday,
+          ),
+          n("i", "rule"),
+          n("small", null, summary(day, opening, closing)),
+        );
+        area.append(head);
         if (opening < mins(S.state.settings.open_time) || closing > mins(S.state.settings.close_time))
           note(area, "部分既有示範單在目前營業時間之外，保留顯示；新單仍依目前營業時間檢查。");
-        var board = n("div", "timeline"),
-          scale = 1.06;
-        board.style.height = (closing - opening) * scale + 22 + "px";
-        for (var m = opening; m <= closing; m += 60) {
-          var line = n("div", "hour");
-          line.style.top = (m - opening) * scale + "px";
-          line.append(n("span", null, clock(m)));
-          board.append(line);
+        // 今天才有「現在」。示範是釘住的基準時刻，不是你手機上的現在。
+        var nowLine = null;
+        if (index === 0) {
+          var nowMin = mins(S.state.as_of.slice(11, 16));
+          nowLine = n("div", "now-line");
+          nowLine.append(
+            n("span", "now-clock", S.state.as_of.slice(11, 16)),
+            n("i", null),
+            n("span", "now-label", "現在（示範基準）"),
+          );
+          nowLine.dataset.at = nowMin;
         }
-        var cursor = opening;
-        function gap(start, end) {
-          if (end - start < 15) return;
-          var free = b(
-            "空 " + clock(start) + "–" + clock(end) + " · 排一筆",
-            function () {
-              add({ date: day.date, time: clock(start) });
-            },
-            "slot free",
+        var seq = [],
+          cursor = opening;
+        day.slots
+          .slice()
+          .sort(function (a, c) {
+            return mins(a.start) - mins(c.start);
+          })
+          .forEach(function (s) {
+            var start = mins(s.start),
+              end = mins(s.end);
+            if (start - cursor >= 15) seq.push({ gap: true, start: cursor, end: start });
+            seq.push({ slot: s, start: start, end: end });
+            cursor = Math.max(cursor, end);
+          });
+        if (closing - cursor >= 15) seq.push({ gap: true, start: cursor, end: closing });
+        seq.forEach(function (e) {
+          if (nowLine && e.start >= Number(nowLine.dataset.at)) {
+            area.append(nowLine);
+            nowLine = null;
+          }
+          if (e.gap) {
+            var free = b(
+              "",
+              function () {
+                add({ date: day.date, time: clock(e.start) });
+              },
+              "slot free",
+            );
+            free.style.minHeight = Math.max(46, Math.round((e.end - e.start) * SCALE)) + "px";
+            free.append(
+              n("span", "slot-time", clock(e.start)),
+              n(
+                "span",
+                "grow",
+                "空 " + clock(e.start) + "–" + clock(e.end) + " · 排一筆",
+              ),
+            );
+            area.append(free);
+            return;
+          }
+          var s = e.slot,
+            duration = e.end - e.start,
+            card = b(
+              "",
+              function () {
+                if (s.kind === "booking") booking({ id: s.id });
+                else blockDetail(s);
+              },
+              "slot " + (s.kind === "block" ? "block" : s.status),
+            ),
+            text = n("span", "grow");
+          card.style.minHeight = Math.max(56, Math.round(duration * SCALE)) + "px";
+          card.append(n("span", "slot-time", s.start));
+          if (s.kind === "booking")
+            card.append(n("span", "avatar small", (s.masked_name || "客").slice(0, 1)));
+          text.append(
+            n(
+              "b",
+              null,
+              s.kind === "booking"
+                ? s.masked_name
+                : "不接客" + (s.reason && s.reason !== "不接客" ? " · " + s.reason : ""),
+            ),
           );
-          free.style.top = (start - opening) * scale + "px";
-          free.style.height = (end - start) * scale - 3 + "px";
-          board.append(free);
-        }
-        slots.forEach(function (s) {
-          var start = mins(s.start),
-            end = mins(s.end);
-          if (start > cursor) gap(cursor, start);
-          cursor = Math.max(cursor, end);
-          var slot = b(
-            "",
-            function () {
-              if (s.kind === "booking") booking({ id: s.id });
-              else blockDetail(s);
-            },
-            "slot " + (s.kind === "block" ? "block" : s.status),
-          );
-          slot.style.top = (start - opening) * scale + "px";
-          slot.style.height = Math.max(24, (end - start) * scale - 3) + "px";
-          slot.append(
-            n("b", null, s.start + " · " + (s.masked_name || "不接客")),
-            n("small", null, s.service_label || s.reason),
-          );
+          if (s.kind === "booking")
+            text.append(n("small", null, s.service_label + " " + duration + " 分"));
           if (s.customer_ref && S.state.notes[s.customer_ref])
-            slot.append(n("small", null, S.state.notes[s.customer_ref]));
-          board.append(slot);
+            text.append(n("small", "pin", S.state.notes[s.customer_ref]));
+          card.append(text);
+          if (s.kind === "booking")
+            card.append(
+              n("span", "sync " + s.status, s.status === "pending" ? "等同步" : "已同步"),
+            );
+          area.append(card);
         });
-        if (cursor < closing) gap(cursor, closing);
+        if (nowLine) area.append(nowLine);
         area.append(
-          board,
           b(
             "＋ 排一筆",
             function () {
@@ -953,15 +1107,35 @@
             },
             "primary full",
           ),
+          n(
+            "p",
+            "spine-foot",
+            "客人可預約到 " +
+              S.state.settings.open_through.slice(5).replace("-", "/") +
+              " · 之後的你自己排得到",
+          ),
         );
         note(
           area,
-          "開放設定至 " + S.state.settings.open_through + "（示範）；本頁排單範圍至 " +
-            S.state.days[S.state.days.length - 1].date + "。空白不是正式 POS 可約證明。",
+          "示範基準日 " +
+            S.state.as_of.slice(0, 10) +
+            " · 已載入至 " +
+            S.state.days[S.state.days.length - 1].date +
+            "。空白只表示尚未排單，不是正式 POS 可約證明。",
         );
       }
       draw();
+      center(false);
       host.append(
+        b(
+          "看所有預約紀錄",
+          function () {
+            S.open("預約紀錄", function (box) {
+              bookingRecords(box);
+            });
+          },
+          "text-button full",
+        ),
         b(
           "重新整理班表",
           async function () {

@@ -324,24 +324,75 @@ def test_the_badge_tells_where_the_data_pages_come_from():
 # --- 預約頁：手動排單、對話列有內容、點進去帶著身分排單（Steve 2026-09-05）--------
 
 
-def test_the_bookings_page_keeps_the_manual_form_above_the_two_tabs():
-    """入口改成兩個分頁之後，手動排單被收進第二頁——Steve 在示範站上說「不見了」。
+def test_the_bookings_entry_opens_the_booking_panel_itself():
+    """Steve 2026-09-06 看了預約頁說「還是不對」：點「預約」要**直接是開單面板**。
 
-    表單要是**同一份** `book` 表單（`bookingForm`），不是另外抄一份：抄一份的話
-    「不猜剪髮」「工時依設定算」這些規矩只會補在其中一份上。
+    舊版把開單收在「客人對話／預約紀錄」兩個分頁上面，等於每次開單都要先走過
+    一段跟開單無關的清單。設計稿 §3 的畫面是：排預約／不接客兩個 tab、舊客查一下
+    就好、新客第一次來、排進班表。這一頁就是那張單。
     """
     text = (FRONTEND / "workbench.js").read_text("utf-8")
-    body = text[text.index("function bookings(") : text.index("function bookingRecords(")]
+    body = text[text.index("function bookings(") : text.index("function bookingForm(")]
 
-    assert "＋ 手動排一筆" in body
-    assert body.index("＋ 手動排一筆") < body.index("booking-tabs"), "表單區塊要在兩個分頁之上"
-    # Sticky toolbar owns the two tabs; the retained form panel sits below it.
-    # Actual visible position and collapse/reopen retention are verified by
-    # scripts/test_workbench_v10_finish.cjs (including mutation checks).
-    assert "manual.append(tabs)" in body
-    assert "host.append(manual, panel, content)" in body
-    assert "bookingForm(" in body
-    assert "function bookingForm(" in text and "bookingForm(host, args)" in text
+    assert "bookingForm(host, args)" in body, "點預約打開的就是那張開單表單本身"
+    assert "客人對話" not in body and "conversationList(" not in body, (
+        "客人對話已經住在右上角的訊息裡，預約頁不再放第二份"
+    )
+    assert "預約紀錄" not in body, "預約紀錄改由班表那頁進去，同一件事不出現兩次"
+
+
+def test_the_booking_panel_has_the_pieces_steve_signed_off_on():
+    """設計稿 §3 的字串就是最終文案，逐一釘住。改字之前要先改設計稿。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function bookingForm(") : text.index("function schedule(")]
+
+    for label in (
+        "排預約",
+        "不接客",
+        "舊客 · 查一下就好",
+        "新客 · 第一次來",
+        "打名字或電話…",
+        "從公司系統查 →",
+        "選擇項目",
+        "可複選",
+        "總工時",
+        "排進班表",
+        "排進去之後，今晚會自動同步進公司系統",
+        "新客同步時會在公司系統建新檔。",
+    ):
+        assert label in body, f"開單面板少了設計稿要的「{label}」"
+
+
+def test_the_booking_panel_never_guesses_the_service():
+    """帶入的只有「他上次真的做過的」。沒有上次紀錄就不預選——空的服務 ≠ 剪髮。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function bookingForm(") : text.index("function schedule(")]
+
+    assert "lastServices(" in body, "自動帶入要走同一支，才不會有第二份規則"
+    catalog = text[text.index("function lastServices(") : text.index("function bookingForm(")]
+    assert "last_services" in catalog and "last_service" in catalog
+    assert "return []" in catalog, "沒有上次紀錄就回空陣列，不預選任何項目"
+    assert '"cut"' not in catalog and "剪髮" not in catalog
+
+
+def test_pos_binding_is_shown_from_data_not_assumed():
+    """已綁顯示綠色編號、未綁顯示陶土「未綁 POS」。沒有客編就是沒有，不補一個。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    assert "function posTag(" in text
+    body = text[text.index("function posTag(") : text.index("function lastServices(")]
+    assert "pos_customer_id" in body
+    assert "未綁 POS" in body and "POS " in body
+    assert "pos bound" in body and "pos unbound" in body
+
+
+def test_the_carried_in_customer_never_offers_the_block_tab():
+    """設計稿 §3 最後一條：「幫他預約」流程裡不出現「不接客」。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function bookingForm(") : text.index("function schedule(")]
+
+    assert "資料是從對話帶過來的，不用再打一次。" in body
+    assert "換人" in body
+    assert "carried" in body, "帶進來的身分要有自己的旗標，才知道不長出不接客那個 tab"
 
 
 def test_the_conversation_rows_show_what_was_said_not_only_a_name():
@@ -366,3 +417,41 @@ def test_a_conversation_that_matches_nobody_is_marked_instead_of_guessed():
     assert "pickCustomer(" in body
     assert "bookings({" in body, "按下去要回預約頁帶著這位客人，不是原地再開一張表單"
     assert "已排 " in body, "排完之後這段對話上要看得到已經排了哪一筆"
+
+
+# --- 班表 sheet：時間比例時間軸（設計稿 §2）------------------------------------
+
+
+def test_the_schedule_is_a_time_proportional_spine():
+    """卡片高度＝時長 × 1.06 px/分。180 分的燙染要真的是 60 分剪髮的三倍高——
+    這是這張畫面存在的理由，不是裝飾。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function schedule(") : text.index("function blockDetail(")]
+
+    assert "1.06" in body, "每分鐘的像素數是設計稿定的 1.06"
+    assert "duration * SCALE" in body or "* SCALE" in body
+    assert "空 " in body and "· 排一筆" in body, "空檔要說得出是幾點到幾點、而且能點"
+    assert "現在" in body, "今天才有的那條紅線"
+    assert "客人可預約到" in body and "之後的你自己排得到" in body
+
+
+def test_the_schedule_pills_say_how_many_and_center_themselves():
+    """60 顆日期膠囊：週幾／日／筆數（0 顯示 ·），選中自動置中。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    body = text[text.index("function schedule(") : text.index("function blockDetail(")]
+
+    assert '"·"' in body, "沒有預約的那天顯示點，不顯示 0"
+    assert "offsetLeft" in body, "月份標籤會佔寬度，置中要用實測位置算"
+    assert "‹ 前 7 天" in body and "後 7 天 ›" in body and "回今天" in body
+    assert "跳到日期" in body
+
+
+def test_the_booking_records_live_behind_the_schedule_not_on_the_bookings_page():
+    """預約紀錄（含已取消）還在，但只從班表那頁進去——同一件事不出現兩次。"""
+    text = (FRONTEND / "workbench.js").read_text("utf-8")
+    schedule_body = text[text.index("function schedule(") : text.index("function blockDetail(")]
+
+    assert "bookingRecords(" in schedule_body
+    assert "function bookingRecords(" in text
+    records = text[text.index("function bookingRecords(") : text.index("function booking(")]
+    assert "已取消" in records, "取消掉的那筆在時間軸上看不到，得有地方查得到"

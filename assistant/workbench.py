@@ -226,6 +226,11 @@ class Workbench:
         self.customers = [
             deepcopy(c) for c in fixtures["customers"]["rows"] if c["customer_ref"] in allowed
         ]
+        # 公司系統客編來自資料集，不是這裡算出來的：沒有就是沒有（畫面顯示「未綁 POS」），
+        # 不替他補一個看起來合理的號碼。
+        bindings = {c["customer_ref"]: c.get("pos_customer_id") for c in dataset["customers"]}
+        for row in self.customers:
+            row["pos_customer_id"] = bindings.get(row["customer_ref"])
         self.days = deepcopy(fixtures["schedule"]["days"])
         appointments = {
             a["appointment_ref"]: a
@@ -460,6 +465,10 @@ class Workbench:
             date = _text(data, "date", "這天還沒有載入班表，請選畫面上的日期。")
             opening = _text(data, "start", "時間請填有效的時與分。")
             closing = _text(data, "end", "時間請填有效的時與分。")
+            # 備註是設計師自己寫給自己看的（吃飯、進修）。留空就是留空，不替他編一個。
+            reason = _text(data, "reason", "備註請填文字。", optional=True).strip()
+            if len(reason) > 20:
+                raise WorkbenchError("備註最多 20 個字。")
             start, end = minutes(opening), minutes(closing)
             self._check_slot(date, start, end, exclude=original["id"] if original else None)
             row = {
@@ -467,7 +476,7 @@ class Workbench:
                 "date": date,
                 "start": opening,
                 "end": closing,
-                "reason": "不接客",
+                "reason": reason or "不接客",
             }
             if original:
                 original.update(row)
@@ -504,6 +513,8 @@ class Workbench:
                 "last_service_label": "尚無紀錄",
                 "last_visit_label": "未到店",
                 "days_since_last_visit": None,
+                # 這一刻公司系統裡還沒有他的檔——同步時才會建，所以現在是未綁。
+                "pos_customer_id": None,
             }
             self.customers.append(row)
             output["customer"] = row
