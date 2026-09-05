@@ -804,19 +804,36 @@ configuration, the front end and the tests are all here in full.
 
 ## Built for BUILDMODE 2026
 
-**Everything in this repository was written for this event** — the agent
-orchestration and tool-calling loop, all nine tools and their schemas, the
-`SalonDataProvider` boundary, the mock adapter and its fixed-seed data
-generator, the privacy layer, the configuration layer, the chat UI and the
-server, the replay mode and its recordings, the guard tests, and the docs.
+**Everything in this repository was written during this event (2026-09-04 → 09-06)** —
+the agent orchestration and tool-calling loop; the eleven tools and their schemas
+(nine read-only queries plus two proposal tools that only draft a confirmation card);
+the sandboxed "grow a tool" loop; the `SalonDataProvider` boundary; the mock adapter
+and its fixed-seed data generator; the privacy layer; the configuration layer; the
+chat UI, the four workbench pages (booking panel, proportional-time schedule,
+customers, settings) and the server; the replay mode and its recordings; the guard
+tests; the bake-off scorer; and the docs.
 
-Three more pieces were also written for this event but are **not** in this
-repository, because each of them touches live data or spells out what our
-leak scanner blocks: the read-only production adapter, the export + leak-scan
-tooling that produced this repository, and the bake-off exam with its answer
-key (the key is computed from live salon data). §12 reports what the exam
-measured; the five iron rules it grades on are quoted verbatim in §6, and they
-are the same string the system prompt uses.
+Pieces also written for this event but **not** in this repository, because each
+touches live data or spells out what our leak scanner blocks: the read-only
+production adapter (`ProductionSalonDataProvider`), the export + leak-scan tooling
+that produced this repository, the bake-off exam against live salon data with its
+answer key, and — on the platform side — the nightly job that copies POS consumption
+records into a table that adapter reads. §12 reports what the exam measured; the five
+iron rules it grades on are quoted verbatim in §6, and they are the same string the
+system prompt uses.
+
+### Existed before vs. built here
+
+| Area | Existed before BUILDMODE (not part of this submission) | Built during BUILDMODE 2026 |
+|---|---|---|
+| Data | Customer, transaction, appointment and conversation records in the salon platform's database; POS login and sync | `SalonDataProvider` interface; mock adapter with fixed-seed demo data (`assistant/demo_data`); read-only production adapter (excluded from this repo) |
+| Talking to customers | The platform's LINE booking assistant, which replies to customers and writes bookings into the POS | Nothing here sends a message or writes a booking. The assistant only reads; "book this" produces a confirmation card the designer must press, and the press goes through the platform's existing write path, not the model |
+| An assistant for the designer | Did not exist | Chat with tool calling, eleven tools, iron rules enforced in the server layer, name/phone masking, replay mode, eval scorer and bake-off report |
+| Self-extension | Did not exist | `propose_new_tool`: the model writes a tool, an AST-whitelisted sandbox runs it under CPU / wall-clock / memory limits, the designer adopts it for that conversation only (demo mode only) |
+| Workbench UI | The platform's own back office | Four pages in this repo: the booking page *is* the order form, a proportional-time schedule, customers, settings — demo data only, no write to POS or LINE |
+| POS consumption records | A per-period report page inside the POS | A nightly sync into a `pos_consume_records` table on the platform side (not in this repo); the excluded adapter reads it for spend and history questions; the mock adapter serves the same shape |
+| Model | — | Any OpenAI-compatible endpoint; qwen3.7-max / qwen-plus / qwen-turbo measured in §12 |
+| Tests | The platform's own suite | The guard tests in this repo, runnable without any key (§10) |
 
 ## 授權
 
