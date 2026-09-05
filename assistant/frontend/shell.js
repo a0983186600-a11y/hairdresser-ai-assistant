@@ -1,121 +1,246 @@
-/*
- * 五個頁面共用的外框：導覽的目前位置、右上角資料來源徽章、還有 toast。
- *
- * 徽章是影片裡全程可見的那一顆，讀的是 /health 的 mode，不是前端自己記的狀態——
- * 前端記的會跟伺服器不同步，而「畫面說 DEMO、其實在讀正式資料」是這支作品
- * 最不能出的錯。按下去切換模式，切不過去時把伺服器給的理由原話顯示出來。
- */
-(function (global) {
+/* Shared navigation and one server-backed source for the rehearsal. */
+(function (g) {
   "use strict";
-
-  var LABEL = { demo: "DEMO", production: "PRODUCTION" };
-  var HINT = {
-    demo: "固定 seed 假資料",
-    production: "唯讀正式資料"
-  };
-
-  function markNav() {
-    var here = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-    Array.prototype.forEach.call(document.querySelectorAll(".nav a"), function (link) {
-      var target = (link.getAttribute("href") || "").toLowerCase();
-      if (target === here) {
-        link.setAttribute("aria-current", "page");
-      }
-    });
+  var stack = [],
+    serial = 0,
+    timer;
+  function node(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined && text !== null) e.textContent = String(text);
+    return e;
   }
-
-  var toastTimer = null;
-
+  function button(label, fn, cls) {
+    var b = node("button", cls || "secondary", label);
+    b.type = "button";
+    if (fn) b.addEventListener("click", fn);
+    return b;
+  }
   function toast(text) {
-    var existing = document.querySelector(".toast");
-    if (existing) {
-      existing.remove();
-    }
-    var node = document.createElement("div");
-    node.className = "toast fade";
-    node.setAttribute("role", "status");
-    node.textContent = text;
-    document.body.appendChild(node);
-    global.clearTimeout(toastTimer);
-    toastTimer = global.setTimeout(function () {
-      node.remove();
-    }, 3600);
+    var box = document.querySelector("[data-toast]");
+    box.textContent = text;
+    box.hidden = false;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      box.hidden = true;
+    }, 4500);
   }
-
-  function paint(badge, mode, note, pagesLabel) {
-    var known = LABEL[mode] ? mode : "demo";
-    badge.dataset.mode = known;
-    badge.innerHTML = "";
-    var pip = document.createElement("span");
-    pip.className = "pip";
-    badge.appendChild(pip);
-    var name = document.createElement("span");
-    name.textContent = LABEL[known];
-    badge.appendChild(name);
-    var hint = document.createElement("span");
-    hint.className = "hint";
-    hint.textContent = HINT[known];
-    badge.appendChild(hint);
-    if (pagesLabel) {
-      // 資料頁（預約／班表／客人／設定）的來源可能跟聊天的資料來源不同：
-      // production 模式沒設後台位址時四頁仍是示範 fixture，/health 會用 data_source_label 講出來。
-      var pages = document.createElement("span");
-      pages.className = "pages";
-      pages.textContent = pagesLabel;
-      badge.appendChild(pages);
-    }
-    badge.title = note || HINT[known];
-    global.AssistantShell.mode = known;
+  function field(label, type, value) {
+    var wrap = node("label", "field", label),
+      input = node(type === "textarea" ? "textarea" : "input");
+    if (type !== "textarea") input.type = type || "text";
+    input.value = value == null ? "" : value;
+    wrap.append(input);
+    return { wrap: wrap, input: input };
   }
-
-  function wireBadge() {
-    var badge = document.querySelector("[data-source-badge]");
-    if (!badge) {
-      return;
+  function close() {
+    if (stack.length) {
+      stack.pop();
+      paint();
     }
-    global.AssistantApi.health().then(function (health) {
-      paint(badge, health.mode, health.data_source_note || health.production_note || health.replay_note, health.data_source_label);
-    }).catch(function () {
-      paint(badge, "demo", "連不上伺服器，先當作示範模式");
+  }
+  function closeAll() {
+    stack = [];
+    paint();
+  }
+  function paint() {
+    var root = document.querySelector("[data-sheet-root]");
+    root.replaceChildren();
+    var active = stack[stack.length - 1];
+    document.querySelector(".workbench").inert = !!active;
+    document.body.style.overflow = active ? "hidden" : "";
+    document.querySelector("[data-assistant-ball]").hidden =
+      !active || active.noBall;
+    if (!active) return;
+    var layer = node("div", "sheet-layer"),
+      sheet = node("section", "sheet");
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-modal", "true");
+    sheet.setAttribute("aria-label", active.title);
+    sheet.tabIndex = -1;
+    sheet.append(node("div", "sheet-handle"));
+    var head = node("header", "sheet-header");
+    var back = button("‹", close, "icon");
+    back.setAttribute("aria-label", "回上一層");
+    head.append(back, node("h2", null, active.title));
+    var x = button("×", close, "icon");
+    x.setAttribute("aria-label", "關閉視窗");
+    head.append(x);
+    sheet.append(head, active.host);
+    layer.append(sheet);
+    root.append(layer);
+    layer.addEventListener("click", function (e) {
+      if (e.target === layer) close();
     });
-
-    if (!badge.hasAttribute("data-mode-switch")) {
-      return;
-    }
-    badge.addEventListener("click", function () {
-      var next = badge.dataset.mode === "production" ? "demo" : "production";
-      badge.disabled = true;
-      global.AssistantApi.switchMode(next).then(function (result) {
-        paint(badge, result.mode, result.data_source_note || result.production_note, result.data_source_label);
-        toast(next === "production" ? "已切到正式唯讀資料" : "已切回示範資料");
-      }).catch(function (error) {
-        toast("切不過去：" + error.message);
-      }).then(function () {
-        badge.disabled = false;
+    sheet.focus();
+  }
+  function open(title, render, noBall) {
+    var host = node("div", "sheet-content");
+    host.dataset.view = ++serial;
+    stack.push({ title: title, host: host, noBall: !!noBall });
+    paint();
+    Promise.resolve()
+      .then(function () {
+        return render(host);
+      })
+      .catch(function (e) {
+        fail(host, e);
       });
+    return host;
+  }
+  function fail(host, error, retry) {
+    var box = node(
+      "div",
+      "error",
+      error.message || "這次讀取沒有完成，請重試。",
+    );
+    box.setAttribute("role", "alert");
+    host.append(box);
+    if (retry) host.append(button("重新讀取", retry));
+  }
+  function confirmAction(title, text, fn) {
+    return open(
+      title,
+      function (host) {
+        host.append(node("p", "note", text));
+        var yes = button(
+          "確認（僅示範）",
+          async function () {
+            yes.disabled = true;
+            try {
+              await fn();
+              close();
+            } catch (e) {
+              fail(host, e);
+              yes.disabled = false;
+            }
+          },
+          "primary full",
+        );
+        host.append(yes, button("先不要", close, "text-button full"));
+      },
+      true,
+    );
+  }
+  async function refresh() {
+    var data = await g.AssistantApi.workbench();
+    S.state = data;
+    document.querySelector("[data-workbench-note]").textContent = data.notice;
+    document.querySelector("[data-greeting]").textContent =
+      "你好，今天想先處理什麼？我可以查客人、回訪與消費紀錄，也能幫你擬訊息。\n\n班表與開單在上面；這裡的操作只作示範，不會真的送出。";
+    g.dispatchEvent(new CustomEvent("workbench-updated"));
+    return data;
+  }
+  async function mutate(kind, data) {
+    if (S.state && S.state.read_only)
+      throw new Error("目前是正式唯讀模式，不能更動資料。");
+    var result = await g.AssistantApi.action(kind, data);
+    await refresh();
+    toast(result.notice);
+    return result;
+  }
+  async function health() {
+    var b = document.querySelector("[data-source-badge]");
+    try {
+      var h = await g.AssistantApi.health();
+      S.health = h;
+      b.textContent = h.mode === "production" ? "正式唯讀" : "DEMO · 示範";
+      b.dataset.mode = h.mode;
+      b.title = (h.data_source_label || "") + "。" + (h.data_source_note || "");
+      document.querySelector("[data-replay-label]").textContent =
+        (h.replay_available
+          ? "錄音重播"
+          : (h.chat_model || "模型").split("/").pop()) + " · 工作台：示範";
+    } catch (e) {
+      b.textContent = "未連線";
+      b.dataset.mode = "unknown";
+      throw e;
+    }
+  }
+  function copy(text) {
+    if (!navigator.clipboard)
+      return Promise.reject(new Error("瀏覽器不允許複製，請手動選取文字。"));
+    return navigator.clipboard.writeText(text).then(function () {
+      toast("已複製");
     });
   }
-
-  global.AssistantShell = {
-    mode: "demo",
+  var S = (g.AssistantShell = {
+    node: node,
+    button: button,
+    field: field,
     toast: toast,
-    money: function (amount) {
-      return "NT$" + Number(amount || 0).toLocaleString("zh-Hant-TW");
+    open: open,
+    close: close,
+    closeAll: closeAll,
+    fail: fail,
+    confirm: confirmAction,
+    refresh: refresh,
+    mutate: mutate,
+    copy: copy,
+    state: null,
+    health: null,
+    money: function (n) {
+      return n == null ? "未記錄" : "NT$" + Number(n).toLocaleString("zh-TW");
     },
-    node: function (tag, className, text) {
-      var element = document.createElement(tag);
-      if (className) {
-        element.className = className;
-      }
-      if (text !== undefined && text !== null) {
-        element.textContent = text;
-      }
-      return element;
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !document.querySelector(".tour-shade")) close();
+    if (e.key !== "Tab" || !stack.length) return;
+    var items = Array.from(
+      document.querySelectorAll(
+        ".sheet button:not(:disabled),.sheet input,.sheet select,.sheet textarea,.sheet a,.sheet summary",
+      ),
+    ).filter(function (x) {
+      return x.getClientRects().length;
+    });
+    if (!items.length) return;
+    if (
+      e.shiftKey &&
+      (document.activeElement === items[0] ||
+        document.activeElement.classList.contains("sheet"))
+    ) {
+      e.preventDefault();
+      items[items.length - 1].focus();
+    } else if (
+      !e.shiftKey &&
+      document.activeElement === items[items.length - 1]
+    ) {
+      e.preventDefault();
+      items[0].focus();
     }
-  };
-
-  document.addEventListener("DOMContentLoaded", function () {
-    markNav();
-    wireBadge();
+  });
+  document.addEventListener("DOMContentLoaded", async function () {
+    document
+      .querySelector("[data-source-badge]")
+      .addEventListener("click", async function () {
+        var b = this;
+        b.disabled = true;
+        try {
+          var desired = b.dataset.mode === "production" ? "demo" : "production";
+          await g.AssistantApi.switchMode(desired);
+          closeAll();
+          if (g.AssistantChat) g.AssistantChat.reset();
+          await health();
+          await refresh();
+          toast(
+            desired === "production"
+              ? "助理已切為正式唯讀；工作台仍為示範。"
+              : "已切回示範資料",
+          );
+        } catch (e) {
+          toast("未切換：" + e.message);
+        } finally {
+          b.disabled = false;
+        }
+      });
+    try {
+      await health();
+      await refresh();
+      g.dispatchEvent(new CustomEvent("workbench-ready"));
+    } catch (e) {
+      document.querySelector("[data-greeting]").textContent =
+        "工作台暫時連不上，請確認服務已開啟。";
+      toast(e.message);
+    }
   });
 })(window);

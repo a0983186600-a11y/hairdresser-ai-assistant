@@ -1,233 +1,312 @@
-/*
- * 首頁的對話串。
+/* One conversation shared by the home composer and the floating assistant.
  *
- * 這裡最重要的不是把答案印出來，是**把過程印出來**。評審看到的如果只有一段
- * 漂亮的中文，他沒辦法分辨那是查出來的還是編出來的；所以每一次工具呼叫都變成
- * 一張卡片，工具名、參數、結果摘要三樣都露在畫面上，一張一張淡入。
+ * 卡片上的東西全是伺服器**已經跑完**的 trace：一次回傳 reply 與 tool_calls，
+ * 沒有 streaming、沒有第二條連線。一張一張出現是前端排的呈現節奏，不是即時串流——
+ * 排它是因為「AI 查了什麼」要看得見，同時出現等於只看得到結果。
+ * 節奏只決定「什麼時候畫」，畫的內容一律是伺服器回的那幾張，不會多一張。
  *
- * 伺服器是一次把 reply 與 tool_calls 一起回來的（不做 streaming，少一層可能出錯的
- * 東西）。逐張出現是前端排的節奏：先「正在查 …」，再翻成結果摘要，全部翻完才
- * 讓助理開口。看起來跟真的在查一樣，而且不需要 SSE。
- *
- * 回訪草稿另外處理：`draft_follow_up_message` 出現時，助理的回覆包成一張訊息
- * 預覽卡，上面有「送出到 LINE」。**那顆按鈕按下去不會送**——示範環境沒有任何
- * 真的送出路徑，按了只跳一句提示。決定送不送的是設計師本人，不是助理。
+ * 畫面用增量的方式長：新的一則才建節點，已經在畫面上的 turn 不重建
+ * （整串重建會讓每一輪的淡入重播一次，截圖會拍到整頁在變淡）。
  */
-(function (global) {
+(function (g) {
   "use strict";
-
-  var DRAFT_TOOL = "draft_follow_up_message";
-  var CARD_GAP_MS = 420;
-  var CARD_WORK_MS = 520;
-
-  var thread;
-  var box;
-  var sendButton;
-  var sessionId = null;
-  var busy = false;
-
-  function el(tag, className, text) {
-    return global.AssistantShell.node(tag, className, text);
-  }
-
-  function scrollDown() {
-    thread.scrollTop = thread.scrollHeight;
-  }
-
-  function describeArguments(args) {
-    if (!args || typeof args !== "object") {
-      return "";
-    }
-    return Object.keys(args).map(function (key) {
-      var value = args[key];
-      if (typeof value === "string") {
-        return key + '="' + value + '"';
-      }
-      if (Array.isArray(value)) {
-        return key + "=[" + value.join(", ") + "]";
-      }
-      return key + "=" + JSON.stringify(value);
-    }).join(", ");
-  }
-
+  var S = g.AssistantShell,
+    n = S.node,
+    b = S.button,
+    DRAFT_TOOL = "draft_follow_up_message",
+    CARD_WORK_MS = 520, // 一張卡從「正在查…」翻成「查完了」
+    CARD_GAP_MS = 420, // 翻完到下一張出現
+    messages = [],
+    serial = 0,
+    session = null,
+    busy = false,
+    generation = 0;
   function signature(call) {
-    return call.name + "(" + describeArguments(call.arguments) + ")";
+    return call.name + "(" + JSON.stringify(call.arguments) + ")";
   }
-
-  function toolCard(call, finished) {
-    var card = el("div", "toolcard fade" + (finished ? " done" : ""));
-    card.appendChild(el("div", "state", finished ? "查完了" : "正在查…"));
-    card.appendChild(el("div", "call", signature(call)));
-    if (finished) {
-      card.appendChild(el("div", "state", call.result_summary || "（沒有摘要）"));
-    }
-    return card;
+  function card(call) {
+    var wrap = n("div", "toolcard fade"),
+      state = n("div", "state", "正在查…");
+    wrap.append(state, n("div", "call", signature(call)));
+    return { node: wrap, state: state, done: false };
   }
-
-  function turn(kind, speaker) {
-    var wrap = el("div", "turn " + kind + " fade");
-    wrap.appendChild(el("div", "speaker", speaker));
-    thread.appendChild(wrap);
+  function flip(item, call) {
+    item.done = true;
+    item.node.classList.add("done");
+    item.state.textContent = "查完了";
+    item.node.append(n("div", "state", call.result_summary || "沒有摘要"));
+  }
+  function draft(reply) {
+    var wrap = n("div", "draft"),
+      bar = n("div", "actions");
+    wrap.append(n("div", "cap", "回訪草稿 · 尚未送出"), n("div", "body", reply));
+    bar.append(
+      b(
+        "複製",
+        function () {
+          S.copy(reply).catch(function (e) {
+            S.toast(e.message);
+          });
+        },
+        "secondary",
+      ),
+      b(
+        "送出到 LINE",
+        function () {
+          S.open(
+            "草稿尚未送出",
+            function (host) {
+              host.append(
+                n(
+                  "p",
+                  "warning",
+                  "示範環境不會真的送出。請自行確認內容；這裡沒有 LINE 發送權限。",
+                ),
+                b(
+                  "複製草稿",
+                  function () {
+                    S.copy(reply).catch(function (e) {
+                      S.fail(host, e);
+                    });
+                  },
+                  "primary full",
+                ),
+              );
+            },
+            true,
+          );
+        },
+        "primary",
+      ),
+    );
+    wrap.append(bar);
     return wrap;
   }
-
-  function saidByDesigner(text) {
-    var wrap = turn("mine", "我");
-    wrap.appendChild(el("div", "bubble", text));
-    scrollDown();
+  function build(m) {
+    var wrap = n("div", "turn " + (m.role === "user" ? "mine" : "theirs"));
+    wrap.append(n("div", "speaker", m.role === "user" ? "你" : "助理"));
+    if (m.role === "user") wrap.append(n("div", "bubble", m.text));
+    return { wrap: wrap, cards: [], steps: null, waiting: null, tail: null };
   }
-
-  function usedToolsBlock(calls) {
-    var box_ = el("details", "used");
-    var summary = el("summary", null, "用了哪些工具（" + calls.length + "）");
-    box_.appendChild(summary);
-    var steps = el("div", "steps");
-    calls.forEach(function (call) {
-      var line = el("div", "toolcard done");
-      line.appendChild(el("div", "call", signature(call)));
-      line.appendChild(el("div", "state", call.result_summary || "（沒有摘要）"));
-      steps.appendChild(line);
-    });
-    box_.appendChild(steps);
-    return box_;
-  }
-
-  function copyText(text) {
-    if (global.navigator && global.navigator.clipboard) {
-      return global.navigator.clipboard.writeText(text);
+  function update(m, it) {
+    if (m.role === "user") return;
+    if (m.pending && !it.waiting) {
+      it.waiting = n("div", "bubble waiting");
+      it.waiting.setAttribute("aria-label", "正在查資料");
+      it.waiting.append(n("span"), n("span"), n("span"));
+      it.wrap.append(it.waiting);
+    } else if (!m.pending && it.waiting) {
+      it.waiting.remove();
+      it.waiting = null;
     }
-    return Promise.reject(new Error("這個瀏覽器不給複製"));
-  }
-
-  function draftCard(text) {
-    var card = el("div", "draft fade");
-    var cap = el("div", "cap");
-    cap.appendChild(el("span", null, "回訪訊息草稿"));
-    cap.appendChild(el("span", null, "AI 擬稿 · 你按送出"));
-    card.appendChild(cap);
-    card.appendChild(el("div", "body", text));
-
-    var bar = el("div", "bar");
-    var send = el("button", "primary", "送出到 LINE");
-    send.type = "button";
-    send.addEventListener("click", function () {
-      // 示範版刻意沒有送出路徑：這顆按鈕存在是為了說明「決定的是人」，
-      // 不是為了真的發訊息給客人。
-      global.AssistantShell.toast("示範環境不會真的送出");
+    if (m.error) {
+      if (!it.tail) {
+        it.tail = n("div", "error", m.text);
+        it.wrap.append(
+          it.tail,
+          b(
+            "重試這一題",
+            function () {
+              ask(m.question);
+            },
+            "text-button",
+          ),
+        );
+      }
+      return;
+    }
+    var calls = m.tool_calls || [];
+    if (calls.length && !it.steps) {
+      var used = n("div", "used");
+      it.steps = n("div", "steps");
+      used.append(
+        n("div", "cap", "用了哪些工具（" + calls.length + "）"),
+        it.steps,
+      );
+      it.wrap.append(used);
+    }
+    while (it.cards.length < (m.shown || 0)) {
+      var made = card(calls[it.cards.length]);
+      it.cards.push(made);
+      it.steps.append(made.node);
+    }
+    it.cards.forEach(function (one, i) {
+      if (!one.done && i < (m.done || 0)) flip(one, calls[i]);
     });
-    var copy = el("button", "quiet", "複製");
-    copy.type = "button";
-    copy.addEventListener("click", function () {
-      copyText(text).then(function () {
-        global.AssistantShell.toast("草稿已複製");
-      }).catch(function () {
-        global.AssistantShell.toast("複製失敗，請手動選取");
+    if (m.answered && !it.tail) {
+      it.tail = calls.some(function (x) {
+        return x.name === DRAFT_TOOL;
+      })
+        ? draft(m.text)
+        : n("div", "bubble", m.text);
+      it.wrap.append(it.tail);
+    }
+  }
+  function render(host) {
+    if (!host.chatView || host.chatView.generation !== generation) {
+      host.replaceChildren();
+      host.chatView = { generation: generation, items: {} };
+    }
+    var view = host.chatView;
+    messages.forEach(function (m) {
+      var it = view.items[m.id];
+      if (!it) {
+        it = view.items[m.id] = build(m);
+        host.append(it.wrap);
+      }
+      update(m, it);
+    });
+  }
+  function paint() {
+    document
+      .querySelectorAll("[data-thread],[data-mini-thread]")
+      .forEach(render);
+    document
+      .querySelectorAll("[data-send],[data-mini-send],[data-quick-prompt]")
+      .forEach(function (x) {
+        x.disabled = busy;
       });
-    });
-    bar.appendChild(send);
-    bar.appendChild(copy);
-    bar.appendChild(el("span", "why", "送出前請自己讀一遍"));
-    card.appendChild(bar);
-    return card;
   }
-
+  function scrollToLatest() {
+    requestAnimationFrame(function () {
+      var host = document.querySelector("[data-mini-thread]");
+      if (!host && !document.querySelector(".sheet"))
+        host = document.querySelector("[data-thread]");
+      if (host && host.lastChild)
+        host.lastChild.scrollIntoView({ block: "end" });
+    });
+  }
   function wait(ms) {
-    return new Promise(function (resolve) {
-      global.setTimeout(resolve, ms);
+    return new Promise(function (done) {
+      setTimeout(done, ms);
     });
   }
-
-  function playSteps(host, calls) {
-    var steps = el("div", "steps");
-    host.appendChild(steps);
-    return calls.reduce(function (chain, call) {
-      return chain.then(function () {
-        var card = toolCard(call, false);
-        steps.appendChild(card);
-        scrollDown();
-        return wait(CARD_WORK_MS).then(function () {
-          steps.replaceChild(toolCard(call, true), card);
-          scrollDown();
-          return wait(CARD_GAP_MS);
-        });
-      });
-    }, Promise.resolve());
-  }
-
-  function answer(reply, calls) {
-    var wrap = turn("theirs", "助理");
-    var pending = el("div", "toolcard", "正在想…");
-    wrap.appendChild(pending);
-    scrollDown();
-
-    return wait(260).then(function () {
-      pending.remove();
-      return calls.length ? playSteps(wrap, calls) : null;
-    }).then(function () {
-      var drafted = calls.some(function (call) {
-        return call.name === DRAFT_TOOL;
-      });
-      wrap.appendChild(drafted ? draftCard(reply) : el("div", "bubble", reply));
-      if (calls.length) {
-        wrap.appendChild(usedToolsBlock(calls));
-      }
-      scrollDown();
-    });
-  }
-
-  function complain(message) {
-    var wrap = turn("theirs", "助理");
-    var bubble = el("div", "bubble", "這一題沒問成：" + message);
-    wrap.appendChild(bubble);
-    scrollDown();
-  }
-
-  function ask(text) {
-    if (busy || !text.trim()) {
-      return;
+  async function playSteps(m, version) {
+    var calls = m.tool_calls || [];
+    for (var i = 0; i < calls.length; i++) {
+      m.shown = i + 1;
+      paint();
+      scrollToLatest();
+      await wait(CARD_WORK_MS);
+      if (version !== generation) return;
+      m.done = i + 1;
+      paint();
+      scrollToLatest();
+      await wait(CARD_GAP_MS);
+      if (version !== generation) return;
     }
+  }
+  async function ask(text) {
+    text = (text || "").trim();
+    if (!text || busy) return;
     busy = true;
-    sendButton.disabled = true;
-    saidByDesigner(text.trim());
-    box.value = "";
-    global.AssistantApi.ask(text.trim(), sessionId).then(function (result) {
-      sessionId = result.session_id || sessionId;
-      return answer(result.reply, result.tool_calls || []);
-    }).catch(function (error) {
-      complain(error.message);
-    }).then(function () {
-      busy = false;
-      sendButton.disabled = false;
-      box.focus();
+    var version = generation;
+    messages.push({ id: ++serial, role: "user", text: text });
+    var pending = {
+      id: ++serial,
+      role: "assistant",
+      pending: true,
+      shown: 0,
+      done: 0,
+    };
+    messages.push(pending);
+    document
+      .querySelectorAll("[data-say],[data-mini-say]")
+      .forEach(function (x) {
+        x.value = "";
+      });
+    paint();
+    scrollToLatest();
+    try {
+      var result = await g.AssistantApi.ask(text, session);
+      if (version !== generation) return;
+      session = result.session_id || session;
+      Object.assign(pending, {
+        pending: false,
+        text: result.reply,
+        tool_calls: result.tool_calls || [],
+      });
+      paint();
+      await playSteps(pending, version);
+      if (version !== generation) return;
+      pending.answered = true;
+    } catch (e) {
+      if (version !== generation) return;
+      Object.assign(pending, {
+        pending: false,
+        error: true,
+        text:
+          "這題沒有完成，沒有改動任何預約。" +
+          (e.status ? " 請稍後重試。" : " 請確認網路或服務已啟動。"),
+        question: text,
+      });
+    } finally {
+      if (version === generation) {
+        busy = false;
+        paint();
+        scrollToLatest();
+      }
+    }
+  }
+  function wire(form, input) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      ask(input.value);
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+        e.preventDefault();
+        ask(input.value);
+      }
     });
   }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    thread = document.querySelector("[data-thread]");
-    box = document.querySelector("[data-say]");
-    sendButton = document.querySelector("[data-send]");
-    if (!thread || !box || !sendButton) {
-      return;
-    }
-
-    sendButton.addEventListener("click", function () {
-      ask(box.value);
-    });
-
-    box.addEventListener("keydown", function (event) {
-      if (event.key === "Enter" && !event.shiftKey) {
-        event.preventDefault();
-        ask(box.value);
-      }
-    });
-
-    Array.prototype.forEach.call(
-      document.querySelectorAll("[data-quick-prompt]"),
-      function (button) {
-        button.addEventListener("click", function () {
-          ask(button.getAttribute("data-quick-prompt"));
-        });
-      }
+  function open() {
+    S.open(
+      "你的助理",
+      function (host) {
+        var thread = n("div", "thread");
+        thread.dataset.miniThread = "";
+        host.append(thread);
+        if (!messages.length)
+          host.append(n("p", "note", "這裡和首頁是同一段對話。"));
+        var form = n("form", "composer"),
+          input = n("textarea"),
+          send = b("↑", null, "primary icon");
+        input.rows = 1;
+        input.dataset.miniSay = "";
+        input.setAttribute("aria-label", "在小視窗問助理");
+        input.placeholder = "接著問就好…";
+        send.type = "submit";
+        send.dataset.miniSend = "";
+        send.setAttribute("aria-label", "送出給助理");
+        form.append(input, send);
+        host.append(form);
+        wire(form, input);
+        paint();
+      },
+      true,
     );
+  }
+  g.AssistantChat = {
+    ask: ask,
+    open: open,
+    reset: function () {
+      generation++;
+      messages = [];
+      session = null;
+      busy = false;
+      paint();
+    },
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    wire(
+      document.querySelector("[data-chat-form]"),
+      document.querySelector("[data-say]"),
+    );
+    document.querySelectorAll("[data-quick-prompt]").forEach(function (x) {
+      x.addEventListener("click", function () {
+        ask(x.dataset.quickPrompt);
+      });
+    });
   });
 })(window);

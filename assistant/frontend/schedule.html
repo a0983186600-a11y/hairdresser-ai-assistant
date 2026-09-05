@@ -2,48 +2,67 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="assistant-api-base" content="">
-  <title>班表 · got you 設計師助理</title>
+  <title>工作台 · got you</title>
   <link rel="stylesheet" href="app.css">
 </head>
-<body data-page="schedule">
-  <div class="shell">
-    <aside class="sidebar">
-      <div class="brand">
-        <span class="glyph" aria-hidden="true">gy</span>
-        <span class="who"><b>got you</b><span>設計師助理</span></span>
-      </div>
-      <nav class="nav" aria-label="主導覽">
-        <a href="index.html"><span class="dot"></span>首頁</a>
-        <a href="bookings.html"><span class="dot"></span>預約</a>
-        <a href="schedule.html"><span class="dot"></span>班表</a>
-        <a href="customers.html"><span class="dot"></span>客人</a>
-        <a href="settings.html"><span class="dot"></span>設定</a>
-      </nav>
-      <div class="foot">
-        示範資料是固定 seed 產生的假客人。<br>
-        姓名遮罩、電話只留後四碼。
-      </div>
-    </aside>
-    <div class="main">
-      <header class="topbar">
-        <div>
-          <h1>班表</h1>
-          <p class="sub">三週的預約與不接客時段；AI 查空檔依這裡判斷。</p>
-        </div>
-      <button class="source-badge" type="button" data-source-badge data-mode-switch
-        aria-label="資料來源，按一下切換">
-        <span class="pip"></span><span>DEMO</span>
-      </button>
-      </header>
-      <main class="content" id="page-body">
-        <p class="empty">讀取中…</p>
-      </main>
+<body data-workbench data-initial-sheet="schedule">
+  <main class="workbench">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="got you 首頁"><img src="assets/gotyou-bubble.png" alt=""><b>got you</b></a>
+      <button class="icon" type="button" data-open="inbox" aria-label="客人訊息">✉</button>
+      <button class="icon" type="button" data-open="settings" aria-label="更多設定">⋯</button>
+    </header>
+    <div class="source-line">
+      <button class="source-badge" type="button" data-source-badge data-mode-switch>連線中</button>
+      <span data-replay-label>正在確認資料</span>
     </div>
-  </div>
+    <div class="home-content">
+      <nav class="nav" aria-label="主要入口" data-tour="nav">
+        <button type="button" data-home aria-current="page">首頁</button>
+        <button type="button" data-open="bookings">預約</button>
+        <button type="button" data-open="schedule">班表</button>
+        <button type="button" data-open="settings">設定</button>
+      </nav>
+      <section class="assistant-area" data-tour="chat">
+        <div class="assistant-heading"><i></i><b>助理</b><span>客人、回訪、業績，問我就好</span></div>
+        <div class="greeting bubble" data-greeting>你好，我是你的工作台助理。正在讀取資料…</div>
+        <div class="home-shortcuts">
+          <button type="button" data-open="add">排一筆預約</button>
+          <button type="button" data-tomorrow>明天班表</button>
+          <button type="button" data-open="customers">查客人</button>
+        </div>
+        <details class="quick-panel" open>
+          <summary>也可以這樣問</summary>
+          <div class="quick" aria-label="常問的問題">
+            <button type="button" data-quick-prompt="幫我看截至今天，最近 90 天消費金額最高的 10 位客人，金額跟到店次數一起列。">最近 90 天消費前十</button>
+            <button type="button" data-quick-prompt="幫我找超過 60 天沒回來的客人，按沒回來天數由久到短列 10 位。">60 天沒回來的客人</button>
+            <button type="button" data-quick-prompt="幫我看看誰快流失了，先抓 5 位最值得我主動關心的。">誰快流失</button>
+            <button type="button" data-quick-prompt="最近 90 天消費第一名那位，幫我把每次服務、日期和金額整理出來。">查某位客人消費史</button>
+            <button type="button" data-quick-prompt="幫我整理最近一位有傳訊息的客人：他最後在問什麼、我們回了什麼、目前卡在哪？">最近一段對話摘要</button>
+            <button type="button" data-quick-prompt="流失名單第一位，幫我寫一則回訪訊息。">幫我寫回訪訊息</button>
+          </div>
+        </details>
+        <div class="thread" data-thread role="log" aria-label="和助理的對話" aria-live="polite"></div>
+      </section>
+      <p class="disclosure" data-workbench-note>示範工作台，不會寫入 POS 或發送 LINE。</p>
+      <button class="text-button" type="button" data-tour-start>第一次用？帶我逛一下 →</button>
+    </div>
+    <form class="composer" data-chat-form>
+      <label class="visually-hidden" for="say">想問助理什麼</label>
+      <textarea id="say" data-say rows="1" placeholder="想問什麼，直接說…"></textarea>
+      <button class="primary icon" type="submit" data-send aria-label="送出給助理">↑</button>
+      <button class="icon" type="button" data-open="add" aria-label="手動排一筆">＋</button>
+    </form>
+  </main>
+  <div data-sheet-root></div>
+  <button class="assistant-ball" type="button" data-assistant-ball aria-label="打開助理" hidden><img src="assets/gotyou-bubble.png" alt=""></button>
+  <div class="toast" data-toast role="status" hidden></div>
   <script src="api-client.js"></script>
   <script src="shell.js"></script>
-  <script src="pages.js"></script>
+  <script src="workbench.js"></script>
+  <script src="workbench-settings.js"></script>
+  <script src="chat.js"></script>
 </body>
 </html>

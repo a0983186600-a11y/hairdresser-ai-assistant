@@ -55,6 +55,7 @@ packages = [
     "frontend/*.html",
     "frontend/*.js",
     "frontend/*.css",
+    "frontend/assets/*.png",
     "frontend/fixtures/*.json",
     "replay/*.json",
 ]

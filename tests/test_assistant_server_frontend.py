@@ -124,16 +124,35 @@ def test_the_home_page_offers_the_six_quick_prompts(client):
 
 
 def test_the_chat_renders_one_card_per_tool_call_not_just_the_answer(client):
+    """工具卡要**一張一張出現、而且預設看得見**——影片 0:40 拍的就是這一段。
+
+    2026-09-05 之前這條是虛設的：`正在查` 是被等待中三個點的 aria-label
+    「正在查資料」湊過的，卡片其實跟回答同時出現，還收在預設關著的
+    `<details>` 裡。測試綠著，畫面上一張卡都看不到。
+
+    所以現在直接守 `chat.js` 的三件事，任一條回頭都會紅：
+    1. 兩個狀態字都在（`正在查…` 翻成 `查完了`），只有結果沒有過程不算；
+    2. 有逐張間隔的常數，沒有間隔就是同時出現；
+    3. 卡片不住在 `<details>` 裡——收起來的東西鏡頭拍不到。
+    """
+    chat = (FRONTEND / "chat.js").read_text("utf-8")
     scripts = "".join(path.read_text("utf-8") for path in FRONTEND.glob("*.js"))
     home = (FRONTEND / "index.html").read_text("utf-8")
 
     # 工具卡片：工具名、參數、結果摘要三樣都要露出來。
     assert "tool_calls" in scripts
     assert "result_summary" in scripts
-    assert "正在查" in scripts
     assert "toolcard" in scripts or "tool-card" in scripts
-    # 每則助理回覆下可展開「用了哪些工具」
+    # 每則助理回覆下都標出「用了哪些工具」
     assert "用了哪些工具" in scripts or "用了哪些工具" in home
+
+    # 逐張的節奏：先「正在查…」，再翻成「查完了」，中間隔一段看得見的時間。
+    assert "正在查" in chat, "卡片要先說它正在查什麼"
+    assert "查完了" in chat, "只有正在查沒有查完了，就沒有『翻面』這個動作"
+    assert re.search(r"CARD_GAP_MS\s*=\s*\d+", chat), "沒有逐張間隔就是同時出現"
+    assert not re.search(r"""["']details["']""", chat), (
+        "工具卡不准收在 <details> 裡：預設關著等於沒有畫出來"
+    )
 
 
 def test_the_follow_up_draft_has_a_send_button_that_does_not_send(client):

@@ -57,19 +57,22 @@ import os
 import uuid
 from datetime import datetime
 from pathlib import Path
+from threading import RLock
 from typing import Any
 
 import httpx
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 import assistant.agent as agent
 from assistant.adapters.mock import MockSalonDataProvider
 from assistant.adapters.schemas import TAIPEI, DesignerScope
 from assistant.config.loader import Config, load_config
-from assistant.demo_data.generate import ANCHOR, DATA_DIR
+from assistant.demo_data.generate import ANCHOR, DATA_DIR, load_dataset
+from assistant.tools.registry import dispatch
+from assistant.workbench import Workbench, WorkbenchError
 
 __all__ = ["app", "create_app", "now", "FRONTEND_DIR", "DEMO_PAGES"]
 
@@ -266,6 +269,13 @@ class ModeRequest(BaseModel):
     mode: str
 
 
+class WorkbenchAction(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    kind: str = Field(min_length=1, max_length=40)
+    data: dict[str, Any] = Field(default_factory=dict)
+
+
 class _Runtime:
     """一個 app 的全部可變狀態。放在 app 上而不是模組上，測試才不會互相污染。"""
 
@@ -350,6 +360,10 @@ class _Runtime:
             "mode": self.mode,
             "provider": type(self.provider()).__name__,
             "replay_available": self.replay_available,
+            "chat_model": (
+                "replay" if self.replay_available
+                else os.environ.get(self.config.model.model_env) or self.config.model.model_default
+            ),
             "replay_note": self.replay_note,
             "production_available": self.production_available,
             "production_note": self.production_note,
@@ -401,6 +415,94 @@ def create_app() -> FastAPI:
     application = FastAPI(title="got you 設計師助理（示範）", docs_url=None, redoc_url=None)
     runtime = _Runtime()
     application.state.runtime = runtime
+    # These are browser-local rehearsals, not the fixed analytics provider or POS.
+    workbenches: dict[str, Workbench] = {}
+    workbench_lock = RLock()
+
+    def _workbench(request: Request, response: Response) -> Workbench:
+        identity = request.cookies.get("workbench_session", "")
+        if identity not in workbenches:
+            identity = uuid.uuid4().hex
+            workbenches[identity] = Workbench(
+                {page: _fixture(page) for page in DEMO_PAGES}, load_dataset(),
+                as_of=ANCHOR, designer_ref=runtime.scope.designer_ref,
+                calendar_key=uuid.uuid4().hex,
+            )
+            while len(workbenches) > SESSION_LIMIT:
+                workbenches.pop(next(iter(workbenches)))
+            response.set_cookie("workbench_session", identity, httponly=True,
+                                samesite="strict", secure=request.url.scheme == "https")
+        response.headers["Cache-Control"] = "no-store"
+        return workbenches[identity]
+
+    def _read_tool(name: str, arguments: dict) -> dict:
+        try:
+            payload = dispatch(name, arguments, runtime.provider(), runtime.scope,
+                               runtime.config, as_of=runtime.as_of())
+        except Exception as exc:
+            raise HTTPException(503, "資料暫時讀不到，請稍後再試。") from exc
+        if not payload.get("ok"):
+            code = payload.get("error", {}).get("code")
+            raise HTTPException(404 if code == "not_found" else 400,
+                                "找不到這筆資料。" if code == "not_found" else "這次查詢沒有完成。")
+        return {**payload, "mode": runtime.mode}
+
+    @application.get("/api/workbench")
+    def workbench_state(request: Request, response: Response) -> dict:
+        with workbench_lock:
+            return {**_workbench(request, response).snapshot(),
+                    "read_only": runtime.mode != MODE_DEMO,
+                    "data_source": "demo_rehearsal",
+                    "notice": "工作台是示範演練；不會更動 POS、LINE 或正式帳號。"
+                              "示範操作不會改變助理分析用的固定資料，重啟服務後會重設。"}
+
+    @application.get("/api/workbench/customers/{customer_ref}")
+    def customer_profile(customer_ref: str) -> dict:
+        return _read_tool("get_customer_history", {"customer_ref": customer_ref})
+
+    @application.get("/api/workbench/conversations")
+    def conversations() -> dict:
+        return _read_tool("list_recent_conversations", {"limit": 50})
+
+    @application.get("/api/workbench/conversations/{conversation_ref}")
+    def transcript(conversation_ref: str) -> dict:
+        return _read_tool("get_conversation_transcript", {"conversation_ref": conversation_ref})
+
+    @application.get("/api/workbench/draft/{customer_ref}")
+    def follow_up_draft(customer_ref: str) -> dict:
+        return _read_tool("draft_follow_up_message",
+                          {"customer_ref": customer_ref, "reason": "gentle_checkin"})
+
+    @application.post("/api/workbench/actions")
+    def workbench_action(payload: WorkbenchAction, request: Request, response: Response) -> dict:
+        # Server-owned mode, never a browser checkbox or data.mode.
+        if runtime.mode != MODE_DEMO:
+            raise HTTPException(403, "正式資料只供唯讀，這裡不能更動預約或設定。")
+        origin = request.headers.get("origin")
+        if (origin and origin != str(request.base_url).rstrip("/")) or (
+            request.headers.get("sec-fetch-site") == "cross-site"
+        ):
+            raise HTTPException(403, "請從工作台本身操作。")
+        if payload.kind in {"takeover", "message"}:
+            _read_tool("get_conversation_transcript",
+                       {"conversation_ref": payload.data.get("conversation_ref")})
+        with workbench_lock:
+            workbench = _workbench(request, response)
+            try:
+                return workbench.act(payload.kind, payload.data, calendar_key=uuid.uuid4().hex)
+            except WorkbenchError as exc:
+                raise HTTPException(exc.status, str(exc)) from exc
+            except ValidationError as exc:
+                raise HTTPException(422, "請檢查項目、日期、工時及必填資料，尚未儲存。") from exc
+
+    @application.get("/api/workbench/calendar/{calendar_key}.ics")
+    def demo_calendar(calendar_key: str, request: Request, response: Response) -> Response:
+        with workbench_lock:
+            workbench = _workbench(request, response)
+            if calendar_key != workbench.calendar_key or runtime.mode != MODE_DEMO:
+                raise HTTPException(404, "這條示範連結已失效。")
+            return Response(workbench.calendar(), media_type="text/calendar; charset=utf-8",
+                            headers={"Cache-Control": "no-store"})
 
     @application.get("/health")
     def health() -> dict[str, Any]:

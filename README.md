@@ -21,7 +21,7 @@
 | 授權 | MIT（見 `LICENSE`） |
 | 零金鑰可跑 | `docker compose -f docker-compose.demo.yml up` → http://127.0.0.1:8100 |
 | 工具數 | 9（8 個查詢工具 ＋ 1 個確定性草稿工具） |
-| 測試 | 270 個（`pytest -q` → 268 passed, 2 skipped），**不需要金鑰** |
+| 測試 | 325 個（`pytest -q` → 323 passed, 2 skipped），**不需要金鑰** |
 | 架構細節 | `docs/architecture.md` |
 
 ---
@@ -49,9 +49,9 @@
 
 以下是零金鑰模式的實際畫面，全是固定 seed 假資料；沒有替換 API 回覆或修改畫面內容。
 
-![首頁聊天與六個快捷問法](docs/screenshots/home-chat.png)
+![首頁：徽章、四顆分頁鈕與六個快捷問法](docs/screenshots/home-chat.png)
 
-![兩輪工具查詢的實際軌跡](docs/screenshots/tool-trace.png)
+![兩張工具卡的實際軌跡，答案在卡片下面](docs/screenshots/tool-trace.png)
 
 ![遮罩客人清單](docs/screenshots/masked-list.png)
 
@@ -59,11 +59,28 @@
 
 | 檔名 | 畫面 |
 |---|---|
-| `home-chat.png` | 首頁聊天：六顆快捷鈕、答案下方攤開的工具呼叫 |
-| `tool-trace.png` | 一次多輪 tool calling 的軌跡（工具名、參數、幾筆） |
+| `home-chat.png` | 首頁：徽章、四顆分頁鈕、助理招呼語、三顆捷徑與六顆快捷問法 |
+| `tool-trace.png` | 一題的完整過程：問句、兩張工具卡（工具名、參數、幾筆），答案在卡片下面 |
 | `masked-list.png` | 客人清單：姓名遮罩、電話只留後四碼 |
-| `empty-answer.png` | 客人頁搜尋無結果：顯示「目前沒有符合的客人資料」，不補人；不是模型問答截圖 |
-| `mode-badge.png` | 右上角資料來源徽章（DEMO／PRODUCTION，切不過去就 400） |
+| `empty-answer.png` | 客人頁搜尋無結果：顯示「沒有符合的客人」，不補人；不是模型問答截圖 |
+| `mode-badge.png` | 頁首資料來源徽章（示範時寫「DEMO · 示範」，切正式唯讀時寫「正式唯讀」；切不過去就 400 並吐司說明） |
+
+### 工作台互動（v10）
+
+畫面是一個手機殼：首頁就是對話，預約、班表、客人與設定從同一頁以疊層視窗開啟，
+另有五步教學；首頁聊天與浮動助理共用同一段對話。
+
+工具卡只列伺服器**實際完成**的查詢，一張都不會多。卡片一張一張出現、
+從「正在查…」翻成「查完了」是前端排的呈現節奏，不是即時串流：`POST /api/chat`
+是一次把 `reply` 與 `tool_calls` 一起回來的。要的是讓「AI 查了什麼」看得見，
+而不是只看得到結論。
+
+寫入型按鈕是**隔離的示範演練**：可新增／改約／取消示範單、編輯不接客時段、
+修改工時與排法、儲存 FAQ 與釘選、模擬接手／回覆、下載示範行事曆。
+設定與開單共用 `assistant/workbench.py`；會檢查工時、開始間隔、規則與重疊。
+狀態只存在單一瀏覽器的伺服器記憶體，重啟即重設，**不會改動 Agent 分析用的固定資料**。
+FAQ 與價目設定不會套到正式 LINE 客服；送信按鈕不會發 LINE，開單不會寫 POS。
+更改密碼與續費會說明尚未開放，不收密碼、不收款。切到正式唯讀時禁止示範寫入。
 
 ## 3. 架構
 
@@ -134,7 +151,7 @@ REPLAY_MODE=1 DEMO_MODE=1 uv run uvicorn assistant.server:app --port 8100
 ```bash
 curl -s http://127.0.0.1:8100/health
 # {"status":"ok","mode":"demo","provider":"MockSalonDataProvider",
-#  "replay_available":true,"replay_note":null,"production_available":false,
+#  "replay_available":true,"chat_model":"replay","replay_note":null,"production_available":false,
 #  "production_note":"沒有設定 PRODUCTION_READ_URL，這一份只跑得動示範資料",
 #  "as_of":"2026-09-01T00:00:00+08:00","as_of_note":null,
 #  "provider_data_source":"fixed-seed demo data","data_source":"demo_fixtures",
@@ -225,8 +242,9 @@ $ curl -s -X POST http://127.0.0.1:8100/api/mode -d '{"mode":"production"}' ...
 HTTP 400
 ```
 
-切不過去就 **400，不准安靜地退回 demo 卻把徽章寫成 PRODUCTION**——
-畫面右上角那顆徽章讀的就是 `/api/mode`，它說謊等於整支 demo 說謊。
+切不過去就 **400，不准安靜地退回 demo 卻把徽章寫成正式**——
+頁首那顆徽章（示範寫「DEMO · 示範」，正式寫「正式唯讀」）讀的就是 `/api/mode`，
+它說謊等於整支 demo 說謊。
 
 我們自己的那一份 adapter 是**唯讀**的：每一條連線先送
 `SET TRANSACTION READ ONLY` 才查，連線角色本身也沒有寫入權限，
@@ -527,14 +545,18 @@ defaults.yaml → 同目錄 local.yaml → $ASSISTANT_CONFIG_PATH → 呼叫端�
 ```bash
 uv sync --extra dev
 uv run pytest -q
-# 268 passed, 2 skipped
+# 323 passed, 2 skipped
 ```
 
 （pip：`pip install -e ".[dev]" && pytest -q`。Docker：
 `docker compose -f docker-compose.demo.yml run --rm assistant pytest -q`。）
 
 兩項跳過分別是需要自備金鑰的真模型測試，以及與私有原始考卷 `exam.md` 的交叉比對；
-不代表它們已通過。單獨 `uv sync` 不會安裝測試依賴，請保留 `--extra dev`。
+不代表它們已通過。
+
+**`--extra dev` 不能省**：`pyproject.toml` 把 `pytest` 與 `ruff` 放在名為 `dev` 的
+optional extra 裡，單獨 `uv sync` 只裝執行時要的東西，跑起來會是
+`No such file or directory: pytest`。lint 同一條路：`uv run ruff check .`。
 
 **不需要金鑰**：唯一會打真模型的 `test_assistant_agent_live.py` 在沒有金鑰時整支 skip，
 所以評審 clone 下來就是綠的。測試大部分是**守衛**而不是示範：

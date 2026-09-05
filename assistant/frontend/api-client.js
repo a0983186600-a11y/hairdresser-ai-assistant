@@ -14,7 +14,10 @@
   }
 
   function resolveBase() {
-    if (typeof global.ASSISTANT_API_BASE === "string" && global.ASSISTANT_API_BASE.trim()) {
+    if (
+      typeof global.ASSISTANT_API_BASE === "string" &&
+      global.ASSISTANT_API_BASE.trim()
+    ) {
       return trimTail(global.ASSISTANT_API_BASE);
     }
     var tag = document.querySelector('meta[name="assistant-api-base"]');
@@ -42,8 +45,12 @@
     return fetch(at(path), options || {}).then(function (response) {
       return readBody(response).then(function (body) {
         if (!response.ok) {
-          var detail = (body && body.detail) || response.status + " " + response.statusText;
-          var failure = new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
+          var detail =
+            (body && body.detail) ||
+            response.status + " " + response.statusText;
+          var failure = new Error(
+            typeof detail === "string" ? detail : JSON.stringify(detail),
+          );
           failure.status = response.status;
           throw failure;
         }
@@ -56,7 +63,7 @@
     return send(path, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
   }
 
@@ -73,10 +80,31 @@
       return post("/api/mode", { mode: mode });
     },
     ask: function (message, sessionId) {
-      return post("/api/chat", { message: message, session_id: sessionId || null });
+      return post("/api/chat", {
+        message: message,
+        session_id: sessionId || null,
+      });
     },
     demo: function (page) {
       return send("/api/demo/" + page);
-    }
+    },
+    workbench: function () {
+      return send("/api/workbench");
+    },
+    action: function (kind, data) {
+      return post("/api/workbench/actions", { kind: kind, data: data || {} });
+    },
+    customer: function (ref) {
+      return send("/api/workbench/customers/" + encodeURIComponent(ref));
+    },
+    conversations: function () {
+      return send("/api/workbench/conversations");
+    },
+    transcript: function (ref) {
+      return send("/api/workbench/conversations/" + encodeURIComponent(ref));
+    },
+    draft: function (ref) {
+      return send("/api/workbench/draft/" + encodeURIComponent(ref));
+    },
   };
 })(window);
