@@ -792,6 +792,10 @@ img {
 .policy-mode[aria-checked="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .policy-mode[aria-checked="true"] b::before { content: "● "; }
 .manual-book { margin-bottom: 14px; }
+.booking-toolbar { position: sticky; top: -10px; z-index: 3; background: var(--paper); padding: 10px 0 1px; }
+.booking-toolbar .booking-tabs { margin: 8px 0 12px; }
+.profile-examples h3 { margin-top: 14px; }
+.setup-progress { color: var(--sig); font-weight: 700; padding: 8px 0; }
 .manual-book > div:not(:empty) { margin-top: 10px; padding-top: 4px; border-top: 1px solid var(--line); }
 .preview { font-size: 12.5px; line-height: 1.5; margin-top: 3px; overflow-wrap: anywhere; }
 .conversation-list .list-row { align-items: flex-start; }

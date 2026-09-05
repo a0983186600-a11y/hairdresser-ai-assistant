@@ -109,9 +109,10 @@
     S.open("預約", function (host) {
       // 手動排單住在兩個分頁**之上**，不跟著分頁被收走：這是設計師自己動手的入口，
       // 從對話那頭帶著客人回來的時候也落在這裡（`args.customer`）。
-      var manual = n("div", "manual-book"),
+      var manual = n("div", "booking-toolbar"),
         panel = n("div"),
         opened = false,
+        built = false,
         toggle = b(
           "＋ 手動排一筆",
           function () {
@@ -120,20 +121,26 @@
           "primary full",
         );
       toggle.setAttribute("aria-expanded", "false");
-      manual.append(toggle, panel);
+      manual.append(toggle);
       function expand(next) {
         opened = next;
         toggle.textContent = opened ? "收起手動排單" : "＋ 手動排一筆";
         toggle.setAttribute("aria-expanded", String(opened));
-        panel.replaceChildren();
-        if (opened)
+        panel.hidden = !opened;
+        content.hidden = opened;
+        if (opened && !built) {
           bookingForm(panel, { customer: args.customer, back: args.back });
+          built = true;
+        }
       }
       var tabs = n("div", "booking-tabs"), content = n("div"), version = 0;
       tabs.setAttribute("role", "tablist");
       tabs.setAttribute("aria-label", "預約工作");
-      host.append(manual, tabs, content);
+      manual.append(tabs);
+      panel.className = "manual-book";
+      host.append(manual, panel, content);
       function show(kind, selected) {
+        expand(false);
         version++;
         var turn = version;
         Array.from(tabs.children).forEach(function (x) { x.setAttribute("aria-selected", x === selected); });
@@ -180,17 +187,7 @@
         btn.setAttribute("aria-pressed", pair[0] === "all");
         chips.append(btn);
       });
-      host.append(
-        chips,
-        b(
-          "＋ 排一筆",
-          function () {
-            add({});
-          },
-          "primary full",
-        ),
-        list,
-      );
+      host.append(chips, list);
       function draw() {
         list.replaceChildren();
         var rows = S.state.bookings.filter(function (x) {
@@ -430,7 +427,18 @@
         ),
       );
       host.append(pin);
-      note(host, "套票、回訪節奏：資料來源尚未提供，不以示範數字冒充。");
+      var example = S.state.presentation_examples && S.state.presentation_examples.profiles[c.customer_ref];
+      if (example) {
+        var details = n("section", "card profile-examples");
+        details.append(n("p", "warning", "以下配方／套票／週期為虛構展示，不是客人的真實資料。"));
+        details.append(n("h3", null, "示範釘選"), n("p", null, example.pinned));
+        details.append(n("h3", null, "示範套票"), n("p", null, example.package.name),
+          n("p", "muted", "剩 " + example.package.remaining + " 次 · 至 " + example.package.expires_on));
+        details.append(n("h3", null, "回訪節奏"), n("p", null,
+          "示範週期 " + example.cycle_days + " 天" + (example.days_since_visit === null ? "" :
+            " · 距示範上次到店 " + example.days_since_visit + " 天")));
+        host.append(details);
+      } else note(host, "套票、回訪節奏：尚無資料，不自行猜測。");
       var buttons = n("div", "actions");
       buttons.append(
         b(
@@ -873,6 +881,7 @@
         jump.input.value = day.date;
         area.append(
           n("h3", null, day.date + " 週" + day.weekday),
+          n("p", "note", "示範基準日 " + S.state.as_of.slice(0, 10) + " · 已載入至 " + S.state.days[S.state.days.length - 1].date),
           n(
             "p",
             "note",
@@ -886,6 +895,8 @@
           opening = Math.min(opening, mins(s.start));
           closing = Math.max(closing, mins(s.end));
         });
+        if (opening < mins(S.state.settings.open_time) || closing > mins(S.state.settings.close_time))
+          note(area, "部分既有示範單在目前營業時間之外，保留顯示；新單仍依目前營業時間檢查。");
         var board = n("div", "timeline"),
           scale = 1.06;
         board.style.height = (closing - opening) * scale + 22 + "px";
@@ -945,7 +956,8 @@
         );
         note(
           area,
-          "客人可預約到 " + S.state.settings.open_through + "（示範）。",
+          "開放設定至 " + S.state.settings.open_through + "（示範）；本頁排單範圍至 " +
+            S.state.days[S.state.days.length - 1].date + "。空白不是正式 POS 可約證明。",
         );
       }
       draw();
@@ -1009,9 +1021,27 @@
         note(host, "目前沒有近期對話。");
         return;
       }
-      data.rows.forEach(function (x) {
-        host.append(conversationRow(x));
-      });
+      var search = f("搜尋對話：姓名、末四碼或摘要", "search"),
+        list = n("div"), count = n("p", "note"), shown = 8,
+        more = b("載入更多對話", function () { shown += 8; draw(); }, "secondary full");
+      search.input.maxLength = 120;
+      host.append(search.wrap, count, list, more);
+      function draw() {
+        var query = search.input.value.trim().normalize("NFKC").toLocaleLowerCase();
+        var matched = data.rows.filter(function (x) {
+          var who = customer(x.customer_ref);
+          return [x.masked_name, who && who.phone_last4,
+            (x.preview || []).map(function (p) { return p.text; }).join(" ")]
+            .join(" ").normalize("NFKC").toLocaleLowerCase().includes(query);
+        });
+        list.replaceChildren();
+        matched.slice(0, shown).forEach(function (x) { list.append(conversationRow(x)); });
+        count.textContent = "顯示 " + Math.min(shown, matched.length) + "／" + matched.length + " 段對話";
+        more.hidden = shown >= matched.length;
+        if (!matched.length) list.append(n("p", "empty", "沒有符合的對話。"));
+      }
+      search.input.addEventListener("input", function () { shown = 8; draw(); });
+      draw();
   }
   function speaker(role, simulated) {
     return role === "user"

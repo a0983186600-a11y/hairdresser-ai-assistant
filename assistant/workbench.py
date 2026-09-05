@@ -278,10 +278,45 @@ class Workbench:
                             "reason": slot.get("reason", "不接客"),
                         }
                     )
+        # Extend the *session rehearsal*, never the analytics fixtures. Empty
+        # added days mean no rehearsal booking yet, not verified POS capacity.
+        loaded = {day["date"]: day for day in self.days}
+        for offset in range(60):
+            date = (as_of + timedelta(days=offset)).date()
+            loaded.setdefault(date.isoformat(), {
+                "date": date.isoformat(), "weekday": "一二三四五六日"[date.weekday()],
+                "slots": [],
+            })
+        self.days = sorted(loaded.values(), key=lambda day: day["date"])
         self.settings = Settings(
             services=service_catalog(),
             open_through=fixtures["schedule"]["booking_open_through"],
         )
+        # Explicitly fictional presentation prices, isolated from the tool
+        # catalog. Leave cut unset so the setup path remains demonstrable.
+        example_prices = {"wash": 400, "fringe_cut": 200, "fringe_perm": 1000,
+                          "bleach": 3500, "scalp": 800}
+        for service in self.settings.services:
+            if service.id in example_prices:
+                service.price = example_prices[service.id]
+            elif service.id in LENGTH_PRICED_SERVICES:
+                base = {"perm": 2800, "color": 2000, "treatment": 1000}[service.id]
+                service.short, service.medium, service.long = base, base + 500, base + 1000
+        profiles = {}
+        for c in self.customers[:3]:
+            try:
+                last = datetime.fromisoformat(c.get("last_visit_label", "").replace("/", "-"))
+                gap = max(0, (as_of.date() - last.date()).days)
+            except (ValueError, TypeError):
+                gap = None
+            profiles[c["customer_ref"]] = {
+                "simulated": True,
+                "pinned": "示範剪法：兩側自然推短，頭頂保留長度。",
+                "package": {"name": "頭皮護理體驗套票", "remaining": 3,
+                            "expires_on": (as_of + timedelta(days=90)).date().isoformat()},
+                "cycle_days": 42, "days_since_visit": gap,
+            }
+        self.presentation_examples = {"simulated": True, "profiles": profiles}
         self.takeovers: dict[str, bool] = {}
         self.messages: dict[str, list] = {}
         self.notes: dict[str, str] = {}
@@ -311,6 +346,7 @@ class Workbench:
                 "takeovers": self.takeovers,
                 "messages": self.messages,
                 "notes": self.notes,
+                "presentation_examples": self.presentation_examples,
                 "calendar_url": f"/api/workbench/calendar/{self.calendar_key}.ics",
             }
         )

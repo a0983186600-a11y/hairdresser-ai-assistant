@@ -335,7 +335,11 @@ def test_the_bookings_page_keeps_the_manual_form_above_the_two_tabs():
 
     assert "＋ 手動排一筆" in body
     assert body.index("＋ 手動排一筆") < body.index("booking-tabs"), "表單區塊要在兩個分頁之上"
-    assert "host.append(manual, tabs, content)" in body
+    # Sticky toolbar owns the two tabs; the retained form panel sits below it.
+    # Actual visible position and collapse/reopen retention are verified by
+    # scripts/test_workbench_v10_finish.cjs (including mutation checks).
+    assert "manual.append(tabs)" in body
+    assert "host.append(manual, panel, content)" in body
     assert "bookingForm(" in body
     assert "function bookingForm(" in text and "bookingForm(host, args)" in text
 

@@ -87,7 +87,9 @@
         }
         draft.services.forEach(function (s) { if (!configured(s)) expanded.add(s.id); });
         U.warning(host);
-        host.append(rows);
+        U.note(host, "已填價格為虛構展示，不是店家正式價目；可編輯，儲存只影響本次示範。");
+        var remaining = n("p", "setup-progress");
+        host.append(remaining, rows);
         function read() {
           readers.forEach(function (fn) {
             fn();
@@ -102,6 +104,8 @@
         }
         function draw() {
           rows.replaceChildren();
+          var missing = draft.services.filter(function (s) { return !configured(s); }).length;
+          remaining.textContent = missing ? "還有 " + missing + " 項待設定" : "項目都設定好了";
           readers = [];
           draft.services.forEach(function (s) {
             var row = n("section", "price-row"),
