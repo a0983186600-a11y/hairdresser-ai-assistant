@@ -143,6 +143,27 @@ DEFAULT_SERVICES = [
     ("scalp", "頭皮護理", 60),
 ]
 
+#: 價格看長度分級的項目：這幾個沒有單一價格，`price` 一定是空的。
+LENGTH_PRICED_SERVICES = frozenset({"perm", "color", "treatment"})
+
+
+def service_catalog() -> list[Service]:
+    """示範工作台開場的項目表（代碼、名稱、工時、價格模式）。
+
+    工作台用它開場，聊天那頭的提案工具也查它——**兩邊只能有一份**。各自抄一份的話，
+    卡片上寫的工時跟真的排進去的工時就會不一樣，而畫面上看不出來。
+    （設計師改過設定之後，畫面上那份才是最新的；卡片以畫面那份為準。）
+    """
+    return [
+        Service(
+            id=identifier,
+            name=name,
+            duration=duration,
+            price_mode="length" if identifier in LENGTH_PRICED_SERVICES else "flat",
+        )
+        for identifier, name, duration in DEFAULT_SERVICES
+    ]
+
 
 class Workbench:
     def __init__(
@@ -216,15 +237,7 @@ class Workbench:
                         }
                     )
         self.settings = Settings(
-            services=[
-                Service(
-                    id=i,
-                    name=n,
-                    duration=d,
-                    price_mode="length" if i in {"perm", "color", "treatment"} else "flat",
-                )
-                for i, n, d in DEFAULT_SERVICES
-            ],
+            services=service_catalog(),
             open_through=fixtures["schedule"]["booking_open_through"],
         )
         self.takeovers: dict[str, bool] = {}

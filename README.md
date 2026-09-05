@@ -20,8 +20,8 @@
 | 賽道 | Track 01 AI Agents & Automation（BUILDMODE 2026） |
 | 授權 | MIT（見 `LICENSE`） |
 | 零金鑰可跑 | `docker compose -f docker-compose.demo.yml up` → http://127.0.0.1:8100 |
-| 工具數 | 9（8 個查詢工具 ＋ 1 個確定性草稿工具） |
-| 測試 | 330 個（`pytest -q` → 328 passed, 2 skipped），**不需要金鑰** |
+| 工具數 | 11（8 個查詢 ＋ 1 個確定性草稿 ＋ 2 個只讀提案） |
+| 測試 | 353 個（`pytest -q` → 351 passed, 2 skipped），**不需要金鑰** |
 | 架構細節 | `docs/architecture.md` |
 
 ---
@@ -32,7 +32,7 @@
 這個月染髮做了幾次——這些答案都在資料裡，但**沒有人有時間去翻**。
 市面上的後台只給你報表；設計師要的是「我問一句，你告訴我該找誰」。
 
-我們的解法不是再做一張報表，是把資料變成**九個有型別的工具**，
+我們的解法不是再做一張報表，是把資料變成**十一個有型別的工具**，
 讓模型只能透過它們拿數字：
 
 - 模型**不會算**營收、回訪天數或流失分數——那些在工具裡算好，算法寫在設定檔裡，
@@ -90,7 +90,7 @@ flowchart TB
         UI["assistant/frontend/<br/>聊天首頁 ＋ 四個資料頁"]
         Server["assistant/server.py<br/>唯一碰環境變數與系統時鐘的一層"]
         Loop["assistant/agent/loop.py<br/>tool calling 迴圈"]
-        Tools["assistant/tools/registry.py<br/>9 個工具：注入 scope／as_of、夾參數、遮罩"]
+        Tools["assistant/tools/registry.py<br/>11 個工具：注入 scope／as_of、夾參數、遮罩"]
         Iface["assistant/adapters/provider.py<br/>SalonDataProvider（介面）"]
         Mock["assistant/adapters/mock.py<br/>MockSalonDataProvider<br/>固定 seed 假資料"]
         Replay["assistant/agent/replay.py<br/>錄好的逐字稿（零金鑰）"]
@@ -251,7 +251,7 @@ HTTP 400
 SQL 一律帶 `LIMIT`、參數一律繫結，`customer_ref` / `conversation_ref` 進來一定
 **再用 scope 查一次**。它不在公開 repo（見文末揭露段）。
 
-## 5. 六個快捷問法（首頁點一下就送）
+## 5. 七個快捷問法（首頁點一下就送）
 
 以下輸出是在零金鑰 Replay 模式下，對匯出目錄真的打 `POST /api/chat` 拿到的。
 `TOOL` 那幾行是回應裡的 `tool_calls`：**每個數字是哪個工具、帶什麼參數、
@@ -394,10 +394,33 @@ TOOL draft_follow_up_message {"customer_ref": "a0cd6998-…", "reason": "gentle_
 回訪訊息要能被設計師預期，不是每次都換一種寫法。
 而且**送出的是設計師本人**——這個助理沒有任何一條路可以把訊息發給客人。
 
-## 6. 九個工具
+### ⑦ 幫我排一筆：明天下午三點 葉○雅 剪髮
+
+```
+TOOL propose_booking {"customer": "葉○雅", "start": "明天下午三點", "service": "剪髮"}
+     -> 09/02 15:00 葉○雅 剪髮 60 分
+
+整理好了，請按確認：
+
+**09/02 15:00 葉○雅（末四碼 1786）剪髮 60 分**
+
+價格目前沒填，項目表上「剪髮」還沒設定價格，這張卡不會自動補。
+```
+
+回答下面會出現一張**確認卡**，上面是拆好的欄位與兩顆按鈕。
+助理到此為止：**它沒有排任何東西**，`propose_booking` 跟其他工具一樣是唯讀的。
+按下「確認排入」時才由前端打 `POST /api/workbench/actions` 寫進工作台，
+按「取消」就什麼都沒發生。原則寫成一行是：
+
+> **模型講 → 程式驗 → 人按同意 → 才動。**
+
+拆不出來的欄位不會被補上一個看起來合理的值：客人對到兩位就回頭要末四碼，
+只講「三點」沒講哪天就標「還缺 日期與時間」，而缺欄位的卡片上根本沒有確認鍵。
+
+## 6. 十一個工具
 
 八個查詢工具（規格見 `assistant/adapters/schemas.py`，每個欄位都有型別與上下限）
-加一個確定性草稿工具：
+加一個確定性草稿工具，再加兩個**只讀的提案工具**：
 
 | # | 工具 | 回答什麼 | 重點 |
 |---|---|---|---|
@@ -410,6 +433,8 @@ TOOL draft_follow_up_message {"customer_ref": "a0cd6998-…", "reason": "gentle_
 | 7 | `get_retention_watchlist` | 快流失名單 | **固定算法**，模型不准自己換一套 |
 | 8 | `get_service_metrics` | 某幾種服務的人數／次數／金額 | 附「金額涵蓋範圍」說明 |
 | 9 | `draft_follow_up_message` | 擬一則回訪訊息 | **確定性**：套設定裡的模板，**不呼叫模型** |
+| 10 | `propose_booking` | 把「幫我排一筆」整理成待確認的排單卡 | **不排單**：回欄位與 `missing`，人按確認才寫 |
+| 11 | `propose_service_price` | 把「這個項目改多少錢／做多久」整理成待確認的設定卡 | **不改設定**：只回要改的那一格 |
 
 服務種類是封閉 enum（`cut` / `perm` / `color` / `treatment` / `bleach` / `scalp`），
 模型不能自己造一個服務名；造了會拿到一個附「合法值清單」的結構化錯誤，
@@ -448,7 +473,7 @@ TOOL draft_follow_up_message {"customer_ref": "a0cd6998-…", "reason": "gentle_
   模型填不到它，就要不到別人的客人。拿到不屬於自己的 `customer_ref`／
   `conversation_ref`，實作會**再用 scope 查一次**，不在範圍內回空值——
   而不是報錯（報錯等於承認那個識別碼存在）。
-- **只讀**。九個工具沒有一個會寫入，`SalonDataProvider` 也沒有寫入方法。
+- **只讀**。十一個工具沒有一個會寫入，`SalonDataProvider` 也沒有寫入方法。提案工具回的是「打算做什麼」，寫入要等設計師在確認卡上按下去。
   實際營運的那一份再加一層唯讀交易。
 - **沒有出口**。這個助理只服務設計師本人，程式裡沒有任何一條路可以送訊息給客人；
   `docker-compose.demo.yml` 只有一個服務、沒有 worker、沒有 webhook，
@@ -545,7 +570,7 @@ defaults.yaml → 同目錄 local.yaml → $ASSISTANT_CONFIG_PATH → 呼叫端�
 ```bash
 uv sync --extra dev
 uv run pytest -q
-# 328 passed, 2 skipped
+# 351 passed, 2 skipped
 ```
 
 （pip：`pip install -e ".[dev]" && pytest -q`。Docker：

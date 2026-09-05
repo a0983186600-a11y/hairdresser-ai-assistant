@@ -21,12 +21,12 @@ def replay_environment(monkeypatch):
     monkeypatch.setenv("REPLAY_MODE", "1")
 
 
-def test_all_six_recordings_work_when_the_process_starts_outside_the_repo(monkeypatch, tmp_path):
+def test_every_recording_works_when_the_process_starts_outside_the_repo(monkeypatch, tmp_path):
     """把 ReplayClient 解析改回 Path(directory) 會紅；真的 API／工具，不替換 run_chat。"""
     monkeypatch.chdir(tmp_path)
     client = TestClient(server.create_app())
     prompts = re.findall(r'data-quick-prompt="([^"]+)"', client.get("/").text)
-    assert len(prompts) == 6
+    assert len(prompts) == 7
     replies = [client.post("/api/chat", json={"message": prompt}).json() for prompt in prompts]
     assert all(reply["reply"] != NO_RECORDING_REPLY and reply["tool_calls"] for reply in replies)
     assert client.get("/health").json()["replay_available"] is True

@@ -208,6 +208,8 @@ def test_chat_returns_the_tool_calls_so_the_ui_can_show_its_working(
             "arguments": {"days": 365, "limit": 10},
             "result_summary": "10 位",
             "duration_ms": 12,
+            # 查詢工具沒有待確認的動作；只有提案工具會把那張單子帶到瀏覽器。
+            "proposal": None,
         }
     ]
     assert payload["session_id"]
@@ -616,3 +618,124 @@ def test_an_as_of_we_cannot_read_does_not_take_the_server_down(clean_env, monkey
 
     client.post("/api/chat", json={"message": "嗨"})
     assert seen[0]["as_of"] == ANCHOR, "看不懂就退回示範錨點"
+
+
+# --- 聊天 → 確認卡 → 才寫入 -----------------------------------------------------
+#
+# 聊天那頭永遠不寫。這三支把那條界線釘在伺服器層：
+# 一次 /api/chat 之後工作台一個字都不能變，寫入只發生在後來那一次
+# POST /api/workbench/actions——而那個端點原本的守門員（同源、正式唯讀 403）
+# 照樣管得到這條新路，不必再守第二次。
+
+
+class _ScriptedClient:
+    """照劇本回話的假模型：先叫一次工具，再講一句話。"""
+
+    is_replay = False
+
+    def __init__(self, tool_name: str, arguments: dict) -> None:
+        self._rounds = [
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "id": "call_test",
+                        "type": "function",
+                        "index": 0,
+                        "function": {
+                            "name": tool_name,
+                            "arguments": json.dumps(arguments, ensure_ascii=False),
+                        },
+                    }
+                ],
+            },
+            {"role": "assistant", "content": "我整理成這樣，請按確認。", "tool_calls": None},
+        ]
+        self.calls = 0
+
+    def complete(self, messages, tools, *, model):
+        step = self._rounds[min(self.calls, len(self._rounds) - 1)]
+        self.calls += 1
+        return step
+
+
+def _scripted(monkeypatch, tool_name: str, arguments: dict) -> None:
+    monkeypatch.setattr(
+        "assistant.agent.http_client.build_client_from_env",
+        lambda config: _ScriptedClient(tool_name, arguments),
+    )
+
+
+def _booking_proposal(client, monkeypatch) -> dict:
+    customer = client.get("/api/workbench").json()["customers"][0]
+    _scripted(
+        monkeypatch,
+        "propose_booking",
+        {"customer": customer["phone_last4"], "start": "明天 15:00", "service": "剪髮"},
+    )
+    payload = client.post("/api/chat", json={"message": "幫我排一筆"}).json()
+    return payload["tool_calls"][0]["proposal"]
+
+
+def test_a_proposal_comes_back_with_the_answer_and_writes_nothing(clean_env, monkeypatch):
+    client = make_client(clean_env)
+    before = client.get("/api/workbench").json()
+
+    proposal = _booking_proposal(client, monkeypatch)
+
+    assert proposal["kind"] == "book"
+    assert proposal["missing"] == []
+    assert proposal["action"]["kind"] == "book"
+    assert proposal["action"]["data"]["time"] == "15:00"
+    after = client.get("/api/workbench").json()
+    assert after["bookings"] == before["bookings"]
+    assert after["settings"] == before["settings"]
+
+
+def test_the_proposal_only_becomes_a_booking_after_the_confirm_button(
+    clean_env, monkeypatch
+):
+    client = make_client(clean_env)
+    proposal = _booking_proposal(client, monkeypatch)
+    action = proposal["action"]
+
+    response = client.post(
+        "/api/workbench/actions", json={"kind": action["kind"], "data": action["data"]}
+    )
+
+    assert response.status_code == 200, response.text
+    assert response.json()["booking"]["time"] == "15:00"
+    booked = client.get("/api/workbench").json()["bookings"]
+    assert any(row["id"] == response.json()["booking"]["id"] for row in booked)
+
+
+def test_the_confirm_button_still_hits_the_read_only_wall_in_production(
+    clean_env, monkeypatch
+):
+    from assistant import server
+
+    clean_env.setenv("DEMO_MODE", "1")
+    app = server.create_app()
+    client = TestClient(app)
+    proposal = _booking_proposal(client, monkeypatch)
+    action = proposal["action"]
+
+    app.state.runtime.mode = "production"
+    response = client.post(
+        "/api/workbench/actions", json={"kind": action["kind"], "data": action["data"]}
+    )
+
+    assert response.status_code == 403
+    assert "唯讀" in response.json()["detail"]
+
+
+def test_a_chat_tool_call_that_is_not_a_proposal_carries_no_action(clean_env, monkeypatch):
+    """只有提案工具會帶 proposal；查詢工具的完整結果一樣不准離開伺服器。"""
+    client = make_client(clean_env)
+    _scripted(monkeypatch, "get_retention_watchlist", {"limit": 1})
+
+    payload = client.post("/api/chat", json={"message": "誰快流失"}).json()
+
+    assert payload["tool_calls"][0]["name"] == "get_retention_watchlist"
+    assert payload["tool_calls"][0]["proposal"] is None

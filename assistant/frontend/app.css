@@ -809,6 +809,54 @@ img {
 .answer pre { max-width: 100%; overflow: auto; background: var(--ink); color: white; border-radius: 10px; padding: 14px; }
 .answer pre code { background: none; padding: 0; white-space: pre; }
 .draft > .answer { background: transparent; border: 0; }
+/* 確認卡：聊天整理出來的動作，按了才寫進工作台。 */
+.proposal {
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin: 10px 0;
+}
+.proposal .cap {
+  font-size: 11px;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.proposal .cap.done {
+  color: var(--green);
+  font-weight: 600;
+}
+.proposal .cap.failed {
+  color: var(--sig);
+}
+.proposal-fields {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+.proposal-row {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 13px;
+}
+.proposal-row dt {
+  color: var(--muted);
+  min-width: 3.5em;
+  font-size: 12px;
+}
+.proposal-row dd {
+  margin: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.proposal-row dd.gap {
+  color: var(--sig);
+  background: #fbeee7;
+  border-radius: 8px;
+  padding: 1px 8px;
+  flex: 0 0 auto;
+}
 .tool-title { display: block; font-size: 13px; margin-bottom: 5px; }
 .tool-details { margin-top: 8px; font-size: 11px; color: var(--muted); }
 .tool-details .call { overflow-wrap: anywhere; padding-top: 8px; }

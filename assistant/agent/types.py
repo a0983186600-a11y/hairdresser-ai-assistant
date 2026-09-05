@@ -65,6 +65,10 @@ class ToolCallRecord(_Base):
     #: 完整結果不進 UI 也不進 log：逐字稿與客人資料只在遮罩後短暫存在於這一輪。
     result_summary: str = ""
     duration_ms: int = 0
+    #: **只有提案工具會填**：一張「打算做什麼」的單子（欄位、還缺什麼、
+    #: 按下確認要送的 payload）。它非帶到瀏覽器不可——確認卡上那幾格就是它。
+    #: 裡面只有遮罩過的姓名與識別碼，跟查詢工具的完整結果不同，那個一樣不出門。
+    proposal: dict[str, Any] | None = None
 
 
 class ChatResult(_Base):

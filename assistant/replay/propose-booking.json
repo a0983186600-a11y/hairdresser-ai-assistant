@@ -1,0 +1,28 @@
+{
+  "slug": "propose-booking",
+  "user_message": "幫我排一筆：明天下午三點 葉○雅 剪髮",
+  "normalized": "幫我排一筆:明天下午三點葉○雅剪髮",
+  "model": "qwen3.7-max",
+  "as_of": "2026-09-01T00:00:00+08:00",
+  "recorded_at": "2026-09-05T18:09:31.845079+08:00",
+  "rounds": [
+    {
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "arguments": "{\"customer\": \"葉○雅\", \"start\": \"明天下午三點\", \"service\": \"剪髮\"}",
+            "name": "propose_booking"
+          },
+          "id": "call_0840e3f75e6745e48683943c",
+          "index": 0,
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "content": "整理好了，請按確認：\n\n**09/02 15:00 葉○雅（末四碼 1786）剪髮 60 分**\n\n價格目前沒填，項目表上「剪髮」還沒設定價格，這張卡不會自動補。如果要填價格再跟我說。",
+      "tool_calls": null
+    }
+  ]
+}

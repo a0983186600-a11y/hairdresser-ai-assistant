@@ -40,10 +40,19 @@ from assistant.adapters.schemas import (
 )
 from assistant.config.loader import Config
 from assistant.privacy import mask_name, phone_last4
+from assistant.tools.proposals import (
+    PROPOSAL_FIELD_DESCRIPTIONS,
+    PROPOSAL_INPUTS,
+    PROPOSAL_TOOL_DESCRIPTIONS,
+    PROPOSAL_TOOL_NAMES,
+    build_proposal,
+)
+from assistant.workbench import service_catalog
 
 __all__ = [
     "PROVIDER_TOOL_NAMES",
     "DRAFT_TOOL_NAME",
+    "PROPOSAL_TOOL_NAMES",
     "TOOL_NAMES",
     "INJECTED_ARGUMENTS",
     "tool_schemas",
@@ -52,7 +61,7 @@ __all__ = [
 
 PROVIDER_TOOL_NAMES: tuple[str, ...] = TOOL_METHOD_NAMES
 DRAFT_TOOL_NAME = "draft_follow_up_message"
-TOOL_NAMES: tuple[str, ...] = (*PROVIDER_TOOL_NAMES, DRAFT_TOOL_NAME)
+TOOL_NAMES: tuple[str, ...] = (*PROVIDER_TOOL_NAMES, DRAFT_TOOL_NAME, *PROPOSAL_TOOL_NAMES)
 
 #: 模型永遠填不到的欄位。schema 裡沒有它們，收到了也直接丟——
 #: `designer_ref` 是授權（給了就能看別人的客人），`as_of` 是「現在」
@@ -86,6 +95,7 @@ _TOOL_DESCRIPTIONS = {
         "用設定好的模板幫某位客人擬一則回訪訊息（確定性，不經過模型）。"
         "回傳的 text 是可以直接送出的草稿，請原樣轉述給設計師，不要改寫。"
     ),
+    **PROPOSAL_TOOL_DESCRIPTIONS,
 }
 
 _FIELD_DESCRIPTIONS = {
@@ -105,6 +115,7 @@ _FIELD_DESCRIPTIONS = {
     "minimum_inactive_days": "至少幾天沒回來才進名單（比系統門檻低時以系統門檻為準）。",
     "start_at": "期間起點（ISO 8601，含時區）。",
     "end_at": "期間終點（ISO 8601，含時區）。",
+    **PROPOSAL_FIELD_DESCRIPTIONS,
 }
 
 
@@ -207,7 +218,11 @@ def _draft_parameters(config: Config) -> dict[str, Any]:
 
 
 def tool_schemas(config: Config) -> list[dict[str, Any]]:
-    """9 個工具的 OpenAI function-calling 宣告，原封不動送進端點。"""
+    """11 個工具的 OpenAI function-calling 宣告，原封不動送進端點。
+
+    八個查詢 ＋ 一個確定性草稿 ＋ 兩個提案。提案工具跟其他九個一樣是**只讀**的：
+    它們回一張待確認的單子，寫入要等設計師在卡片上按下確認。
+    """
     schemas = [
         {
             "type": "function",
@@ -228,6 +243,17 @@ def tool_schemas(config: Config) -> list[dict[str, Any]]:
                 "parameters": _draft_parameters(config),
             },
         }
+    )
+    schemas.extend(
+        {
+            "type": "function",
+            "function": {
+                "name": name,
+                "description": _TOOL_DESCRIPTIONS[name],
+                "parameters": _parameters_for(PROPOSAL_INPUTS[name]),
+            },
+        }
+        for name in PROPOSAL_TOOL_NAMES
     )
     return schemas
 
@@ -322,6 +348,8 @@ def _validation_error(exc: ValidationError, model: type[BaseModel]) -> dict[str,
     allowed: dict[str, Any] = {}
     if "service_families" in model.model_fields:
         allowed["service_families"] = [family.value for family in ServiceFamily]
+    if "service" in model.model_fields:
+        allowed["service"] = [item.id for item in service_catalog()]
     return _error(
         "invalid_arguments",
         "參數不合法，請照 allowed 與 problems 改一次再呼叫。",
@@ -417,6 +445,25 @@ def dispatch(
     if name == DRAFT_TOOL_NAME:
         clean = {k: v for k, v in dict(arguments).items() if k not in INJECTED_ARGUMENTS}
         return _draft_follow_up(clean, provider, scope, config, as_of)
+
+    if name in PROPOSAL_TOOL_NAMES:
+        # 提案工具也走這扇門：注入照丟、參數照驗、錯誤照樣回成模型改得動的形狀。
+        # 差別只有一個——它們回的是「打算做什麼」，不是「做完了」。
+        clean = {k: v for k, v in dict(arguments).items() if k not in INJECTED_ARGUMENTS}
+        model = PROPOSAL_INPUTS[name]
+        try:
+            parsed = model(**clean)
+        except ValidationError as exc:
+            # 這裡刻意不夾（`_clamp`）：把 999999 元靜默夾成 100000 元，
+            # 就是替設計師決定了一個他沒講過的價格。
+            return _validation_error(exc, model)
+        except TypeError as exc:
+            return _error("invalid_arguments", f"參數格式不對：{exc}", problems=[], allowed={})
+        return _object_payload(
+            name,
+            build_proposal(name, parsed, provider=provider, scope=scope, as_of=as_of),
+            {},
+        )
 
     tool = _TOOLS.get(name)
     if tool is None:

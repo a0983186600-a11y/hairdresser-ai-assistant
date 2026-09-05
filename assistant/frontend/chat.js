@@ -89,7 +89,8 @@
       search_customer_segment: "篩選客人", get_customer_history: "客人消費紀錄",
       list_recent_conversations: "近期對話", get_conversation_transcript: "讀取對話內容",
       get_retention_watchlist: "回訪關心名單", get_service_metrics: "項目統計",
-      draft_follow_up_message: "準備訊息草稿"
+      draft_follow_up_message: "準備訊息草稿",
+      propose_booking: "整理成一筆排單", propose_service_price: "整理成一筆價目修改"
     };
     var wrap = n("div", "toolcard fade"),
       state = n("div", "state", "正在查…"), parameters = n("div", "tool-details");
@@ -145,6 +146,151 @@
         },
         "primary",
       ),
+    );
+    wrap.append(bar);
+    return wrap;
+  }
+  /* 確認卡：模型講、程式驗、人按同意才動。
+   *
+   * 這張卡上的每一格都來自伺服器算好的提案（call.proposal），畫面自己不推算任何
+   * 欄位。唯一的例外是工時與價格：那兩格以**工作台目前的設定**為準，因為等一下
+   * 真的寫進去時用的就是那份設定——卡片答應的事必須跟寫進去的一樣。
+   *
+   * 寫入只有一條路：confirmProposal 裡的 S.mutate（就是排單表單在用的那一支，
+   * 打既有的 POST /api/workbench/actions）。聊天的送出流程一個字都不寫。
+   */
+  var MISSING_LABELS = {
+    customer: "客人",
+    start: "日期與時間",
+    service: "項目",
+    price_twd: "價格",
+    duration_minutes: "工時",
+  };
+  function liveService(id) {
+    var settings = S.state && S.state.settings;
+    return (
+      (settings &&
+        settings.services.find(function (x) {
+          return x.id === id;
+        })) ||
+      null
+    );
+  }
+  function liveDuration(id, fallback) {
+    var settings = S.state && S.state.settings,
+      live = liveService(id);
+    // 設定成「每位一樣久」時，排進去的就是那個固定值——卡片不能還在報項目工時。
+    if (settings && settings.duration_mode === "fixed") return settings.fixed_duration;
+    return live ? live.duration : fallback;
+  }
+  function money(value) {
+    return value == null ? "未設定" : "NT$" + Number(value).toLocaleString("zh-TW");
+  }
+  function writePayload(proposal) {
+    var act = proposal.action;
+    if (act.merge !== "service") return { kind: act.kind, data: act.data };
+    // settings 端點收的是整份設定，所以在這裡把要改的那一格併進畫面上這份現行
+    // 設定再送出——用伺服器那邊的預設值湊一份完整 payload，會把設計師剛剛改過的
+    // 其他設定一起洗掉。
+    var draft = JSON.parse(JSON.stringify(S.state.settings)),
+      wanted = act.data.service,
+      target = draft.services.find(function (x) {
+        return x.id === wanted.id;
+      });
+    if (!target) throw new Error("項目表上已經沒有這個項目了，請重新選一次。");
+    if (wanted.duration != null) target.duration = wanted.duration;
+    if (wanted.price != null) target.price = wanted.price;
+    return { kind: "settings", data: draft };
+  }
+  async function confirmProposal(proposal, state, bar) {
+    bar.remove();
+    state.textContent = "寫入中…";
+    try {
+      var payload = writePayload(proposal);
+      await S.mutate(payload.kind, payload.data);
+      state.textContent =
+        (proposal.kind === "book" ? "已排入 " : "已更新 ") + proposal.summary;
+      state.className = "cap done";
+    } catch (e) {
+      // 伺服器說不行就照它的話寫（正式唯讀是 403「正式資料只供唯讀…」）。
+      // 這裡不准自己講成功，也不准把錯誤吞掉。
+      state.textContent = "未寫入：" + e.message;
+      state.className = "cap failed";
+      bar.hidden = false;
+      state.after(bar);
+    }
+  }
+  function proposal(call) {
+    var p = call.proposal,
+      wrap = n("div", "proposal"),
+      live = p.fields.service_id ? liveService(p.fields.service_id) : null,
+      duration = p.fields.service_id
+        ? liveDuration(p.fields.service_id, p.fields.duration_minutes)
+        : p.fields.duration_minutes,
+      price = live && p.fields.price_twd == null ? live.price : p.fields.price_twd,
+      rows =
+        p.kind === "book"
+          ? [
+              ["客人", p.fields.customer_label],
+              ["時間", p.fields.date && p.fields.time
+                ? p.fields.date + " " + p.fields.time : null],
+              ["項目", p.fields.service_label],
+              ["工時", duration == null ? null : duration + " 分鐘"],
+              ["標價", p.fields.service_id ? money(price) : null],
+            ]
+          : [
+              ["項目", p.fields.service_label],
+              ["工時", p.fields.duration_minutes == null
+                ? "不變" : p.fields.duration_minutes + " 分鐘"],
+              ["價格", p.fields.price_twd == null ? "不變" : money(p.fields.price_twd)],
+            ],
+      state = n("div", "cap", "助理整理的動作 · 尚未寫入"),
+      list = n("dl", "proposal-fields");
+    wrap.append(state);
+    rows.forEach(function (pair) {
+      var line = n("div", "proposal-row");
+      line.append(n("dt", null, pair[0]), n("dd", pair[1] ? null : "gap", pair[1] || "還缺"));
+      list.append(line);
+    });
+    wrap.append(list);
+    // 「這個項目還沒設定價格」只有在畫面上那份設定也真的沒填時才成立——
+    // 伺服器查的是開場那份項目表，設計師剛剛在設定頁填過就不算數了。
+    // 有缺欄位時不畫這一句：下面那塊已經把 note 一起講掉了，講兩次反而看不出重點。
+    if (
+      !p.missing.length &&
+      p.unresolved &&
+      p.unresolved.indexOf("price_twd") >= 0 &&
+      price == null &&
+      p.note
+    )
+      wrap.append(n("p", "note", p.note));
+    if (p.missing.length) {
+      wrap.append(
+        n(
+          "p",
+          "warning",
+          "還缺 " +
+            p.missing
+              .map(function (x) {
+                return MISSING_LABELS[x] || x;
+              })
+              .join("、") +
+            "，直接回我補上。" +
+            (p.note ? " " + p.note : ""),
+        ),
+      );
+      return wrap;
+    }
+    var bar = n("div", "actions");
+    bar.append(
+      b("取消", function () {
+        bar.remove();
+        state.textContent = "已取消，沒有排入。";
+        state.className = "cap failed";
+      }, "secondary"),
+      b(p.kind === "book" ? "確認排入" : "確認改設定", function () {
+        confirmProposal(p, state, bar);
+      }, "primary"),
     );
     wrap.append(bar);
     return wrap;
@@ -210,6 +356,14 @@
         ? draft(m.text)
         : answer(m.text);
       it.wrap.append(it.tail);
+      // 提案卡跟在答案後面：助理只負責說「我整理成這樣」，動手的是這張卡上的按鈕。
+      calls
+        .filter(function (x) {
+          return x.proposal;
+        })
+        .forEach(function (x) {
+          it.wrap.append(proposal(x));
+        });
     }
   }
   function render(host) {

@@ -111,15 +111,16 @@ def test_the_badge_can_be_switched_from_the_screen(client):
     assert "/api/mode" in scripts
 
 
-def test_the_home_page_offers_the_six_quick_prompts(client):
+def test_the_home_page_offers_the_seven_quick_prompts(client):
     home = (FRONTEND / "index.html").read_text("utf-8")
     prompts = re.findall(r'data-quick-prompt="([^"]+)"', home)
 
-    assert len(prompts) == 6, prompts
-    assert len(set(prompts)) == 6
+    assert len(prompts) == 7, prompts
+    assert len(set(prompts)) == 7
     joined = "".join(prompts)
-    # 六個意圖各一個關鍵詞；文案以 assistant/replay/ 的六段錄音原句為準（見下面那條守衛）。
-    for expected in ("消費金額最高", "沒回來", "流失", "每次服務", "卡在哪", "回訪訊息"):
+    # 七個意圖各一個關鍵詞；文案以 assistant/replay/ 的七段錄音原句為準（見下面那條守衛）。
+    # 最後那個是「聊天 → 確認卡 → 才寫入」那條路的入口，六顆查詢之外唯一會動手的一顆。
+    for expected in ("消費金額最高", "沒回來", "流失", "每次服務", "卡在哪", "回訪訊息", "排一筆"):
         assert expected in joined, expected
 
 
@@ -241,7 +242,7 @@ def test_the_demo_endpoints_hand_back_exactly_those_fixtures(client):
 
 
 def test_every_quick_prompt_has_a_replay_recording():
-    """首頁六顆快捷鈕送出的句子，正規化後必須都在 assistant/replay/ 的錄音鍵裡。
+    """首頁每一顆快捷鈕送出的句子，正規化後必須都在 assistant/replay/ 的錄音鍵裡。
 
     2026-09-04 F 實跑抓到：按鈕文案與六段錄音是不同的字，零金鑰模式每一句都回
     「這句話沒有錄音」。改文案就要重錄或改回來，這條守衛讓它不能靜默斷掉。
@@ -252,10 +253,55 @@ def test_every_quick_prompt_has_a_replay_recording():
 
     html = (FRONTEND / "index.html").read_text("utf-8")
     prompts = re.findall(r'data-quick-prompt="([^"]+)"', html)
-    assert len(prompts) == 6, prompts
+    assert len(prompts) == 7, prompts
     recorded = set(load_recordings(REPLAY_DIR))
     missing = [p for p in prompts if normalize_message(p) not in recorded]
     assert not missing, f"這些快捷鈕沒有錄音，零金鑰模式會啞掉：{missing}"
+
+
+# --- 聊天 → 確認卡 → 才寫入 -----------------------------------------------------
+
+
+def test_the_chat_draws_a_confirm_card_that_says_it_has_not_written_yet():
+    """助理整理出一個動作時，畫面上要出現一張「還沒寫入」的卡，而不是一句「排好了」。
+
+    卡片上要有：欄位、缺的欄位怎麼補、按下去會寫入的那顆、不寫入的那顆，
+    以及按完之後誠實的兩種結局（寫進去了／沒寫進去）。
+    """
+    chat = (FRONTEND / "chat.js").read_text("utf-8")
+
+    assert "尚未寫入" in chat
+    assert "確認排入" in chat
+    assert "取消" in chat
+    assert "已取消，沒有排入" in chat
+    assert "未寫入：" in chat, "伺服器拒絕時要照它的話講，不准假裝成功"
+    assert "還缺" in chat and "直接回我補上" in chat
+
+
+def test_the_chat_itself_never_writes_only_the_confirm_button_does():
+    """聊天送出那條路上不准有寫入。整份 chat.js 只有一個寫入呼叫，而且住在確認鍵裡。
+
+    這條守的是這次功能最要緊的那條界線：模型講、程式驗、**人按同意才動**。
+    哪天有人為了「順一點」把 mutate 搬進 ask() 或工具卡的 handler，這裡會紅。
+    """
+    chat = (FRONTEND / "chat.js").read_text("utf-8")
+
+    assert "AssistantApi.action" not in chat, "聊天不准自己開第二條寫入路"
+    assert re.findall(r"fetch\s*\(", chat) == [], "對外只走 api-client 那一支"
+    calls = re.findall(r"S\.mutate\s*\(", chat)
+    assert len(calls) == 1, f"chat.js 裡的寫入呼叫應該只有一個，找到 {len(calls)} 個"
+
+    start = chat.index("async function confirmProposal(")
+    rest = chat.index("\n  function ", start)
+    assert "S.mutate(" in chat[start:rest], "唯一那個寫入呼叫要住在確認鍵的 handler 裡"
+
+
+def test_the_confirm_card_reads_the_live_price_list_not_a_stale_copy():
+    """工時與價格以工作台目前的設定為準——卡片答應的事要跟真的寫進去的一樣。"""
+    chat = (FRONTEND / "chat.js").read_text("utf-8")
+
+    assert "S.state.settings" in chat
+    assert "settings" in chat and "merge" in chat, "改價目要併進現行設定再送，不能整份蓋掉"
 
 
 def test_the_badge_tells_where_the_data_pages_come_from():

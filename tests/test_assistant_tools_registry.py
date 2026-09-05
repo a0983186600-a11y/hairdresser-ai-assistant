@@ -54,11 +54,15 @@ def _call(name, arguments, provider, scope, config, as_of=AS_OF):
 
 
 def test_every_tool_in_tools_md_is_declared_plus_the_drafting_one(config):
+    """tools.md 那八個要在最前面、順序一樣，第九個是確定性草稿。
+
+    後面還接著兩個提案工具（見本檔最後一節），所以這裡釘的是**前九個**，
+    不是總數——總數由那一節自己守。
+    """
     names = [schema["function"]["name"] for schema in registry.tool_schemas(config)]
     assert names[:8] == list(registry.PROVIDER_TOOL_NAMES)
-    assert registry.DRAFT_TOOL_NAME in names
-    assert len(names) == 9
-    assert len(set(names)) == 9
+    assert names[8] == registry.DRAFT_TOOL_NAME
+    assert len(set(names)) == len(names)
 
 
 def test_the_schema_is_openai_function_calling_shaped(config):
@@ -424,3 +428,296 @@ def test_the_draft_never_calls_the_model(provider, scope, config, monkeypatch):
         config,
     )
     assert result["ok"] is True
+
+
+# --- 第 10、11 個工具：提案（只讀、回結構，人按了才寫） --------------------------
+#
+# 這兩個工具是「聊天 → 確認卡 → 才寫入」那條路的第一段。它們**永遠不寫**：
+# 寫入只發生在設計師按下確認卡之後，由前端打既有的 POST /api/workbench/actions。
+# 所以這一節守三件事：拆得出來的欄位要對、拆不出來的要進 missing（不准補預設值）、
+# 呼叫前後工作台狀態一模一樣。
+
+
+def _propose(name, arguments, provider, scope, config, as_of=AS_OF):
+    result = _call(name, arguments, provider, scope, config, as_of=as_of)
+    assert result["ok"] is True, result
+    return result["result"]
+
+
+def _one_customer(provider, scope, config):
+    """示範名單裡遮罩姓名與末四碼**都唯一**的一位客人（「找得到人」的樣本）。"""
+    from collections import Counter
+
+    rows = _call(
+        "search_customer_segment", {"limit": 100}, provider, scope, config
+    )["rows"]
+    names = Counter(row["masked_name"] for row in rows)
+    phones = Counter(row["phone_last4"] for row in rows)
+    return next(
+        row
+        for row in rows
+        if names[row["masked_name"]] == 1
+        and row["phone_last4"]
+        and phones[row["phone_last4"]] == 1
+    )
+
+
+def test_both_proposal_tools_are_declared_next_to_the_read_only_ones(config):
+    names = [schema["function"]["name"] for schema in registry.tool_schemas(config)]
+    assert names[:8] == list(registry.PROVIDER_TOOL_NAMES)
+    assert registry.DRAFT_TOOL_NAME in names
+    for name in registry.PROPOSAL_TOOL_NAMES:
+        assert name in names, name
+    assert len(names) == 11
+    assert len(set(names)) == 11
+
+
+def test_a_complete_sentence_becomes_an_action_the_write_endpoint_accepts(
+    provider, scope, config
+):
+    """「明天下午三點 ○○○ 剪髮」→ 一筆 POST /api/workbench/actions 吃得下的 payload。"""
+    who = _one_customer(provider, scope, config)
+    proposal = _propose(
+        "propose_booking",
+        {"customer": who["masked_name"], "start": "明天下午三點", "service": "剪髮"},
+        provider,
+        scope,
+        config,
+    )
+
+    assert proposal["kind"] == "book"
+    assert proposal["missing"] == []
+    assert proposal["action"] == {
+        "kind": "book",
+        "data": {
+            "customer_ref": who["customer_ref"],
+            "date": (AS_OF + timedelta(days=1)).date().isoformat(),
+            "time": "15:00",
+            "services": ["cut"],
+        },
+    }
+    assert proposal["fields"]["service_label"] == "剪髮"
+    assert proposal["fields"]["duration_minutes"] == 60
+    assert who["masked_name"] in proposal["summary"]
+    assert proposal["proposal_id"]
+
+
+def test_the_proposal_never_hands_back_a_full_name(provider, scope, config):
+    who = _one_customer(provider, scope, config)
+    proposal = _propose(
+        "propose_booking",
+        {"customer": who["phone_last4"], "start": "明天 15:00", "service": "cut"},
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["fields"]["customer_ref"] == who["customer_ref"]
+    assert "○" in proposal["fields"]["customer_label"]
+
+
+def test_a_field_the_model_could_not_pull_out_goes_to_missing_not_to_a_default(
+    provider, scope, config
+):
+    """空的服務 ≠ 剪髮，看不懂的時間 ≠ 今天。缺就是缺，而且缺了就沒有 action。"""
+    proposal = _propose("propose_booking", {}, provider, scope, config)
+
+    assert sorted(proposal["missing"]) == ["customer", "service", "start"]
+    assert proposal["action"] is None
+    assert proposal["fields"]["service_id"] is None
+    assert proposal["fields"]["date"] is None
+    assert proposal["fields"]["time"] is None
+    assert proposal["fields"]["duration_minutes"] is None
+
+
+def test_a_time_with_no_day_is_missing_rather_than_guessed_as_today(
+    provider, scope, config
+):
+    who = _one_customer(provider, scope, config)
+    proposal = _propose(
+        "propose_booking",
+        {"customer": who["masked_name"], "start": "三點", "service": "剪髮"},
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["missing"] == ["start"]
+    assert proposal["action"] is None
+    assert "日期" in proposal["note"]
+
+
+def test_a_name_that_matches_more_than_one_customer_asks_instead_of_picking(
+    provider, scope, config
+):
+    from collections import Counter
+
+    rows = _call(
+        "search_customer_segment", {"limit": 100}, provider, scope, config
+    )["rows"]
+    counts = Counter(row["masked_name"] for row in rows)
+    shared = next(name for name, count in counts.items() if count > 1)
+
+    proposal = _propose(
+        "propose_booking",
+        {"customer": shared, "start": "明天 15:00", "service": "剪髮"},
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["missing"] == ["customer"]
+    assert proposal["action"] is None
+    assert "末四碼" in proposal["note"]
+
+
+def test_a_customer_nobody_has_heard_of_is_missing_not_invented(provider, scope, config):
+    proposal = _propose(
+        "propose_booking",
+        {"customer": "查無此人", "start": "明天 15:00", "service": "剪髮"},
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["missing"] == ["customer"]
+    assert proposal["fields"]["customer_ref"] is None
+    assert proposal["action"] is None
+
+
+def test_a_service_that_is_not_on_the_price_list_is_missing_not_sixty_minutes(
+    provider, scope, config
+):
+    who = _one_customer(provider, scope, config)
+    proposal = _propose(
+        "propose_booking",
+        {"customer": who["masked_name"], "start": "明天 15:00", "service": "接髮"},
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["missing"] == ["service"]
+    assert proposal["fields"]["duration_minutes"] is None
+    assert proposal["action"] is None
+
+
+def test_a_price_the_shop_never_set_is_reported_unresolved_not_blocking(
+    provider, scope, config
+):
+    """示範項目表沒有填價格。缺價格不准擋住排單——排單那條路根本不寫價格。"""
+    who = _one_customer(provider, scope, config)
+    proposal = _propose(
+        "propose_booking",
+        {"customer": who["masked_name"], "start": "明天 15:00", "service": "剪髮"},
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["fields"]["price_twd"] is None
+    assert proposal["unresolved"] == ["price_twd"]
+    assert proposal["missing"] == []
+    assert proposal["action"] is not None
+
+
+def test_the_designer_can_say_the_price_and_it_is_not_written_into_the_booking(
+    provider, scope, config
+):
+    who = _one_customer(provider, scope, config)
+    proposal = _propose(
+        "propose_booking",
+        {
+            "customer": who["masked_name"],
+            "start": "明天 15:00",
+            "service": "剪髮",
+            "price_twd": 800,
+        },
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["fields"]["price_twd"] == 800
+    assert "800" in proposal["summary"]
+    # 排單的寫入 payload 沒有價格這一格（BookingInput extra="forbid"）。
+    assert set(proposal["action"]["data"]) == {"customer_ref", "date", "time", "services"}
+
+
+def test_a_price_change_proposes_a_settings_merge_not_a_whole_new_settings_object(
+    provider, scope, config
+):
+    proposal = _propose(
+        "propose_service_price",
+        {"service": "剪髮", "price_twd": 800, "duration_minutes": 75},
+        provider,
+        scope,
+        config,
+    )
+    assert proposal["kind"] == "settings"
+    assert proposal["missing"] == []
+    assert proposal["action"] == {
+        "kind": "settings",
+        "merge": "service",
+        "data": {"service": {"id": "cut", "duration": 75, "price": 800}},
+    }
+    assert "剪髮" in proposal["summary"]
+
+
+def test_a_price_change_with_nothing_to_change_asks_what_to_change(
+    provider, scope, config
+):
+    proposal = _propose("propose_service_price", {"service": "剪髮"}, provider, scope, config)
+    assert sorted(proposal["missing"]) == ["duration_minutes", "price_twd"]
+    assert proposal["action"] is None
+
+
+def test_a_price_change_for_an_unknown_service_lists_the_ones_that_exist(
+    provider, scope, config
+):
+    proposal = _propose(
+        "propose_service_price", {"service": "接髮", "price_twd": 800}, provider, scope, config
+    )
+    assert proposal["missing"] == ["service"]
+    assert proposal["action"] is None
+    assert "剪髮" in proposal["note"]
+
+
+def test_an_out_of_range_price_is_a_fixable_error_not_a_silent_clamp(
+    provider, scope, config
+):
+    result = _call(
+        "propose_service_price",
+        {"service": "剪髮", "price_twd": 999999},
+        provider,
+        scope,
+        config,
+    )
+    assert result["ok"] is False
+    assert result["error"]["code"] == "invalid_arguments"
+    assert "cut" in result["error"]["allowed"]["service"]
+
+
+@pytest.mark.parametrize(
+    ("name", "arguments"),
+    [
+        ("propose_booking", {"customer": "何○", "start": "明天 15:00", "service": "剪髮"}),
+        ("propose_service_price", {"service": "剪髮", "price_twd": 800}),
+    ],
+)
+def test_calling_a_proposal_tool_changes_nothing(name, arguments, provider, scope, config):
+    """提案工具是只讀的：同一台工作台，呼叫前後那份狀態一個字都不能變。"""
+    import json as _json
+
+    from assistant.demo_data.generate import load_dataset
+    from assistant.server import DEMO_PAGES, FIXTURES_DIR
+    from assistant.workbench import Workbench
+
+    bench = Workbench(
+        {
+            page: _json.loads((FIXTURES_DIR / f"{page}.json").read_text("utf-8"))
+            for page in DEMO_PAGES
+        },
+        load_dataset(),
+        as_of=AS_OF,
+        designer_ref=scope.designer_ref,
+        calendar_key="fixed-for-this-test",
+    )
+    before = _json.dumps(bench.snapshot(), ensure_ascii=False, sort_keys=True)
+
+    _call(name, arguments, provider, scope, config)
+
+    assert _json.dumps(bench.snapshot(), ensure_ascii=False, sort_keys=True) == before

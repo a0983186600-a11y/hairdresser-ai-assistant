@@ -25,6 +25,7 @@ from assistant.adapters.provider import SalonDataProvider
 from assistant.adapters.schemas import DesignerScope
 from assistant.agent.types import ChatClient, ChatResult, ChatSession, ToolCallRecord
 from assistant.config.loader import Config
+from assistant.tools.proposals import PROPOSAL_TOOL_NAMES
 from assistant.tools.registry import dispatch, tool_schemas
 
 __all__ = ["run_chat", "build_system_prompt", "IRON_RULES", "TOO_MANY_ROUNDS_PREFIX"]
@@ -66,7 +67,14 @@ def build_system_prompt(config: Config, as_of: datetime) -> str:
         "你也可以協助一般規劃、解釋與撰寫程式範例，不要因為是美髮助理就拒絕。"
         "上述店家資料鐵律只約束真實店務資料，不禁止一般教學的範例數字。"
         "但目前沒有執行程式、修改檔案、寫入預約或發送 LINE 的工具；"
-        "不能宣稱已執行、已測試、已通知或已預約。需要通知時先提供草稿並說明尚未送出。"
+        "不能宣稱已執行、已測試、已通知或已預約。需要通知時先提供草稿並說明尚未送出。\n\n"
+        "設計師說「排一筆／幫我約／改價目／改工時」時：先呼叫 propose_booking 或 "
+        "propose_service_price，把他講的話整理成一張待確認的卡片。這兩個工具**不會**"
+        "排單也**不會**改設定，畫面上會出現一張卡，設計師按了確認才真的寫進工作台。"
+        "所以回覆只准說「我整理成這樣，請按確認」這類的話，"
+        "不准說已經排好、已經改好、已經寫進去了。"
+        "工具回的 missing 有東西時，照它列的欄位問回去（例如「還缺日期與時間」），"
+        "不要自己補一個看起來合理的客人、時間、項目或價格。"
     )
 
 
@@ -97,6 +105,9 @@ def _summarise(payload: dict[str, Any]) -> str:
     """給 UI 看的一行。完整結果不進 UI 也不進 log：客人資料只在這一輪裡活著。"""
     if not payload.get("ok", False):
         return f"錯誤：{payload.get('error', {}).get('code', 'unknown')}"
+    if payload.get("tool") in PROPOSAL_TOOL_NAMES:
+        result = payload.get("result", {})
+        return result.get("summary") or "整理成一張待確認的卡片"
     if "rows" in payload:
         count = payload["row_count"]
         if count == 0:
@@ -104,6 +115,19 @@ def _summarise(payload: dict[str, Any]) -> str:
         shown = len(payload["rows"])
         return f"{count} 筆" + (f"（只帶回前 {shown} 筆）" if shown < count else "")
     return "1 筆"
+
+
+def _proposal_of(payload: dict[str, Any]) -> dict[str, Any] | None:
+    """提案工具的那張單子要帶到瀏覽器——確認卡上的每一格都來自它。
+
+    只有提案工具會回東西給 UI。查詢工具的完整結果照舊留在伺服器上：那裡面有
+    遮罩過的逐字稿與整份消費明細，一旦習慣「工具結果都送到前端」，下一個
+    加進來的工具就會把不該出門的東西一起帶出去。
+    """
+    if payload.get("tool") not in PROPOSAL_TOOL_NAMES or not payload.get("ok"):
+        return None
+    result = payload.get("result")
+    return result if isinstance(result, dict) else None
 
 
 def _run_one_call(
@@ -141,6 +165,7 @@ def _run_one_call(
         arguments={k: v for k, v in arguments.items() if k not in {"scope", "designer_ref"}},
         result_summary=_summarise(payload),
         duration_ms=duration_ms,
+        proposal=_proposal_of(payload),
     )
     message = {
         "role": "tool",
