@@ -21,7 +21,7 @@
 | 授權 | MIT（見 `LICENSE`） |
 | 零金鑰可跑 | `docker compose -f docker-compose.demo.yml up` → http://127.0.0.1:8100 |
 | 工具數 | 9（8 個查詢工具 ＋ 1 個確定性草稿工具） |
-| 測試 | 325 個（`pytest -q` → 323 passed, 2 skipped），**不需要金鑰** |
+| 測試 | 330 個（`pytest -q` → 328 passed, 2 skipped），**不需要金鑰** |
 | 架構細節 | `docs/architecture.md` |
 
 ---
@@ -545,7 +545,7 @@ defaults.yaml → 同目錄 local.yaml → $ASSISTANT_CONFIG_PATH → 呼叫端�
 ```bash
 uv sync --extra dev
 uv run pytest -q
-# 323 passed, 2 skipped
+# 328 passed, 2 skipped
 ```
 
 （pip：`pip install -e ".[dev]" && pytest -q`。Docker：
