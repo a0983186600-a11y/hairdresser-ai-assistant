@@ -17,7 +17,7 @@
 
 | | |
 |---|---|
-| 賽道 | Track 01 AI Agents & Automation（BUILDMODE 2026） |
+| 賽道 | Track 03 Future of Work（BUILDMODE 2026） |
 | 授權 | MIT（見 `LICENSE`） |
 | 零金鑰可跑 | `docker compose -f docker-compose.demo.yml up` → http://127.0.0.1:8100 |
 | 工具數 | 11 個固定（8 個查詢 ＋ 1 個確定性草稿 ＋ 2 個只讀提案）＋ 對話中當場長出的（示範限定，按「採用」才算） |
