@@ -184,6 +184,14 @@ class ServiceMetricsInput(_Base):
 # --- 輸出 --------------------------------------------------------------------
 
 
+#: 錢是從哪裡來的一句話（POS 實收／預約報價）。
+#:
+#: 選填，而且**只有正式 provider 會填**：Mock 的金額本來就是自己造的，
+#: 沒有「來源」這個問題。加在這裡而不是各自造一個欄位，是因為報價與實收在
+#: `known_spend_twd` 底下長得一模一樣——分不出來的那一刻，設計師會把報價當營收。
+DataSourceNote = str | None
+
+
 class CustomerSpendRow(_Base):
     customer_ref: str
     full_name: str
@@ -192,6 +200,7 @@ class CustomerSpendRow(_Base):
     visit_count: int = Field(ge=0)
     unknown_amount_visits: int = Field(ge=0)
     last_visit_at: TaipeiDatetime | None = None
+    data_source_note: DataSourceNote = None
 
 
 class InactiveCustomerRow(_Base):
@@ -216,8 +225,16 @@ class SegmentCustomerRow(_Base):
 
 class CustomerVisit(_Base):
     visited_at: TaipeiDatetime
-    service: ServiceFamily
+    #: 六個家族之一，或**空的**。空不是「沒查」，是「這筆看不出是哪一種服務」——
+    #: POS 的消費紀錄沒有服務欄位，只有備註與消費內容可以推。
+    #: 挑一個看起來合理的填進去，就是替設計師編一次服務（Tai 案 2026-07-25）。
+    service: ServiceFamily | None = None
     amount_twd: int | None = Field(default=None, ge=0)
+    #: POS 的「消費內容」（沒有的話退回 POS 備註）。判不出服務家族時，
+    #: 這一格就是那筆錢做了什麼的唯一線索——所以那種列照樣列出來，只是 `service` 空著。
+    items_text: str | None = None
+    payment_method: str | None = None
+    store_name: str | None = None
 
 
 class CustomerHistory(_Base):
@@ -228,6 +245,7 @@ class CustomerHistory(_Base):
     known_spend_twd: int = Field(ge=0)
     unknown_amount_visits: int = Field(ge=0)
     visits: list[CustomerVisit] = Field(default_factory=list)
+    data_source_note: DataSourceNote = None
 
 
 class ConversationSummary(_Base):

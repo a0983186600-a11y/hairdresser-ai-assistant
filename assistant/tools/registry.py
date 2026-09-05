@@ -365,7 +365,17 @@ def _draft_follow_up(
     if history is None or not history.visits:
         return _not_found("位客人的到店紀錄")
 
-    last = history.visits[0]
+    # 模板要填「上次做的是什麼」，所以只有叫得出服務名的那一筆用得上。
+    # POS 消費紀錄裡有些筆看不出是哪一種服務（`service` 是空的）——
+    # 那種筆不准拿來套模板：填一個看起來合理的服務進去，草稿就會替設計師
+    # 對客人說一件沒發生過的事。
+    last = next((visit for visit in history.visits if visit.service is not None), None)
+    if last is None:
+        return _error(
+            "not_found",
+            "這位客人最近一次消費看不出是哪一種服務，模板需要服務名稱才填得出來。",
+        )
+
     days = (as_of - last.visited_at).days
     service = config.service_family_labels.get(last.service.value, last.service.value)
     masked = mask_name(history.full_name)
