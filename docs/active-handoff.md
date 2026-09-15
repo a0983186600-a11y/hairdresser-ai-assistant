@@ -9,7 +9,11 @@
   but the test assumed SIGXCPU or wall timeout. Fix reports SIGKILL as `killed`,
   without claiming whether CPU, OOM or an external actor caused it. CPU soft/hard,
   wall, memory and code restrictions are unchanged. Other crashes still fail.
-- Added red-first classification and CPU-limit tests; checking the follow-up run.
+- Added red-first classification and CPU-limit tests. Follow-up run
+  https://github.com/a0983186600-a11y/hairdresser-ai-assistant/actions/runs/34972346855
+  at product commit 24a77dd passed on Ubuntu Python 3.12 and 3.14: 476 passed /
+  2 skipped each; Ruff and installed-wheel/demo checks passed. Node action-runtime
+  deprecation warnings remain; no failure. Status: branch_ci_verified.
 - Steve's origin story added to the local application draft only; no application
   submitted. Private commercial source and main remain untouched.
 

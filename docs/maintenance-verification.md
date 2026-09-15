@@ -1,5 +1,27 @@
 # Public maintenance verification — 2026-09-15
 
+## Published branch: Ubuntu verification
+
+Owner-approved branch publication only; `main` and the original submission tag
+remain unchanged. Product commit `24a77dd` passed
+[GitHub run 34972346855](https://github.com/a0983186600-a11y/hairdresser-ai-assistant/actions/runs/34972346855):
+Ubuntu Python 3.12 and 3.14 each **476 passed / 2 skipped**, Ruff green and the
+installed-wheel check plus local-data CLIs passed.
+
+First run `34971996364` at `889e506` failed one test on both Linux versions:
+an infinite loop was terminated with returncode -9 at about five seconds, but
+the test only allowed SIGXCPU or a wall timeout. The reporting fix preserves
+the CPU soft/hard pair, memory cap, wall timeout and code restrictions. SIGKILL
+is reported as `killed` with signal 9; its underlying cause is explicitly unknown,
+not assumed to be CPU exhaustion. Ordinary non-signal failures remain `crashed`.
+New classification test was red before the fix. The real infinite-loop test
+still requires failure and termination within the same wall-clock budget.
+
+GitHub reports deprecation warnings for Node 20 action runtimes (forced to Node
+24); the pinned actions completed successfully. Updating those action versions
+is follow-up, not a suppressed failure. No paid model or production validation
+was performed. This is not an application acceptance or external-user trial.
+
 ## Follow-up: editable samples and dataset validation
 
 Base `781f9ae`, same `codex/oss-readiness` branch. Python 3.14.3 and 3.12.12 final
