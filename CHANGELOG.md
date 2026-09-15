@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Report Linux hard-killed subprocesses as `killed` with the observed SIGKILL,
+  rather than claiming an ordinary crash or an unproven CPU cause. Resource
+  limits are unchanged; the real infinite-loop test still requires termination
+  within the wall-clock budget.
+
 - Add a small hand-authored synthetic dataset, five empty table templates and a
   deterministic inactive-customer → history → follow-up draft walkthrough.
 - Validate custom input schema, identifiers and customer-owner relationships

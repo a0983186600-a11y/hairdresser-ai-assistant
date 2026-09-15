@@ -17,7 +17,9 @@
 from __future__ import annotations
 
 import json
+import signal
 import time
+from types import SimpleNamespace
 
 import pytest
 
@@ -160,13 +162,43 @@ def test_syntax_errors_come_back_as_a_line_number_not_a_traceback(scope):
 # --- 3. 跑太久會被殺 ------------------------------------------------------------
 
 
+@pytest.mark.parametrize("returncode, expected", [
+    (-int(signal.SIGKILL), "killed"),
+    (-int(signal.SIGXCPU), "cpu_limit"),
+    (1, "crashed"),
+])
+def test_exit_signal_is_reported_without_guessing_the_reason(
+    scope, monkeypatch, returncode, expected,
+):
+    process = SimpleNamespace(pid=123, returncode=returncode, communicate=lambda *a, **k: ("", ""))
+    monkeypatch.setattr(sandbox.subprocess, "Popen", lambda *a, **k: process)
+    result = _run("def run(provider, as_of):\n    return []\n", scope)
+    assert result["ok"] is False
+    assert result["error"]["code"] == expected
+    if expected == "killed":
+        assert result["error"]["signal"] == int(signal.SIGKILL)
+        assert "無法只憑" in result["error"]["message"]
+
+
+def test_cpu_soft_and_hard_limits_are_not_relaxed(monkeypatch):
+    import resource
+
+    calls = []
+    monkeypatch.setattr(resource, "setrlimit", lambda kind, pair: calls.append((kind, pair)))
+    sandbox._apply_limits(sandbox.SANDBOX_LIMITS)
+    budget = sandbox.SANDBOX_LIMITS["cpu_seconds"]
+    assert (resource.RLIMIT_CPU, (budget, budget)) in calls
+
+
 def test_an_endless_loop_is_killed_within_the_wall_clock_budget(scope):
     started = time.monotonic()
     result = _run("def run(provider, as_of):\n    while True:\n        pass\n", scope)
     elapsed = time.monotonic() - started
 
     assert result["ok"] is False
-    assert result["error"]["code"] in {"cpu_limit", "timeout"}, result
+    assert result["error"]["code"] in {"cpu_limit", "timeout", "killed"}, result
+    if result["error"]["code"] == "killed":
+        assert result["error"]["signal"] == int(signal.SIGKILL)
     assert elapsed < sandbox.SANDBOX_LIMITS["wall_seconds"] + 4, elapsed
 
 

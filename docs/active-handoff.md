@@ -1,5 +1,18 @@
 # Public B edition maintenance
 
+## 2026-09-15 — Approved branch publication and Linux CI
+
+- Steve approved pushing this B-only branch, not main, a release or application.
+- Published `codex/oss-readiness` at 889e506. First remote CI run 34971996364
+  failed on both Ubuntu Python versions: 471 passed / 2 skipped / 1 failed.
+- The infinite-loop process was killed at the unchanged hard CPU cap (return -9),
+  but the test assumed SIGXCPU or wall timeout. Fix reports SIGKILL as `killed`,
+  without claiming whether CPU, OOM or an external actor caused it. CPU soft/hard,
+  wall, memory and code restrictions are unchanged. Other crashes still fail.
+- Added red-first classification and CPU-limit tests; checking the follow-up run.
+- Steve's origin story added to the local application draft only; no application
+  submitted. Private commercial source and main remain untouched.
+
 ## 2026-09-15 — Useful sample data and local onboarding
 
 - Owner: Codex; status: local_verified_waiting_for_publication_approval. Base: 781f9ae.

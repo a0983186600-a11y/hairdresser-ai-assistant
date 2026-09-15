@@ -522,6 +522,19 @@ def run_in_sandbox(
             answer.setdefault("pid", pid)
             return finish(answer)
 
+    # Linux may deliver SIGKILL at the hard CPU limit when soft == hard.
+    # Keep both budgets unchanged. SIGKILL alone cannot distinguish that from
+    # OOM or an external kill, so report the signal rather than invent a cause.
+    if process.returncode == -int(signal.SIGKILL):
+        return finish({
+            "ok": False,
+            "pid": pid,
+            "error": {
+                "code": "killed",
+                "signal": int(signal.SIGKILL),
+                "message": "子行程已被系統終止；無法只憑訊號判定是資源上限或外部終止。",
+            },
+        })
     killed_by_cpu = process.returncode == -int(signal.SIGXCPU)
     return finish(
         {
