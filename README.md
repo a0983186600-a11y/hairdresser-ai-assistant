@@ -6,13 +6,14 @@
 > **English summary.** A back-office AI assistant for hair designers. It answers
 > natural-language questions about a designer's own customers — spend rankings,
 > lapsed customers, retention risk, conversation summaries, follow-up drafts — by
-> calling nine typed, read-only tools instead of inventing numbers. Every tool
+> calling eleven typed tools (eight queries, one deterministic draft and two
+> read-only proposals). Every tool
 > goes through one `SalonDataProvider` interface, so the public demo adapter
 > (fixed-seed fake data) and the private production adapter (read-only database)
-> run the exact same agent loop and the exact same tool code. Designer scope and
+> share a provider interface. Designer scope and
 > "now" are injected by the server and are absent from the schemas the model
 > sees, so the model cannot ask for someone else's customers or use its own idea
-> of today. Clone it and `docker compose up`: **no API key required**, thanks to
+> of today. Clone it and follow the command below: **no API key required**, thanks to
 > a recorded replay mode that still runs the tools for real.
 
 | | |
@@ -21,10 +22,20 @@
 | 授權 | MIT（見 `LICENSE`） |
 | 零金鑰可跑 | `docker compose -f docker-compose.demo.yml up` → http://127.0.0.1:8100 |
 | 工具數 | 11 個固定（8 個查詢 ＋ 1 個確定性草稿 ＋ 2 個只讀提案）＋ 對話中當場長出的（示範限定，按「採用」才算） |
-| 測試 | 441 個（`pytest -q` → 439 passed, 2 skipped），**不需要金鑰** |
+| 測試 | 不需要金鑰；驗證日期、版本與結果見 [維護驗證紀錄](docs/maintenance-verification.md) |
 | 架構細節 | `docs/architecture.md` |
 
 ---
+
+## 新使用者與貢獻者
+
+這是可獨立執行的公開 **B 版**，不是正式店務系統。請只用假資料並在本機開啟，
+不要直接公開服務或輸入真實客資。模型仍可能講錯；工具與遮罩守衛不是零幻覺保證。
+
+- [15 分鐘試用與回饋](docs/try-it.md)
+- [參與維護、測試與安裝包驗證](CONTRIBUTING.md)
+- [安全界線與敏感問題通報](SECURITY.md)
+- [版本變更](CHANGELOG.md)
 
 ## 1. 問題與解法
 
@@ -43,7 +54,8 @@
   不能補一位看起來合理的客人。
 
 一句話：**模型只負責講話，伺服器負責動手。** 換一個更弱的模型，話會講得比較差，
-但界線一樣守得住——這就是我們敢把這一層公開的原因。
+工具的 scope 與輸入驗證不因模型而放寬；但模型的最終文字仍可能出錯，
+不能把工具限制解讀成「回覆絕不幻覺」。
 
 ## 2. 畫面
 
@@ -129,9 +141,8 @@ flowchart TB
 ```
 
 `SalonDataProvider` 是這張圖唯一的接縫。上面的 agent 迴圈與工具實作
-**一個字都不會因為換資料來源而改**——公開版注入 Mock，實際營運的那一份注入
-唯讀 provider。這條界線就是「公開的不是空殼」的意思：
-你在這個 repo 裡讀到的迴圈、工具、算法、測試，就是現場跑的那一份。
+透過同一份介面呼叫資料來源——公開版注入 Mock，另一個實作可以注入唯讀 provider。
+公開版與私人系統後續各自維護；不宣稱本 repo 與最新正式站逐字相同。
 
 虛線那兩格不在本 repo：`ProductionSalonDataProvider` 連的是實際營運中的資料庫，
 它背後的平台（客人通道、POS 串接、登入）是賽前既有系統。介面、schemas、
@@ -154,7 +165,7 @@ docker compose -f docker-compose.demo.yml up
 不想開 Docker，用 [uv](https://docs.astral.sh/uv/) 是等價的：
 
 ```bash
-uv sync --extra dev
+uv sync --locked --extra dev
 REPLAY_MODE=1 DEMO_MODE=1 uv run uvicorn assistant.server:app --port 8100
 ```
 
@@ -506,9 +517,9 @@ TOOL propose_new_tool {"name": "visits_by_weekday",
 
 這五條同時是模型對決的評分項（第 12 節），兩邊是**同一份字**。
 
-### 第十個能力：助理會自己長工具（示範限定）
+### 額外能力：助理提出新工具（示範限定）
 
-九個工具是**固定**的。但設計師的問題不會只有九種——「每個星期幾各有幾次到店」
+十一個工具是**固定**的。但設計師的問題不會只有十一種——「每個星期幾各有幾次到店」
 就答不出來：沒有一個工具會回「所有到店紀錄」，用現成的湊不出來。
 
 所以助理多了一個 `propose_new_tool`：**當場寫一支只讀的小工具**，
@@ -540,14 +551,14 @@ Linux 容器裡兩道都在。**寧可少一道防線，也不要在回報上撒
 
 1. **提案不改任何狀態。** 跑完就是一份「程式碼＋結果＋狀態」，等人決定。
    沒有人按採用，工具清單一個字都不會變。
-2. **採用只影響那一段對話。** 不寫磁碟、不進固定九個、別的瀏覽器 session 看不到，
+2. **採用只影響那一段對話。** 不寫磁碟、不進固定十一個、別的瀏覽器 session 看不到，
    重啟服務就沒了——這是刻意的，不是還沒做完。
 3. **同一個問題最多試兩次。** 第三次直接擋掉，讓它老實說答不出來。
    這是「不准補一位看起來合理的客人」的程式碼版本。
 
 **只在示範模式開放**（`POST /api/workbench/tools/adopt` 在正式模式回 403）。
-正式那顆 provider 連的是正在服務真實客人的唯讀連線；沙盒擋得住「這支工具會不會
-弄壞東西」，擋不住「它算得對不對」——而那是沒有人審過的算法。
+AST 白名單與子行程限制不是經獨立稽核的 OS 安全沙盒，也不能證明算法正確。
+不要接上真實客資、憑證或公開服務；詳見 [安全界線](SECURITY.md)。
 
 模型也不是靠猜的：`propose_new_tool` 的說明裡附了那 8 個方法的**完整簽名與回傳鍵名**，
 而且是從 pydantic 模型長出來的，欄位改名它自動跟著改
@@ -663,9 +674,9 @@ defaults.yaml → 同目錄 local.yaml → $ASSISTANT_CONFIG_PATH → 呼叫端�
 ## 10. 測試與守衛清單
 
 ```bash
-uv sync --extra dev
-uv run pytest -q
-# 439 passed, 2 skipped
+uv sync --locked --extra dev
+uv run --locked pytest -q -p no:cacheprovider
+uv run --locked ruff check .
 ```
 
 （pip：`pip install -e ".[dev]" && pytest -q`。Docker：
@@ -804,14 +815,15 @@ configuration, the front end and the tests are all here in full.
 
 ## Built for BUILDMODE 2026
 
-**Everything in this repository was written during this event (2026-09-04 → 09-06)** —
+**The original submission was built during this event (2026-09-04 → 09-06)** —
 the agent orchestration and tool-calling loop; the eleven tools and their schemas
-(nine read-only queries plus two proposal tools that only draft a confirmation card);
+(eight read-only queries, one deterministic draft and two proposal tools);
 the sandboxed "grow a tool" loop; the `SalonDataProvider` boundary; the mock adapter
 and its fixed-seed data generator; the privacy layer; the configuration layer; the
 chat UI, the four workbench pages (booking panel, proportional-time schedule,
 customers, settings) and the server; the replay mode and its recordings; the guard
-tests; the bake-off scorer; and the docs.
+tests; the bake-off scorer; and the docs. Subsequent public maintenance is
+recorded in [CHANGELOG.md](CHANGELOG.md); it is not part of that original submission.
 
 Pieces also written for this event but **not** in this repository, because each
 touches live data or spells out what our leak scanner blocks: the read-only

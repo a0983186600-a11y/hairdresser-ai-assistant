@@ -8,8 +8,8 @@
 > 模型只做兩件事：決定叫哪個工具、把工具回的東西講成人話。
 > 其餘全部是伺服器的事：注入授權與「現在」、驗參數、執行、遮罩、截斷、算上限。
 
-所以「模型很爛」最多是**話講得不好**，不會變成「查到別人的客人」或「編出一位客人」。
-這是我們敢把這一層公開的理由，也是整份設計唯一重要的決定。
+工具與 provider 驗證 scope，降低跨客人資料範圍查詢的風險；但最終自然語言
+仍可能幻覺或誤讀工具結果。這不是「永遠不編造」的保證，也不取代登入與授權。
 
 ## 一次問答的完整流程
 
@@ -26,7 +26,7 @@ sequenceDiagram
     D->>S: POST /api/chat {message, session_id}
     Note over S: 這一層才碰外面的世界：<br/>環境變數 → mode／provider／client／scope<br/>系統時鐘 → as_of（唯一的洞）
     S->>L: run_chat(message, provider, scope, config, as_of, session, client)
-    L->>M: system（人設＋五條鐵律＋今天） ＋ 歷史 ＋ 9 個 tool schema
+    L->>M: system（人設＋五條鐵律＋今天） ＋ 歷史 ＋ 11 個固定 tool schema
     M-->>L: tool_calls[]（schema 裡沒有 scope／as_of，模型填不到）
     loop 最多 config.agent.max_iterations 輪
         L->>T: dispatch(name, arguments, provider, scope, config, as_of)
@@ -78,6 +78,10 @@ flowchart TB
 第 9 個工具 `draft_follow_up_message` 不在這個介面上——它拿
 `get_customer_history` 的結果去套設定裡的模板，**確定性**，連模型都不呼叫：
 同一位客人跑一百次拿到同一段字。回訪訊息要能被設計師預期，不是每次換一種寫法。
+
+另有兩個只讀提案：`propose_booking` 與 `propose_service_price`。它們產生確認卡，
+不自行建單。合計十一個固定工具；示範工具工坊啟用時還會加上 `propose_new_tool`
+和該 session 已採用的工具。寫入按鈕只操作示範工作台記憶體，不寫 POS 或發 LINE。
 
 **上面的每一層完全不知道下面是哪一個實作。** 公開版注入 Mock，實際營運那一份
 注入唯讀 provider，agent 迴圈與工具程式碼一個字都不用改。
@@ -140,5 +144,6 @@ flowchart TB
 | 任何金鑰、端點網址、真實店名 | 設定檔只寫「去哪個環境變數拿」；匯出時整份掃過一次才准出門 |
 | `local.yaml` | 實際營運者調過的參數；`.gitignore` 擋著 |
 
-介面、schemas、九個工具、agent 迴圈、前端、示範資料產生器、
-以及 201 個測試，全部在這裡。
+介面、schemas、十一個固定工具、agent 迴圈、前端、示範資料產生器、
+以及公開測試，都在這裡。固定工具現為十一個（八查詢、一草稿、兩提案）；
+最新實跑結果見 [維護驗證紀錄](maintenance-verification.md)，避免在多份文件複製過期數字。
