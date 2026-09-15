@@ -26,6 +26,11 @@ is a separate, optional, potentially paid exercise.
 
 ## Feedback to keep (only with permission)
 
+For a hands-on trial beyond prerecorded answers, try the
+[editable sample workflow](../examples/README.md). Change a fake amount and check
+that the actual tool result changes. No model key is needed; this command-line
+workflow is separate from the web demo's fixed data and recordings.
+
 - Date and repository commit/tag; operating system; chosen install method.
 - Which steps worked? Where did you get stuck? Exact error with secrets removed.
 - Was a tool result understandable or useful? What task remains unsolved?

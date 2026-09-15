@@ -1,0 +1,6 @@
+[
+  {"visit_ref":"demo-v1","customer_ref":"demo-c1","designer_ref":"demo-a","visited_at":"2026-04-01T12:00:00+08:00","service_family":"perm","amount_twd":3000},
+  {"visit_ref":"demo-v2","customer_ref":"demo-c1","designer_ref":"demo-a","visited_at":"2026-06-01T12:00:00+08:00","service_family":"color","amount_twd":null},
+  {"visit_ref":"demo-v3","customer_ref":"demo-c2","designer_ref":"demo-a","visited_at":"2026-08-25T12:00:00+08:00","service_family":"cut","amount_twd":800},
+  {"visit_ref":"demo-v4","customer_ref":"demo-c3","designer_ref":"demo-b","visited_at":"2026-04-01T12:00:00+08:00","service_family":"perm","amount_twd":99000}
+]

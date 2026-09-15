@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Add a small hand-authored synthetic dataset, five empty table templates and a
+  deterministic inactive-customer → history → follow-up draft walkthrough.
+- Validate custom input schema, identifiers and customer-owner relationships
+  before constructing the demo provider; reject duplicate IDs instead of silent
+  overwrites. CLI reports errors without printing supplied values. This is not
+  an anonymization tool or a production-data import feature.
+
 - Add zero-key CI for Python 3.12 and 3.14: tests, Ruff and an installed-wheel
   smoke check outside the checkout, with network access blocked during the check.
 - Document contributor workflow, a synthetic-data trial, security boundaries and

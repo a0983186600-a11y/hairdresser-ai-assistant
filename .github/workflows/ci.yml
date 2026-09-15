@@ -33,3 +33,5 @@ jobs:
           uv venv "$RUNNER_TEMP/wheel-check" --python '${{ matrix.python }}'
           uv pip install --python "$RUNNER_TEMP/wheel-check/bin/python" dist/*.whl
           "$RUNNER_TEMP/wheel-check/bin/python" -I "$GITHUB_WORKSPACE/scripts/check_installed.py"
+          "$RUNNER_TEMP/wheel-check/bin/python" -I -m assistant.demo_data.validate "$GITHUB_WORKSPACE/examples/synthetic"
+          "$RUNNER_TEMP/wheel-check/bin/python" -I -m assistant.demo_data.walkthrough "$GITHUB_WORKSPACE/examples/synthetic" --designer-ref demo-a --as-of 2026-09-01T12:00:00+08:00

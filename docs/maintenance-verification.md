@@ -1,5 +1,38 @@
 # Public maintenance verification — 2026-09-15
 
+## Follow-up: editable samples and dataset validation
+
+Base `781f9ae`, same `codex/oss-readiness` branch. Python 3.14.3 and 3.12.12 final
+full suites each **472 passed, 2 skipped** (16.58s / 16.80s); Ruff passed.
+Both installed-wheel replay checks passed after installing the updated package.
+The installed CLI validated the synthetic/empty data and ran the customer
+follow-up workflow without a model key. Runtime code matches the source tree.
+
+- Initial four tests on the unmodified provider: **4 failed** (owner mismatches
+  in visits, conversations and appointments; duplicate customer IDs).
+- Fixed at ingestion, not separately in each query. Existing shipped data remains
+  unchanged. First schema attempt missed the existing optional `pos_customer_id`
+  field; it was added explicitly, not by allowing arbitrary extra fields.
+- Bypass the owner comparison: **3 failed**. Bypass duplicate-ID check: **5 failed**.
+  Restore both and rerun both full suites. A combined restoration patch initially
+  failed to apply; the file was inspected and restored with separate patches before
+  continuing. No mutation remained in the final tree.
+- New tests cover malformed schema, negative/string/boolean amounts, unknown
+  references, timezone-less timestamps, sensitive values not echoed in errors,
+  duplicate JSON fields, bounded file reads, CLI exit status, empty results,
+  scope isolation and changed data producing changed results instead of replay.
+- Hand-authored example: 2 designers, 3 customers, 4 visits, 1 appointment,
+  1 conversation. The tutorial yields one 92-day inactive customer, known spend
+  3000 TWD plus one unknown-amount visit, and a hair-color follow-up draft.
+  Changing 3000 to 3500 changes the tool answer; making the last visit recent
+  yields an empty list and no draft. Nothing is sent.
+- Examples ship in the repository; they do not replace the server's existing
+  fixture/replay assets. No CSV/SQL/POS/LINE importer or UI upload added.
+- No real data, paid model call, Docker start, remote CI run, push, release or
+  application submission. Same two optional skips and dependency warnings remain.
+
+## Prior maintenance batch
+
 Scope: public B edition, branch `codex/oss-readiness`, based on
 `2a26d4369b461e8a8f9e39598b0e0f1b684d2977`. These are **local macOS results**,
 not GitHub Actions badges, production validation or live-model quality scores.

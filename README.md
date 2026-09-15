@@ -33,11 +33,23 @@
 不要直接公開服務或輸入真實客資。模型仍可能講錯；工具與遮罩守衛不是零幻覺保證。
 
 - [15 分鐘試用與回饋](docs/try-it.md)
+- [可修改的假資料、空白範本與完整回訪流程](examples/README.md)
 - [參與維護、測試與安裝包驗證](CONTRIBUTING.md)
 - [安全界線與敏感問題通報](SECURITY.md)
 - [版本變更](CHANGELOG.md)
 
 ## 1. 問題與解法
+
+想自己動手改資料，而不是只看錄音？先跑這條**零金鑰、零模型**的完整工具流程：
+
+```sh
+uv run python -m assistant.demo_data.validate examples/synthetic
+uv run python -m assistant.demo_data.walkthrough examples/synthetic \
+  --designer-ref demo-a --as-of 2026-09-01T12:00:00+08:00
+```
+
+找久未回訪客人 → 看他的消費紀錄 → 擬回訪訊息，數字會跟著假資料更動。
+它不會送信，也不會替換網頁固定錄音。[範本與欄位說明](examples/README.md)。
 
 一位設計師手上有幾百位客人。誰三個月沒回來、誰上次做的是染髮該回訪了、
 這個月染髮做了幾次——這些答案都在資料裡，但**沒有人有時間去翻**。

@@ -49,6 +49,7 @@ from assistant.adapters.schemas import (
 )
 from assistant.config.loader import Config, load_config
 from assistant.demo_data.generate import DATA_DIR, load_dataset
+from assistant.demo_data.validate import load_validated_dataset, validate_dataset
 
 __all__ = ["MockSalonDataProvider"]
 
@@ -86,7 +87,11 @@ class MockSalonDataProvider:
     ) -> None:
         self._data_dir = Path(data_dir) if data_dir is not None else DATA_DIR
         self._config = config if config is not None else load_config()
-        dataset = load_dataset(self._data_dir)
+        if data_dir is None:
+            dataset = load_dataset(self._data_dir)
+            validate_dataset(dataset)
+        else:
+            dataset = load_validated_dataset(self._data_dir)
 
         self._designers: list[dict] = dataset["designers"]
         self._customers: dict[str, _CustomerRecord] = {}

@@ -1,5 +1,27 @@
 # Public B edition maintenance
 
+## 2026-09-15 — Useful sample data and local onboarding
+
+- Owner: Codex; status: local_verified_waiting_for_publication_approval. Base: 781f9ae.
+- Scope: synthetic sample/empty datasets, strict validation, executable local
+  customer-follow-up walkthrough, docs/tests. No real data import or UI upload.
+- Keep the shipped replay dataset untouched; custom datasets must not reuse its
+  recorded answers. Validate owner relationships before provider ingestion.
+- No push, deployment, commercial source/history or paid model calls.
+- Added: two designers / three synthetic customers / four visits / one future
+  appointment / one conversation; five empty templates; field guide; validation
+  CLI and deterministic follow-up walkthrough. Examples are repository files,
+  not automatic replacements for the UI dataset or bundled replay.
+- Fixed locally reproduced ingestion defects: three owner-mismatch cases and
+  duplicate customer IDs were accepted at base, now rejected before indexing.
+  No private implementation was copied; default shipped JSON/replay unchanged.
+- Validation: both Python 3.12.12 and 3.14.3 **472 passed, 2 skipped**, Ruff green;
+  installed-wheel replay checks green on both, installed validator/walkthrough
+  exercised. Owner-check bypass killed by three tests; duplicate-check bypass
+  killed by five tests, restored before final full suites.
+- Remaining: publish branch after approval, run remote CI, real user trials and
+  owner-approved release/application. Not a production data importer or new UI.
+
 ## 2026-09-15 — OSS readiness
 
 - Owner: Codex; status: local_verified_waiting_for_publication_approval.

@@ -1,0 +1,5 @@
+[
+  {"customer_ref":"demo-c1","designer_ref":"demo-a","full_name":"示範客甲","phone":null,"created_at":"2026-01-01T12:00:00+08:00"},
+  {"customer_ref":"demo-c2","designer_ref":"demo-a","full_name":"示範客乙","phone":null,"created_at":"2026-01-01T12:00:00+08:00"},
+  {"customer_ref":"demo-c3","designer_ref":"demo-b","full_name":"其他店示範客","phone":null,"created_at":"2026-01-01T12:00:00+08:00"}
+]

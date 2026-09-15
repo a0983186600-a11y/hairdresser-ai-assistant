@@ -1,0 +1,8 @@
+[
+  {
+    "conversation_ref":"demo-chat1","customer_ref":"demo-c1","designer_ref":"demo-a",
+    "state":"closed","identity_ambiguity":false,"safe_draft_fields":{},
+    "updated_at":"2026-06-01T11:00:00+08:00",
+    "messages":[{"role":"user","created_at":"2026-06-01T11:00:00+08:00","content":"這是自己編寫的示範對話，不是真實客人訊息。"}]
+  }
+]
